@@ -17,7 +17,6 @@ import axios from "axios";
 import React from 'react'
 import {useIsAuthenticated, useSignIn} from 'react-auth-kit'
 import {Navigate, useNavigate} from 'react-router-dom'
-import "bootstrap/dist/css/bootstrap.min.css";
 import api from "../services/Api";
 
 

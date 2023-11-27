@@ -1,11 +1,12 @@
 import React from 'react'
 import { RequireAuth } from 'react-auth-kit'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import Home from './components/Home'
-import Login from './components/Login'
-import SecureComponent from './components/SecureComponent'
-import SingleEvent from "./components/SingleEvent";
-import Navbar from "./components/Navbar";
+import Home from '../components/Home'
+import Login from '../components/Login'
+import UserPanel from '../components/UserPanel'
+import SingleEvent from "../components/SingleEvent";
+import Navbar from "../components/Navbar";
+import Register from "../components/Register";
 
 const RoutesComponent = () => {
   return (
@@ -15,11 +16,12 @@ const RoutesComponent = () => {
       <Routes>
         <Route path={'/'} element={<Home/>}/>
         <Route path={'/login' } element={<Login/>}/>
-        <Route path={'/secure'} element={
+        <Route path={'/user'} element={
           <RequireAuth loginPath={'/login'}>
-            <SecureComponent/>
+            <UserPanel/>
           </RequireAuth>
         }/>
+          <Route path={'/register'} element={<Register/>}/>
         <Route path={'/event/:id'} element={<SingleEvent/>}/>
 
       </Routes>

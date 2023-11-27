@@ -22,6 +22,7 @@ const EditComment = (props) => {
                 "Authorization": authHeader()
             }
         }).then((res) => {
+            props.setToggleRefresh(prev=>!prev)
             props.setEditState(prev => !prev)
         }, (err) => {
 

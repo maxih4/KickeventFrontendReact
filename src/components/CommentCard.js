@@ -45,7 +45,7 @@ function EventCard(props) {
                 <div>
                 geschrieben von {props.comment.owner.userName} am {date} um {time}</div>
 
-                {owner&& !editState && <button onClick={openEditFunction}>Bearbeiten</button>}
+                {owner&& !editState && <button onClick={openEditFunction}><i className="bi bi-pencil-square"></i></button>}
 
 
         </div>

@@ -1,10 +1,10 @@
 import React, {useEffect, useState} from 'react';
-import api from "../services/Api";
 import {useParams} from "react-router-dom";
 
 import CommentCard from "./CommentCard";
 import CommentInput from "./CommentInput";
 import {useIsAuthenticated} from "react-auth-kit";
+import axios from "axios";
 
 
 const Comments = (eventId) => {
@@ -16,7 +16,7 @@ const Comments = (eventId) => {
 
 
     useEffect(() => {
-        api.get("https://localhost:8443/api/event/" + id + "/comment",).then((res) => {
+        axios.get("https://localhost:8443/api/event/" + id + "/comment",).then((res) => {
             setComment(res.data)
 
         }, (err) => {

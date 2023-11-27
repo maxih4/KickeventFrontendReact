@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import DOMPurify from 'dompurify'
-import {useAuthUser} from "react-auth-kit";
+import {useAuthUser, useIsAuthenticated} from "react-auth-kit";
 import EditComment from "./EditComment";
 
 
@@ -19,8 +19,12 @@ function EventCard(props) {
     const time = new Date(props.comment.created).toLocaleTimeString()
     const authUser = useAuthUser()
     const [editState, setEditState] = useState(false)
+    const isAuthenticated = useIsAuthenticated()
+    let owner = false
+    if(isAuthenticated()){
+        owner = props.comment.owner.userName === authUser().userName
+    }
 
-    const owner = props.comment.owner.userName === authUser().userName
 
     const openEditFunction = () => {
         setEditState(true)

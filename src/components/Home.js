@@ -1,8 +1,9 @@
 import React, {useEffect, useState} from 'react'
 
-import api from "../services/Api";
+
 import EventCard from "./EventCard";
 import ReactPaginate from "react-paginate";
+import axios from "axios";
 
 
 
@@ -17,10 +18,14 @@ const Home = () => {
 
 
     useEffect(() => {
-        api.get("https://localhost:8443/api/event",).then((res) => {
-
-            events2 = res.data
-            setEvents(res.data)
+        axios.get("https://localhost:8443/api/event",).then((res) => {
+            const data = res.data.sort((a,b)=>{
+                if(a.createdDate>b.createdDate){
+                    return -1
+                }
+            })
+            events2 = data
+            setEvents(data)
 
             console.log("events:" + events)
             setTotalPages(Math.ceil(events2.length / eventsPerPage))

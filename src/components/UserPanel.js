@@ -16,23 +16,25 @@
 
 import React, {useEffect, useState} from 'react'
 import {useAuthHeader, useAuthUser, useSignOut} from 'react-auth-kit'
-import api from "../services/Api";
-import EventCard from "./EventCard";
 
-const SecureComponent = () => {
-    const signOut = useSignOut()
+import EventCard from "./EventCard";
+import axios from "axios";
+
+const UserPanel = () => {
+
     const authUser = useAuthUser()
     const authHeader = useAuthHeader();
-    const [events,setEvents] = useState([])
+    const [userInfo,setUserInfo] = useState({id:0,userName:"",roles:[]})
+
 
 
     useEffect(() => {
-        api.get("https://localhost:8443/api/event",{
+        axios.get("https://localhost:8443/user/"+authUser().userId,{
             headers:{
                 "Authorization" : authHeader()
             }
         }).then((res)=>{
-                setEvents(res.data)
+                setUserInfo(res.data)
         },(err)=>{
         console.log(err)
         })
@@ -40,15 +42,16 @@ const SecureComponent = () => {
     }, []);
 
     return (
-        <div>
-            <p>{`Hello ${authUser().userName}`}</p>
-            <button onClick={() => signOut()}>Sign Out!</button>
-            {events.map(event=>(
-                //<h2 key={event.id}>{event.title}<br/><p>{event.content}</p></h2>
-                <EventCard key={event.id} event={event}></EventCard>
-            ))}
+        <div className="container">
+            <p>{`Hello ${authUser().userName}`} with ID: {authUser().userId}</p>
+            <p>Folgende Rollen besitzt du:
+                <br/>
+
+                {userInfo.roles.map((role)=>{
+                return <>{role.name}</>
+            })}</p>
         </div>
     )
 }
 
-export default SecureComponent
+export default UserPanel

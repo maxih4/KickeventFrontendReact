@@ -14,10 +14,9 @@
  * limitations under the License.
  */
 import axios from "axios";
-import React from 'react'
+import React, {useState} from 'react'
 import {useIsAuthenticated, useSignIn} from 'react-auth-kit'
 import {Navigate, useNavigate} from 'react-router-dom'
-import api from "../services/Api";
 
 
 const Login = () => {
@@ -26,6 +25,8 @@ const Login = () => {
     const navigate = useNavigate()
     const [formData, setFormData] = React.useState({userName: "", password: ""})
 
+    const [error, setError] = useState(false)
+    const [errorMessage, setErrorMessage] = useState("")
     /**
      * Login Handle, the callback function onClick from the "Login" button
      *
@@ -40,9 +41,9 @@ const Login = () => {
     )*/
     const loginHandler = (e) => {
 
-        //Making Network Call to the backend
+        setError(false)
         e.preventDefault()
-        api.post("https://localhost:8443/login", JSON.stringify(formData), {
+        axios.post("https://localhost:8443/login", JSON.stringify(formData), {
             headers: {
                 'Content-Type': 'application/json'
             }
@@ -56,28 +57,35 @@ const Login = () => {
                         tokenType: res.data.type,
                         refreshToken: res.data.refreshToken,
                         refreshTokenExpireIn: Math.floor((new Date(res.data.expirationDateRefreshToken) - new Date()) / 1000 / 60),
-                        authState: {userName: formData.userName}
+                        authState: {userName: formData.userName, userId: res.data.userId}
                     }
                 )) {
                     //Login successfull
 
-                    navigate('/secure')
+                    navigate('/user')
                 } else {
                     alert("Error Occoured. Try Again")
                 }
             }
-        }, (err) =>
+        }, (err) => {
+            if(err.response.status===401){
+                setErrorMessage("Daten nicht bekannt")
+            }else{
+                setErrorMessage("Unbekannter Fehler")
+            }
 
-            console.log(err))
+            setError(true)
+            console.log(err)
+        })
 
 
     }
-    console.log(isAuthenticated())
+
     if (isAuthenticated()) {
         // If authenticated user, then redirect to secure dashboard
 
         return (
-            <Navigate to={'/secure'} replace/>
+            <Navigate to={'/user'} replace/>
         )
     } else {
         // If not authenticated, use the login flow
@@ -85,28 +93,36 @@ const Login = () => {
         // In reality, there should be a form, validation, nwetowrk request and other things
         return (
 
+            <div className="container">
+                <br/>
 
-            <form onSubmit={loginHandler} className="m-5">
-                <h3>Login</h3>
-                <div className="form-group">
-                    <label htmlFor="usernameInput">Username</label>
-                    <input
-                        className="form-control"
-                        id="usernameInput"
-                        placeholder="username"
-                        type={"userName"} onChange={(e) => setFormData({...formData, userName: e.target.value})}/>
-                </div>
-                <div className="form-group">
-                    <label htmlFor="passwordInput">Password</label>
-                    <input
-                        className="form-control"
-                        id="passwordInput"
-                        placeholder="password"
-                        type={"password"} onChange={(e) => setFormData({...formData, password: e.target.value})}/>
-                </div>
-                <button type="submit" className="btn btn-primary mt-2">Log in</button>
+                {error &&
 
-            </form>
+                    <div className="alert alert-danger" role="alert">
+                        {errorMessage}
+                    </div>}
+                <form onSubmit={loginHandler} className="m-5">
+                    <h3>Login</h3>
+                    <div className="form-group">
+                        <label htmlFor="usernameInput">Username</label>
+                        <input
+                            className="form-control"
+                            id="usernameInput"
+                            placeholder="username"
+                            type={"userName"} onChange={(e) => setFormData({...formData, userName: e.target.value})}/>
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="passwordInput">Password</label>
+                        <input
+                            className="form-control"
+                            id="passwordInput"
+                            placeholder="password"
+                            type={"password"} onChange={(e) => setFormData({...formData, password: e.target.value})}/>
+                    </div>
+                    <button type="submit" className="btn btn-primary mt-2">Log in</button>
+
+                </form>
+            </div>
         )
     }
 }

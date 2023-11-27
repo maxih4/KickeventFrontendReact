@@ -1,68 +1,56 @@
+import React, {useState} from 'react'
+import axios from "axios";
 
-import React from 'react'
-import {useIsAuthenticated, useSignIn} from 'react-auth-kit'
-import {Navigate, useNavigate} from 'react-router-dom'
 
-import api from "../services/Api";
+
 
 
 const Login = () => {
-    const isAuthenticated = useIsAuthenticated()
 
-    const navigate = useNavigate()
-    const [formData, setFormData] = React.useState({userName: "", password: ""})
-
+    const [formData, setFormData] = useState({userName: "", password: ""})
+    const [success, setSuccess] = useState(false)
+    const [error, setError] = useState(false)
+    const [errorMessage,setErrorMessage] = useState("")
 
     const registerHandler = (e) => {
 
         //Making Network Call to the backend
         e.preventDefault()
-        api.post("https://localhost:8443/login", JSON.stringify(formData), {
+        setSuccess(false)
+        setError(false)
+        axios.post("https://localhost:8443/register", JSON.stringify(formData), {
             headers: {
                 'Content-Type': 'application/json'
             }
         }).then((res) => {
-            if (res.status === 200) {
+            setSuccess(true)
+            setFormData({userName:"",password:""})
+        }, (err) => {
+            setErrorMessage(err.response.data)
+            setError(true)
 
-                if (signIn(
-                    {
-                        token: res.data.jwtToken,
-                        expiresIn: Math.floor((new Date(res.data.expirationDate) - new Date()) / 1000 / 60),
-                        tokenType: res.data.type,
-                        refreshToken: res.data.refreshToken,
-                        refreshTokenExpireIn: Math.floor((new Date(res.data.expirationDateRefreshToken) - new Date()) / 1000 / 60),
-                        authState: {userName: formData.userName}
-                    }
-                )) {
-                    //Login successfull
-
-                    navigate('/secure')
-                } else {
-                    alert("Error Occoured. Try Again")
-                }
-            }
-        }, (err) =>
-
-            console.log(err))
-
-
+        })
     }
-    console.log(isAuthenticated())
-    if (isAuthenticated()) {
-        // If authenticated user, then redirect to secure dashboard
 
-        return (
-            <Navigate to={'/secure'} replace/>
-        )
-    } else {
-        // If not authenticated, use the login flow
-        // For Demostration, I'm using just a button to login.
-        // In reality, there should be a form, validation, nwetowrk request and other things
-        return (
+    return (
+
+        <div className="container">
+            <br/>
+            {success &&
+
+                <div className="alert alert-success" role="alert">
+                    Registrierung erfolgreich
+                </div>}
+
+            {error &&
+
+                <div className="alert alert-danger" role="alert">
+                    {errorMessage}
+                </div>}
 
 
             <form onSubmit={registerHandler} className="m-5">
-                <h3>Login</h3>
+                <h3>Registrieren</h3>
                 <div className="form-group">
                     <label htmlFor="usernameInput">Username</label>
                     <input
@@ -79,11 +67,13 @@ const Login = () => {
                         placeholder="password"
                         type={"password"} onChange={(e) => setFormData({...formData, password: e.target.value})}/>
                 </div>
-                <button type="submit" className="btn btn-primary mt-2">Log in</button>
+                <button type="submit" className="btn btn-primary mt-2">Registrieren</button>
 
             </form>
-        )
-    }
+
+        </div>
+    )
+
 }
 
 export default Login

@@ -28,7 +28,7 @@ const Comments = (eventId) => {
         <>
             <div>
                 {comment.map((comment) => {
-                    return <CommentCard key={comment.id} comment={comment}></CommentCard>
+                    return <CommentCard key={comment.id} comment={comment} setToggleRefresh={setToggleRefresh}></CommentCard>
                 })}
             </div>
             {isAuthenticated() &&

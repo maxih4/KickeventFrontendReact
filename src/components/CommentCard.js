@@ -8,9 +8,10 @@ import EditComment from "./EditComment";
 
 function EventCard(props) {
 
-    const [html, setHtml] = useState("")
 
-    const sanitizedData = () =>({
+
+    const sanitizedData = () =>(
+      {
         __html: DOMPurify.sanitize(props.comment.content)
     })
 
@@ -32,7 +33,7 @@ function EventCard(props) {
                 <div className="card-body">
                     {!editState && <div className="card-text" dangerouslySetInnerHTML={sanitizedData()}/>}
                     {editState &&
-                    <EditComment commentId={props.comment.id} html={DOMPurify.sanitize(props.comment.content)} setEditState={setEditState}></EditComment>
+                    <EditComment commentId={props.comment.id} html={DOMPurify.sanitize(props.comment.content)} setToggleRefresh={props.setToggleRefresh} setEditState={setEditState}></EditComment>
                     }
 
 

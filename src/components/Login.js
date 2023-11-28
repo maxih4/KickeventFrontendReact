@@ -20,18 +20,13 @@ import {Navigate, useNavigate} from 'react-router-dom'
 
 
 const Login = () => {
-    const isAuthenticated = useIsAuthenticated()
+
     const signIn = useSignIn()
     const navigate = useNavigate()
-    const [formData, setFormData] = React.useState({userName: "", password: ""})
+    const [formData, setFormData] = useState({userName: "", password: ""})
 
     const [error, setError] = useState(false)
     const [errorMessage, setErrorMessage] = useState("")
-    /**
-     * Login Handle, the callback function onClick from the "Login" button
-     *
-     * This function demostrate a dummy authentication, using useSignIn function
-     */
 
 
     /*axios.interceptors.request.use(x => {
@@ -81,16 +76,7 @@ const Login = () => {
 
     }
 
-    if (isAuthenticated()) {
-        // If authenticated user, then redirect to secure dashboard
 
-        return (
-            <Navigate to={'/user'} replace/>
-        )
-    } else {
-        // If not authenticated, use the login flow
-        // For Demostration, I'm using just a button to login.
-        // In reality, there should be a form, validation, nwetowrk request and other things
         return (
 
             <div className="container">
@@ -124,7 +110,7 @@ const Login = () => {
                 </form>
             </div>
         )
-    }
+
 }
 
 export default Login

@@ -4,12 +4,13 @@ import React, {useEffect, useState} from 'react'
 import EventCard from "./EventCard";
 import ReactPaginate from "react-paginate";
 import axios from "axios";
+import {Link, useNavigate} from "react-router-dom";
 
 
 
 const Home = () => {
 
-
+const navigate = useNavigate()
     const [currentPage, setCurrentPage] = useState(0)
     const [totalPages, setTotalPages] = useState(0)
     const [eventsPerPage, setEventsPerPage] = useState(3)
@@ -47,6 +48,7 @@ const Home = () => {
 
     return (
         <div className="container">
+            <button onClick={()=>navigate('/createEvent')}>Event erstellen</button>
             <h3 className="float-md-end">Aktuelle Events</h3><br/><br/>
 
 

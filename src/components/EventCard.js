@@ -12,12 +12,12 @@ function EventCard(props) {
                 <div className="row g-0">
 
                     <div className="text-center col-2 rounded"
-                         style={{backgroundColor: "#77BB41", backgroundSize: "cover"}}>
+                         style={{backgroundColor: "#77BB41", backgroundSize: "cover", color:"white"}}>
                         <br/>
                         <br/>
-                        <h2>{new Date(props.event.startDate).getDay()}</h2>
+                        <h2 style={{fontFamily: "Judson", fontSize: "80px"}}>{new Date(props.event.startDate).toLocaleString("de-De",{day: "numeric"})}</h2>
                         <br/>
-                        <h2>{new Date(props.event.startDate).toLocaleString("de-De", {month: "short"})}</h2>
+                        <h2 style={{fontFamily: "Kameron", fontWeight:"bold", fontSize:"81px"}}>{new Date(props.event.startDate).toLocaleString("de-De", {month: "short"})}</h2>
 
                     </div>
 

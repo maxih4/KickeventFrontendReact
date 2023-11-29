@@ -4,6 +4,7 @@ import DOMPurify from "dompurify";
 import {HtmlEditor} from "react-simple-wysiwyg";
 import HTMLEllipsis from "react-lines-ellipsis/lib/html.modern.mjs";
 import LinesEllipsis from "react-lines-ellipsis";
+import {Space} from "antd";
 
 
 
@@ -42,7 +43,7 @@ function EventCard(props) {
                             basedOn='letters'
                         />
 
-
+                        <br/>
 
                         <Link to={"/event/" + props.event.id} className="btn btn-primary">Go to Event with
                             id: {props.event.id}</Link>

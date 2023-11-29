@@ -6,7 +6,7 @@ import {useAuthHeader} from "react-auth-kit";
 import DOMPurify from "dompurify";
 
 const CommentInput = (props) => {
-    const [html, setHtml] = useState('my <b>HTML</b>');
+    const [html, setHtml] = useState('');
     const {id} = useParams()
     const authHeader=useAuthHeader()
 

@@ -40,6 +40,11 @@ const CreateEvent = () => {
 
     }
 
+    const disabledDate = (current) => {
+        // Can not select days before today and today
+        return current && current < new Date()
+    };
+
     const submitChanges = () => {
         setError(false)
         console.log(new Date())
@@ -85,9 +90,9 @@ const CreateEvent = () => {
                     containerProps={{style: {backgroundColor: "white"}}}></Editor>
             <br/>
 
-            <DatePicker onChange={dateSelect} format="DD-MM-YYYY" />
+            <DatePicker onChange={dateSelect} format="DD-MM-YYYY" disabledDate={disabledDate}/>
             <br/>
-            <TimePicker.RangePicker format="HH:mm" onChange={timeSelect}/>
+            <TimePicker.RangePicker format="HH:mm" onChange={timeSelect} minuteStep={15}/>
             <br/>
             <button onClick={submitChanges} className="rounded-5">
 

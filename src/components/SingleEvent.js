@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {useNavigate, useLocation, useParams} from "react-router-dom"
 import axios from "axios";
 import Comments from "./Comments";
+import DOMPurify from "dompurify";
 
 
 
@@ -33,8 +34,10 @@ function SingleEvent(props) {
         <div className="container">
             <div className="jumbotron mt-3">
                 <h1>{event.title}</h1>
-                <p className="lead">{event.content}</p>
+                <p className="lead" dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(event.content)}}></p>
 
+                <p>StartDatum: {new Date(event.startDate).toLocaleString()} </p>
+                <p>Enddate: {new Date(event.endDate).toLocaleString()}</p>
             </div>
             <hr className="my-4" />
             <Comments id={event.id}></Comments>

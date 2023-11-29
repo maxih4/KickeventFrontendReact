@@ -3,6 +3,7 @@ import Editor from 'react-simple-wysiwyg'
 import {Link, useParams} from "react-router-dom";
 import axios from "axios";
 import {useAuthHeader} from "react-auth-kit";
+import DOMPurify from "dompurify";
 
 const CommentInput = (props) => {
     const [html, setHtml] = useState('my <b>HTML</b>');
@@ -10,7 +11,7 @@ const CommentInput = (props) => {
     const authHeader=useAuthHeader()
 
     function onChange(e) {
-        setHtml(e.target.value);
+        setHtml(DOMPurify.sanitize(e.target.value))
     }
 
     function submitComment(){

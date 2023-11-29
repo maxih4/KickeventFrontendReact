@@ -3,6 +3,7 @@ import Editor from "react-simple-wysiwyg";
 import {useParams} from "react-router-dom";
 import {useAuthHeader} from "react-auth-kit";
 import axios from "axios";
+import DOMPurify from "dompurify";
 
 
 const EditComment = (props) => {
@@ -11,7 +12,7 @@ const EditComment = (props) => {
     const authHeader = useAuthHeader()
 
     function onChange(e) {
-        setHtml(e.target.value);
+        setHtml(DOMPurify.sanitize(e.target.value));
     }
 
     const submitChanges = () => {

@@ -26,11 +26,7 @@ const RoutesComponent = () => {
             <Routes>
                 <Route path={'/'} element={<Home/>}/>
                 <Route path={'/login'} element={<Login/>}/>
-                <Route path={'/user'} element={
-                    <RequireAuth loginPath={'/login'}>
-                        <UserPanel/>
-                    </RequireAuth>
-                }/>
+                <Route path={'/user'} element={<PrivateRoute Component={UserPanel}/>}/>
                 <Route path={'/register'} element={<Register/>}/>
                 <Route path={'/event/:id'} element={<SingleEvent/>}/>
                 <Route path={'/createEvent'} element={<PrivateRoute Component={CreateEvent}/>}/>

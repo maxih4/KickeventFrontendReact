@@ -8,22 +8,23 @@ import DOMPurify from "dompurify";
 const CommentInput = (props) => {
     const [html, setHtml] = useState('');
     const {id} = useParams()
-    const authHeader=useAuthHeader()
+    const authHeader = useAuthHeader()
 
     function onChange(e) {
         setHtml(DOMPurify.sanitize(e.target.value))
     }
 
-    function submitComment(){
-        axios.post("https://localhost:8443/api/event/" + id +"/comment",{
+    function submitComment() {
+        axios.post("https://localhost:8443/api/event/" + id + "/comment", {
             content: html
-        },{
-            headers:{
-                "Authorization" : authHeader()
+        }, {
+            headers: {
+                "Authorization": authHeader()
             }
-        }).then((res)=>{
+        }).then((res) => {
             props.setToggleRefresh(prev => !prev)
-        },(err)=>{
+            setHtml("")
+        }, (err) => {
 
         })
     }
@@ -31,13 +32,13 @@ const CommentInput = (props) => {
     return (<>
 
 
-        <Editor value={html} onChange={onChange}
-                containerProps={{style: {backgroundColor: "white"}}}></Editor>
+            <Editor value={html} onChange={onChange}
+                    containerProps={{style: {backgroundColor: "white"}}}></Editor>
             <br/>
-        <button onClick={submitComment} className="rounded-5">
+            <button onClick={submitComment} className="rounded-5">
 
-            Kommentar speichern
-        </button>
+                Kommentar speichern
+            </button>
         </>
 
     );

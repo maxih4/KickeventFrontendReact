@@ -29,11 +29,7 @@ const Login = () => {
     const [errorMessage, setErrorMessage] = useState("")
 
 
-    /*axios.interceptors.request.use(x => {
-            console.log(x);
-            return x
-        }
-    )*/
+
     const loginHandler = (e) => {
 
         setError(false)
@@ -52,7 +48,7 @@ const Login = () => {
                         tokenType: res.data.type,
                         refreshToken: res.data.refreshToken,
                         refreshTokenExpireIn: Math.floor((new Date(res.data.expirationDateRefreshToken) - new Date()) / 1000 / 60),
-                        authState: {userName: formData.userName, userId: res.data.userId}
+                        authState: {userName: formData.userName, userId: res.data.userId, roles: res.data.roles}
                     }
                 )) {
                     //Login successfull

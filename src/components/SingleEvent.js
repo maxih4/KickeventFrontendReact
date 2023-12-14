@@ -6,6 +6,7 @@ import DOMPurify from "dompurify";
 import {useAuthHeader, useAuthUser, useIsAuthenticated} from "react-auth-kit";
 import EventEditor from "./EventEditor";
 import dayjs from "dayjs";
+import EventCard from "./EventCard";
 
 
 function SingleEvent(props) {
@@ -59,8 +60,17 @@ function SingleEvent(props) {
 <>
         {
     !editState &&
-    <div className="container">
-        <div className="jumbotron mt-3">
+
+
+    <div className="container bg-light pb-4 " style={{borderRadius:"40px"}} >
+        <div className="mt-4 pt-3">
+            <EventCard event={event}></EventCard>
+        </div>
+
+        <div className=" mt-4 pt-3">
+
+
+
             <h1>{event.title}</h1>
             <p className="lead" dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(event.content)}}></p>
 

@@ -35,3 +35,18 @@ body {
 .main {
     flex-grow: 1;
 }
+
+.active>.page-link{
+    background-color:#77BB41;
+    border-color:#77BB41;
+}
+
+.page-item>.page-link{
+    color:black;
+    box-shadow: none;
+}
+
+
+
+
+

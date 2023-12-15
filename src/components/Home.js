@@ -77,7 +77,7 @@ const Home = () => {
                                previousLinkClassName="page-link"
                                nextClassName="page-item"
                                nextLinkClassName="page-link"
-                               activeClassName="active"
+                               activeClassName="active color-pagination"
 
                 />
             </nav>

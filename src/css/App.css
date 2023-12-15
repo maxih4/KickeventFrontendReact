@@ -18,10 +18,20 @@ body {
     background-image: linear-gradient(rgba(0, 0, 0, 0.4),
     rgba(0, 0, 0, 0.4)),url("../img/Background.png");
 
-    background-repeat: no-repeat;
+    background-repeat: repeat-y;
     background-size: cover;
 }
 
 .eventCard{
     border: 0;
+}
+
+.app {
+    display: flex;
+    flex-flow: column nowrap;
+    min-height: 100vh;
+}
+
+.main {
+    flex-grow: 1;
 }

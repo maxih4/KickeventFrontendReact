@@ -12,6 +12,10 @@ const {RangePicker} = DatePicker;
 const EventEditor = (props) => {
     const [title, setTitle] = useState(props.title)
     const [html, setHtml] = useState(props.html);
+    const [street, setStreet] = useState(props.streetName);
+    const [houseNumber, setHouseNumber] = useState(props.houseNumber);
+    const [postalCode, setPostalCode] = useState(props.postalCode);
+    const [city, setCity] = useState(props.city);
     const authHeader = useAuthHeader()
     const [error, setError] = useState(false)
     const [errorMessage, setErrorMessage] = useState("")
@@ -29,6 +33,18 @@ const EventEditor = (props) => {
 
     function onChangeTitle(e) {
         setTitle(e.target.value);
+    }
+    function onChangeStreet(e) {
+        setStreet(e.target.value);
+    }
+    function onChangeHouseNumber(e) {
+        setHouseNumber(e.target.value);
+    }
+    function onChangePostalCode(e) {
+        setPostalCode(e.target.value);
+    }
+    function onChangeCity(e) {
+        setCity(e.target.value);
     }
 
 
@@ -61,7 +77,11 @@ const EventEditor = (props) => {
                 content: html,
                 title: title,
                 startDate: startDate,
-                endDate: endDate
+                endDate: endDate,
+                streetName: street,
+                houseNumber: houseNumber,
+                postalCode:postalCode,
+                city:city
             }, {
                 headers: {
                     "Authorization": authHeader()
@@ -76,9 +96,9 @@ const EventEditor = (props) => {
             })
         } else {
             if (!dateEdited) {
-                startDate = date.set("hour",startTime.get("hour")).set("minute",startTime.get("minute")).format("YYYY-MM-DD[T]HH:mm:ss.SSSZ")
-                endDate = date.set("hour",endTime.get("hour")).set("minute",endTime.get("minute")).format("YYYY-MM-DD[T]HH:mm:ss.SSSZ")
-            }else{
+                startDate = date.set("hour", startTime.get("hour")).set("minute", startTime.get("minute")).format("YYYY-MM-DD[T]HH:mm:ss.SSSZ")
+                endDate = date.set("hour", endTime.get("hour")).set("minute", endTime.get("minute")).format("YYYY-MM-DD[T]HH:mm:ss.SSSZ")
+            } else {
                 startDate = date.set("hour", startTime.split(":")[0]).set("minute", startTime.split(":")[1]).format("YYYY-MM-DD[T]HH:mm:ss.SSSZ")
                 endDate = date.set("hour", endTime.split(":")[0]).set("minute", endTime.split(":")[1]).format("YYYY-MM-DD[T]HH:mm:ss.SSSZ")
 
@@ -88,7 +108,11 @@ const EventEditor = (props) => {
                 content: html,
                 title: title,
                 startDate: startDate,
-                endDate: endDate
+                endDate: endDate,
+                streetName: street,
+                houseNumber: houseNumber,
+                postalCode:postalCode,
+                city:city
             }, {
                 headers: {
                     "Authorization": authHeader()
@@ -107,7 +131,7 @@ const EventEditor = (props) => {
 
 
     return (
-        <div className="container">
+        <div className="container bg-light p-4 mt-5 rounded main">
             {error && <div className="alert alert-danger" role="alert">
                 {errorMessage}
             </div>}
@@ -122,11 +146,33 @@ const EventEditor = (props) => {
             <Editor value={html} onChange={onChangeHtml}
                     containerProps={{style: {backgroundColor: "white"}}}></Editor>
             <br/>
+            <div className="d-flex flex-row justify-content-between mb-4">
+                <div>                    <label htmlFor="streetInput" className="form-label">Straße</label>
+                    <input type="text" className="form-control" id="titleInput" onChange={onChangeStreet} value={street}/>
+                </div>
+                <div>                    <label htmlFor="titleInput" className="form-label">Hausnummer</label>
+                    <input type="text" className="form-control" id="houseNumberInput" onChange={onChangeHouseNumber} value={houseNumber}/>
 
-            <DatePicker defaultValue={date} onChange={dateSelect} format="DD-MM-YYYY" disabledDate={disabledDate}/>
-            <br/>
-            <TimePicker.RangePicker defaultValue={[startTime, endTime]} format="HH:mm" onChange={timeSelect}
-                                    minuteStep={15}/>
+                </div>
+                <div>                    <label htmlFor="titleInput" className="form-label">PLZ</label>
+                    <input type="text" className="form-control" id="postalCodeInput" onChange={onChangePostalCode} value={postalCode}/>
+                </div>
+                <div>                    <label htmlFor="titleInput" className="form-label">Ort</label>
+                    <input type="text" className="form-control" id="cityInput" onChange={onChangeCity} value={city}/>
+
+                </div>
+            </div>
+            <div className="d-flex flex-row justify-content-between">
+                <div>Datum:<DatePicker defaultValue={date} onChange={dateSelect} format="DD-MM-YYYY"
+                                       disabledDate={disabledDate}/>
+                </div>
+                <div>
+                    Uhrzeit von - bis:
+                    <TimePicker.RangePicker defaultValue={[startTime, endTime]} format="HH:mm" onChange={timeSelect}
+                                            minuteStep={15}/>
+                </div>
+            </div>
+
             <br/>
             <button onClick={submitChanges} className="rounded-5">
                 {mode === "update" && "Änderungen speichern"}

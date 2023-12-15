@@ -17,6 +17,7 @@ import axios from "axios";
 import React, {useState} from 'react'
 import {useIsAuthenticated, useSignIn} from 'react-auth-kit'
 import {Navigate, useNavigate} from 'react-router-dom'
+import SubmitButton from "./SubmitButton";
 
 
 const Login = () => {
@@ -27,7 +28,6 @@ const Login = () => {
 
     const [error, setError] = useState(false)
     const [errorMessage, setErrorMessage] = useState("")
-
 
 
     const loginHandler = (e) => {
@@ -59,9 +59,9 @@ const Login = () => {
                 }
             }
         }, (err) => {
-            if(err.response.status===401){
+            if (err.response.status === 401) {
                 setErrorMessage("Daten nicht bekannt")
-            }else{
+            } else {
                 setErrorMessage("Unbekannter Fehler")
             }
 
@@ -73,39 +73,44 @@ const Login = () => {
     }
 
 
-        return (
+    return (
 
-            <div className="container">
-                <br/>
+        <div className="container main">
+            <br/>
 
-                {error &&
+            {error &&
 
-                    <div className="alert alert-danger" role="alert">
-                        {errorMessage}
-                    </div>}
-                <form onSubmit={loginHandler} className="m-5">
-                    <h3>Login</h3>
-                    <div className="form-group">
-                        <label htmlFor="usernameInput">Username</label>
-                        <input
-                            className="form-control"
-                            id="usernameInput"
-                            placeholder="username"
-                            type={"userName"} onChange={(e) => setFormData({...formData, userName: e.target.value})}/>
-                    </div>
-                    <div className="form-group">
-                        <label htmlFor="passwordInput">Password</label>
-                        <input
-                            className="form-control"
-                            id="passwordInput"
-                            placeholder="password"
-                            type={"password"} onChange={(e) => setFormData({...formData, password: e.target.value})}/>
-                    </div>
-                    <button type="submit" className="btn btn-primary mt-2">Log in</button>
+                <div className="alert alert-danger" role="alert">
+                    {errorMessage}
+                </div>}
+            <form onSubmit={loginHandler} className="m-5 bg-light p-5 pt-2 pb-4 rounded-4">
+                <h3 style={{fontFamily: "Outfit", fontSize: "55px"}} className="pb-2">Login</h3>
+                <div className="form-group pb-3">
+                    <label htmlFor="usernameInput" className="pb-3"
+                           style={{fontFamily: "Poppins", fontSize: "24px"}}>Username</label>
+                    <input
+                        className="form-control"
+                        id="usernameInput"
+                        placeholder="username"
+                        type={"userName"} onChange={(e) => setFormData({...formData, userName: e.target.value})}/>
+                </div>
+                <div className="form-group">
+                    <label htmlFor="passwordInput" className="pb-3"
+                           style={{fontFamily: "Poppins", fontSize: "24px"}}>Password</label>
+                    <input
+                        className="form-control"
+                        id="passwordInput"
+                        placeholder="password"
+                        type={"password"} onChange={(e) => setFormData({...formData, password: e.target.value})}/>
+                </div>
+                <div className="d-flex flex-row justify-content-end">
+                    <SubmitButton size={"44px"} class={"ms-5 me-5"} text={"Login"}>
 
-                </form>
-            </div>
-        )
+                    </SubmitButton>
+                </div>
+            </form>
+        </div>
+    )
 
 }
 

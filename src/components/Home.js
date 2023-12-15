@@ -5,12 +5,12 @@ import EventCard from "./EventCard";
 import ReactPaginate from "react-paginate";
 import axios from "axios";
 import {Link, useNavigate} from "react-router-dom";
-
+import HomeHeader from "./HomeHeader";
 
 
 const Home = () => {
 
-const navigate = useNavigate()
+    const navigate = useNavigate()
     const [currentPage, setCurrentPage] = useState(0)
     const [totalPages, setTotalPages] = useState(0)
     const [eventsPerPage, setEventsPerPage] = useState(3)
@@ -20,8 +20,8 @@ const navigate = useNavigate()
 
     useEffect(() => {
         axios.get("https://localhost:8443/api/event",).then((res) => {
-            const data = res.data.sort((a,b)=>{
-                if(a.createdDate>b.createdDate){
+            const data = res.data.sort((a, b) => {
+                if (a.createdDate > b.createdDate) {
                     return -1
                 }
             })
@@ -36,7 +36,7 @@ const navigate = useNavigate()
         })
 
 
-    },[]);
+    }, []);
 
     const startIndex = currentPage * eventsPerPage
     const endIndex = startIndex + eventsPerPage
@@ -47,37 +47,40 @@ const navigate = useNavigate()
     }
 
     return (
-        <div className="container">
-            <button onClick={()=>navigate('/createEvent')}>Event erstellen</button>
-            <h3 className="float-md-end">Aktuelle Events</h3><br/><br/>
-
+        <div className="container main">
+            <HomeHeader/>
+            <div className="row pb-4 pt-5">
+                <div className="text-white offset-7 col-5 text-end"
+                     style={{fontFamily: "Outfit", fontSize: "64px"}}>Aktuelle Events
+                </div>
+            </div>
 
             {
                 currentEvents.map(event => (
 
-                <EventCard key={event.id} event={event}></EventCard>
-            ))}
+                    <EventCard key={event.id} event={event}></EventCard>
+                ))}
 
 
-                <nav aria-label="Event page navigation">
-                    <ReactPaginate pageCount={totalPages}
-                                   onPageChange={handlePageChange}
-                                   forcePage={currentPage}
-                                   previousLabel={"<<"}
-                                   nextLabel={">>"}
-                                   breakClassName="page-item"
-                                   breakLinkClassName="page-link"
-                                   containerClassName="pagination justify-content-center"
-                                   pageClassName="page-item"
-                                   pageLinkClassName="page-link"
-                                   previousClassName="page-item"
-                                   previousLinkClassName="page-link"
-                                   nextClassName="page-item"
-                                   nextLinkClassName="page-link"
-                                   activeClassName="active"
+            <nav aria-label="Event page navigation">
+                <ReactPaginate pageCount={totalPages}
+                               onPageChange={handlePageChange}
+                               forcePage={currentPage}
+                               previousLabel={"<<"}
+                               nextLabel={">>"}
+                               breakClassName="page-item"
+                               breakLinkClassName="page-link"
+                               containerClassName="pagination justify-content-center"
+                               pageClassName="page-item"
+                               pageLinkClassName="page-link"
+                               previousClassName="page-item"
+                               previousLinkClassName="page-link"
+                               nextClassName="page-item"
+                               nextLinkClassName="page-link"
+                               activeClassName="active"
 
-                    />
-                </nav>
+                />
+            </nav>
 
         </div>
     )

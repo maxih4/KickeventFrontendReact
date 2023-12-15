@@ -1,8 +1,6 @@
 import React, {useState} from 'react'
 import axios from "axios";
-
-
-
+import SubmitButton from "./SubmitButton";
 
 
 const Login = () => {
@@ -10,7 +8,7 @@ const Login = () => {
     const [formData, setFormData] = useState({userName: "", password: ""})
     const [success, setSuccess] = useState(false)
     const [error, setError] = useState(false)
-    const [errorMessage,setErrorMessage] = useState("")
+    const [errorMessage, setErrorMessage] = useState("")
 
     const registerHandler = (e) => {
 
@@ -24,7 +22,7 @@ const Login = () => {
             }
         }).then((res) => {
             setSuccess(true)
-            setFormData({userName:"",password:""})
+            setFormData({userName: "", password: ""})
         }, (err) => {
             setErrorMessage(err.response.data)
             setError(true)
@@ -34,7 +32,7 @@ const Login = () => {
 
     return (
 
-        <div className="container">
+        <div className="container main">
             <br/>
             {success &&
 
@@ -49,10 +47,11 @@ const Login = () => {
                 </div>}
 
 
-            <form onSubmit={registerHandler} className="m-5">
-                <h3>Registrieren</h3>
-                <div className="form-group">
-                    <label htmlFor="usernameInput">Username</label>
+            <form onSubmit={registerHandler} className="m-5 bg-light p-5 pt-2 pb-4 rounded-4">
+                <h3 style={{fontFamily: "Outfit", fontSize: "55px"}} className="pb-2">Registrieren</h3>
+                <div className="form-group pb-3">
+                    <label htmlFor="usernameInput" className="pb-3"
+                           style={{fontFamily: "Poppins", fontSize: "24px"}}>Username</label>
                     <input
                         className="form-control"
                         id="usernameInput"
@@ -60,15 +59,19 @@ const Login = () => {
                         type={"userName"} onChange={(e) => setFormData({...formData, userName: e.target.value})}/>
                 </div>
                 <div className="form-group">
-                    <label htmlFor="passwordInput">Password</label>
+                    <label htmlFor="passwordInput" className="pb-3"
+                           style={{fontFamily: "Poppins", fontSize: "24px"}}>Password</label>
                     <input
                         className="form-control"
                         id="passwordInput"
                         placeholder="password"
                         type={"password"} onChange={(e) => setFormData({...formData, password: e.target.value})}/>
                 </div>
-                <button type="submit" className="btn btn-primary mt-2">Registrieren</button>
+                <div className="d-flex flex-row justify-content-end">
+                    <SubmitButton size={"44px"} class={"ms-5 me-5"} text={"Registrieren"}>
 
+                    </SubmitButton>
+                </div>
             </form>
 
         </div>

@@ -8,6 +8,7 @@ import SingleEvent from "../components/SingleEvent";
 import Navbar from "../components/Navbar";
 import Register from "../components/Register";
 import EventEditor from "../components/EventEditor";
+import Footer from "../components/Footer";
 
 
 
@@ -32,7 +33,9 @@ const RoutesComponent = () => {
                 <Route path={'/createEvent'} element={<PrivateRoute Component={EventEditor}/>}/>
             </Routes>
 
+
         </BrowserRouter>
+
     )
 }
 

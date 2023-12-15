@@ -7,17 +7,21 @@ import refreshApi from "./services/refreshApi";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import "./css/App.css"
+import Footer from "./components/Footer";
 
 function App() {
     return (
-
+            <div className="app">
             <AuthProvider
                 authName={"_auth"} authType={"cookie"}
                 refresh={refreshApi}
             >
                 <RoutesComponent/>
-            </AuthProvider>
 
+                <Footer/>
+
+            </AuthProvider>
+            </div>
     );
 }
 

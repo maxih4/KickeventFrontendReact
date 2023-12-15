@@ -13,7 +13,7 @@ function SingleEvent(props) {
     const navigation = useNavigate()
     const location = useLocation()
     const {id} = useParams()
-    const [event, setEvent] = useState({title: "", content: "", owner: "", id: 0})
+    const [event, setEvent] = useState({title: "", content: "", owner: "", id: 0, streetName:"", houseNumber:0,postalCode:0,city:""})
     const isAuthenticated = useIsAuthenticated()
     const authUser = useAuthUser()
     let owner = false
@@ -62,7 +62,7 @@ function SingleEvent(props) {
     !editState &&
 
 
-    <div className="container bg-light pb-4 " style={{borderRadius:"40px"}} >
+    <div className="container bg-light pb-4 mt-5 main" style={{borderRadius:"40px"}} >
         <div className="mt-4 pt-3">
             <EventCard event={event}></EventCard>
         </div>
@@ -90,7 +90,7 @@ function SingleEvent(props) {
 }
 
     {editState &&
-        <EventEditor title={event.title} html={event.content} date={dayjs(event.startDate)} startTime={dayjs(event.startDate)} endTime={dayjs(event.endDate) } mode="update" eventId={event.id} setEditState={setEditState} setToggleRefresh={setToggleRefresh}></EventEditor>
+        <EventEditor title={event.title} html={event.content} streetName={event.streetName} houseNumber={event.houseNumber} postalCode={event.postalCode} city={event.city} date={dayjs(event.startDate)} startTime={dayjs(event.startDate)} endTime={dayjs(event.endDate) } mode="update" eventId={event.id} setEditState={setEditState} setToggleRefresh={setToggleRefresh}></EventEditor>
 
 
 

@@ -12,6 +12,7 @@ import Footer from "../components/Footer";
 
 
 
+
 const RoutesComponent = () => {
     const PrivateRoute = ({ Component }) => {
         const isAuthenticated = useIsAuthenticated();
@@ -31,6 +32,7 @@ const RoutesComponent = () => {
                 <Route path={'/register'} element={<Register/>}/>
                 <Route path={'/event/:id'} element={<SingleEvent/>}/>
                 <Route path={'/createEvent'} element={<PrivateRoute Component={EventEditor}/>}/>
+
             </Routes>
 
 

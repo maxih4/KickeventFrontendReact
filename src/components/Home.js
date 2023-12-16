@@ -62,7 +62,7 @@ const Home = () => {
                 ))}
 
 
-            <nav aria-label="Event page navigation">
+            <nav aria-label="Event page navigation" className="mt-5">
                 <ReactPaginate pageCount={totalPages}
                                onPageChange={handlePageChange}
                                forcePage={currentPage}

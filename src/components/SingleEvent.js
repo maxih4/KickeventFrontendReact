@@ -62,7 +62,7 @@ function SingleEvent(props) {
     !editState &&
 
 
-    <div className="container bg-light pb-4 mt-5 main" style={{borderRadius:"40px"}} >
+    <div className="container bg-light pb-4 mt-5 main rounded-4" >
         <div className="mt-4 pt-3">
             <EventCard event={event}></EventCard>
         </div>

@@ -34,15 +34,19 @@ const EventEditor = (props) => {
     function onChangeTitle(e) {
         setTitle(e.target.value);
     }
+
     function onChangeStreet(e) {
         setStreet(e.target.value);
     }
+
     function onChangeHouseNumber(e) {
         setHouseNumber(e.target.value);
     }
+
     function onChangePostalCode(e) {
         setPostalCode(e.target.value);
     }
+
     function onChangeCity(e) {
         setCity(e.target.value);
     }
@@ -64,11 +68,13 @@ const EventEditor = (props) => {
         return current && current < new Date()
     };
 
+
+
+
     const submitChanges = () => {
         let startDate = ""
         let endDate = ""
 
-        setError(false)
         if (mode === undefined) {
             startDate = date.set("hour", startTime.split(":")[0]).set("minute", startTime.split(":")[1]).format("YYYY-MM-DD[T]HH:mm:ss.SSSZ")
             endDate = date.set("hour", endTime.split(":")[0]).set("minute", endTime.split(":")[1]).format("YYYY-MM-DD[T]HH:mm:ss.SSSZ")
@@ -80,8 +86,8 @@ const EventEditor = (props) => {
                 endDate: endDate,
                 streetName: street,
                 houseNumber: houseNumber,
-                postalCode:postalCode,
-                city:city
+                postalCode: postalCode,
+                city: city
             }, {
                 headers: {
                     "Authorization": authHeader()
@@ -111,8 +117,8 @@ const EventEditor = (props) => {
                 endDate: endDate,
                 streetName: street,
                 houseNumber: houseNumber,
-                postalCode:postalCode,
-                city:city
+                postalCode: postalCode,
+                city: city
             }, {
                 headers: {
                     "Authorization": authHeader()
@@ -131,53 +137,63 @@ const EventEditor = (props) => {
 
 
     return (
-        <div className="container bg-light p-4 mt-5 rounded main">
-            {error && <div className="alert alert-danger" role="alert">
-                {errorMessage}
-            </div>}
-            <form>
-                <div className="mb-3">
-                    <label htmlFor="titleInput" className="form-label"><h2>Titel</h2></label>
-                    <input type="text" className="form-control" id="titleInput" onChange={onChangeTitle} value={title}/>
+        <div className="container main">
+            <div className="mt-5 bg-light p-5 pt-2 pb-4 rounded-4 ">
+                {error && <div className="alert alert-danger" role="alert">
+                    {errorMessage}
+                </div>}
+                <form>
+                    <div className="mb-3">
+                        <label htmlFor="titleInput" className="form-label"><h2>Titel</h2></label>
+                        <input type="text" className="form-control" id="titleInput" onChange={onChangeTitle}
+                               value={title}/>
+                    </div>
+
+                </form>
+                <h2>Inhalt</h2>
+                <Editor value={html} onChange={onChangeHtml}
+                        containerProps={{style: {backgroundColor: "white"}}}></Editor>
+                <br/>
+                <div className="d-flex flex-row justify-content-evenly mb-4 flex-wrap">
+                    <div><label htmlFor="streetInput" className="form-label">Straße</label>
+                        <input type="text" className="form-control" id="streetInput" onChange={onChangeStreet}
+                               value={street}/>
+                    </div>
+                    <div><label htmlFor="houseNumberInput" className="form-label">Hausnummer</label>
+                        <input type="text" className="form-control" id="houseNumberInput" onChange={onChangeHouseNumber}
+                               value={houseNumber}/>
+
+                    </div>
+                    <div><label htmlFor="postalCodeInput" className="form-label">PLZ</label>
+                        <input type="text" className="form-control" id="postalCodeInput" onChange={onChangePostalCode}
+                               value={postalCode}/>
+                    </div>
+                    <div><label htmlFor="cityInput" className="form-label">Ort</label>
+                        <input type="text" className="form-control" id="cityInput" onChange={onChangeCity}
+                               value={city}/>
+
+                    </div>
+                </div>
+                <div className="d-flex flex-row justify-content-evenly mb-4 flex-wrap">
+                    <div className="mb-2"> Datum:<br/>
+                        <DatePicker id="datePicker" defaultValue={date} onChange={dateSelect} format="DD-MM-YYYY"
+                                    disabledDate={disabledDate}/>
+                    </div>
+                    <div className="mb-2">
+                        Uhrzeit von - bis: <br/>
+                        <TimePicker.RangePicker defaultValue={[startTime, endTime]} format="HH:mm" onChange={timeSelect}
+                                                minuteStep={15}/>
+                    </div>
                 </div>
 
-            </form>
-            <h2>Inhalt</h2>
-            <Editor value={html} onChange={onChangeHtml}
-                    containerProps={{style: {backgroundColor: "white"}}}></Editor>
-            <br/>
-            <div className="d-flex flex-row justify-content-between mb-4">
-                <div>                    <label htmlFor="streetInput" className="form-label">Straße</label>
-                    <input type="text" className="form-control" id="titleInput" onChange={onChangeStreet} value={street}/>
-                </div>
-                <div>                    <label htmlFor="titleInput" className="form-label">Hausnummer</label>
-                    <input type="text" className="form-control" id="houseNumberInput" onChange={onChangeHouseNumber} value={houseNumber}/>
-
-                </div>
-                <div>                    <label htmlFor="titleInput" className="form-label">PLZ</label>
-                    <input type="text" className="form-control" id="postalCodeInput" onChange={onChangePostalCode} value={postalCode}/>
-                </div>
-                <div>                    <label htmlFor="titleInput" className="form-label">Ort</label>
-                    <input type="text" className="form-control" id="cityInput" onChange={onChangeCity} value={city}/>
-
+                <br/>
+                <div className="text-center">
+                    <button onClick={submitChanges} className="rounded-5">
+                        {mode === "update" && "Änderungen speichern"}
+                        {mode === undefined && "Event erstellen"}
+                    </button>
                 </div>
             </div>
-            <div className="d-flex flex-row justify-content-between">
-                <div>Datum:<DatePicker defaultValue={date} onChange={dateSelect} format="DD-MM-YYYY"
-                                       disabledDate={disabledDate}/>
-                </div>
-                <div>
-                    Uhrzeit von - bis:
-                    <TimePicker.RangePicker defaultValue={[startTime, endTime]} format="HH:mm" onChange={timeSelect}
-                                            minuteStep={15}/>
-                </div>
-            </div>
-
-            <br/>
-            <button onClick={submitChanges} className="rounded-5">
-                {mode === "update" && "Änderungen speichern"}
-                {mode === undefined && "Event erstellen"}
-            </button>
         </div>
     );
 };

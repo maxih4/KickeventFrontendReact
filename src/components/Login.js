@@ -104,7 +104,7 @@ const Login = () => {
                         type={"password"} onChange={(e) => setFormData({...formData, password: e.target.value})}/>
                 </div>
                 <div className="d-flex flex-row justify-content-end">
-                    <SubmitButton size={"44px"} class={"ms-5 me-5"} text={"Login"}>
+                    <SubmitButton size={"40px"} class={"ms-md-5 me-md-5"} text={"Login"}>
 
                     </SubmitButton>
                 </div>

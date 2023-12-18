@@ -20,9 +20,9 @@ const AdminPanelUser = (props) => {
 
 
     return (
-        <div>
-            id: {props.user.id} - name: {props.user.userName}
-            {!(props.user.userName===authUser().userName) &&<button onClick={deleteUser}><i className="bi bi-trash"></i></button>}
+        <div className="row">
+            <span className="col">id: {props.user.id} </span> <span className="col">name: {props.user.userName}</span>
+            <span className="col">{!(props.user.userName===authUser().userName) &&<button onClick={deleteUser}><i className="bi bi-trash"></i></button>}</span>
 
         </div>
     );

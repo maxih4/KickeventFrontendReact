@@ -50,7 +50,7 @@ const Home = () => {
         <div className="container main">
             <HomeHeader/>
             <div className="row pb-4 pt-5">
-                <div className="text-white offset-7 col-5 text-end"
+                <div className="text-white offset-lg-7 col-lg-5 col-12 text-center text-md-end"
                      style={{fontFamily: "Outfit", fontSize: "64px"}}>Aktuelle Events
                 </div>
             </div>

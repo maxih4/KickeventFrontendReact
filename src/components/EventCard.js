@@ -60,13 +60,13 @@ function EventCard(props) {
                         />
 
                         <br/>
-                        <div className="d-flex flex-row justify-content-around"
+                        <div className="d-flex flex-row flex-wrap justify-content-around"
                              style={{fontFamily: "Inter", fontWeight: "Bold",textShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)"}}>
                             <div className="p-2">{props.event.streetName + " " + props.event.houseNumber}
                                 <br/>
                                 {props.event.city}
                             </div>
-                            <p className="p-2" style={{
+                            <p className="p-2 " style={{
                                 fontFamily: "Inter",
                                 fontWeight: "Bold",
                                 textShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)"

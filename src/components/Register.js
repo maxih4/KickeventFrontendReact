@@ -48,7 +48,7 @@ const Login = () => {
 
 
             <form onSubmit={registerHandler} className="m-5 bg-light p-5 pt-2 pb-4 rounded-4">
-                <h3 style={{fontFamily: "Outfit", fontSize: "55px"}} className="pb-2">Registrieren</h3>
+                <h3 style={{fontFamily: "Outfit", fontSize: "45px"}} className="pb-2">Registrieren</h3>
                 <div className="form-group pb-3">
                     <label htmlFor="usernameInput" className="pb-3"
                            style={{fontFamily: "Poppins", fontSize: "24px"}}>Username</label>
@@ -68,7 +68,7 @@ const Login = () => {
                         type={"password"} onChange={(e) => setFormData({...formData, password: e.target.value})}/>
                 </div>
                 <div className="d-flex flex-row justify-content-end">
-                    <SubmitButton size={"40px"} class={"ms-md-5 me-md-5"} text={"Registrieren"}>
+                    <SubmitButton size={"35px"} class={"ms-md-5 me-md-5"} text={"Registrieren"}>
 
                     </SubmitButton>
                 </div>

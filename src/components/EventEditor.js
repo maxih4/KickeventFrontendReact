@@ -76,8 +76,11 @@ const EventEditor = (props) => {
         let endDate = ""
 
         if (mode === undefined) {
-            startDate = date.set("hour", startTime.split(":")[0]).set("minute", startTime.split(":")[1]).format("YYYY-MM-DD[T]HH:mm:ss.SSSZ")
-            endDate = date.set("hour", endTime.split(":")[0]).set("minute", endTime.split(":")[1]).format("YYYY-MM-DD[T]HH:mm:ss.SSSZ")
+            if(!(startTime===undefined)&&!(endTime===undefined)){
+                startDate = date.set("hour", startTime.split(":")[0]).set("minute", startTime.split(":")[1]).format("YYYY-MM-DD[T]HH:mm:ss.SSSZ")
+                endDate = date.set("hour", endTime.split(":")[0]).set("minute", endTime.split(":")[1]).format("YYYY-MM-DD[T]HH:mm:ss.SSSZ")
+            }
+
 
             axios.post("https://localhost:8443/api/event", {
                 content: html,

@@ -6,6 +6,8 @@ import ReactPaginate from "react-paginate";
 import axios from "axios";
 import {Link, useNavigate} from "react-router-dom";
 import HomeHeader from "./HomeHeader";
+import FilterAndSearchBar from "./FilterAndSearchBar";
+import EventsPerPage from "./EventsPerPage";
 
 
 const Home = () => {
@@ -15,16 +17,14 @@ const Home = () => {
     const [totalPages, setTotalPages] = useState(0)
     const [eventsPerPage, setEventsPerPage] = useState(3)
     const [events, setEvents] = useState([])
+    const [sort,setSort] = useState("")
+    const [search, setSearch] =useState("")
     let events2 = []
 
 
     useEffect(() => {
-        axios.get("https://localhost:8443/api/event",).then((res) => {
-            const data = res.data.sort((a, b) => {
-                if (a.createdDate > b.createdDate) {
-                    return -1
-                }
-            })
+        axios.get("https://localhost:8443/api/event",{params: {sort: sort,search: search.toLowerCase()}}).then((res) => {
+            const data = res.data
             events2 = data
             setEvents(data)
 
@@ -36,7 +36,7 @@ const Home = () => {
         })
 
 
-    }, []);
+    }, [sort,search]);
 
     const startIndex = currentPage * eventsPerPage
     const endIndex = startIndex + eventsPerPage
@@ -50,7 +50,8 @@ const Home = () => {
         <div className="container main">
             <HomeHeader/>
             <div className="row pb-4 pt-5">
-                <div className="text-white offset-lg-7 col-lg-5 col-12 text-center text-md-end"
+                <div className="d-flex flex-column justify-content-center col-12 col-md-4"><FilterAndSearchBar setSort={setSort} setSearch={setSearch} search={search}></FilterAndSearchBar></div>
+                <div className="text-white text-center text-md-end col-12 col-md-8"
                      style={{fontFamily: "Outfit", fontSize: "64px"}}>Aktuelle Events
                 </div>
             </div>
@@ -58,11 +59,13 @@ const Home = () => {
             {
                 currentEvents.map(event => (
 
-                    <EventCard key={event.id} event={event}></EventCard>
+                    <EventCard key={event.id} event={event} button={true}></EventCard>
                 ))}
 
 
             <nav aria-label="Event page navigation" className="mt-5">
+                <div className="d-flex flex-row justify-content-between">
+                <EventsPerPage eventsPerPage={eventsPerPage} setEventsPerPage={setEventsPerPage} events={events} setTotalPages={setTotalPages}></EventsPerPage>
                 <ReactPaginate pageCount={totalPages}
                                onPageChange={handlePageChange}
                                forcePage={currentPage}
@@ -80,6 +83,8 @@ const Home = () => {
                                activeClassName="active color-pagination"
 
                 />
+                <div></div>
+                </div>
             </nav>
 
         </div>

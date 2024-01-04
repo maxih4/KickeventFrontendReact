@@ -15,6 +15,7 @@
     "dompurify": "^3.0.6",
     "react": "^18.2.0",
     "react-auth-kit": "2.8.2",
+    "react-bootstrap": "^2.9.2",
     "react-bootstrap-pagination-control": "^1.0.5",
     "react-dom": "^18.2.0",
     "react-lines-ellipsis": "^0.15.4",

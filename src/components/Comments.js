@@ -34,6 +34,7 @@ const Comments = (eventId) => {
             {isAuthenticated() &&
                 <CommentInput setToggleRefresh={setToggleRefresh}></CommentInput>
             }
+            {!isAuthenticated() && <p className={"pt-2 mt-1 fs-3 text-center"} >Bitte loggen Sie sich ein um das Event zu kommentieren</p>}
         </>
     );
 };

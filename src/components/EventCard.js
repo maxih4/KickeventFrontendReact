@@ -10,10 +10,6 @@ const ResponsiveLineEllipsis = responsiveHOC()(LinesEllipsis)
 
 
 function EventCard(props) {
-    const handleReflow = (e) => {
-        return e.clamped
-    }
-
     let date = new Date(props.event.startDate);
     return (
 
@@ -61,7 +57,11 @@ function EventCard(props) {
 
                         <br/>
                         <div className="d-flex flex-row flex-wrap justify-content-around"
-                             style={{fontFamily: "Inter", fontWeight: "Bold",textShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)"}}>
+                             style={{
+                                 fontFamily: "Inter",
+                                 fontWeight: "Bold",
+                                 textShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)"
+                             }}>
                             <div className="p-2">{props.event.streetName + " " + props.event.houseNumber}
                                 <br/>
                                 {props.event.city}
@@ -71,23 +71,23 @@ function EventCard(props) {
                                 fontWeight: "Bold",
                                 textShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)"
                             }}>{date.toLocaleString("de-DE", {hour: "2-digit"})}</p>
-                            <div className="p-2">
-                                <button className="" style={{
-                                    borderRadius: "61px",
-                                    backgroundColor: "#77BB41",
-                                    borderColor: "#77BB41",
-                                    width: "255px",
-                                    borderStyle: "solid",
-                                    boxShadow:"0px 8px 15px rgba(0, 0, 0, 0.35)"
-                                }}>
-                                    <Link to={"/event/" + props.event.id} style={{
-                                        textDecoration: "none",
-                                        color: "black",
-                                        fontFamily: "Outfit",
-                                        textShadow:"0px 4px 4px rgba(0, 0, 0, 0.25)",
-                                        fontSize: "27px"
-                                    }}> Jetzt
-                                        teilnehmen </Link></button>
+                            <div className="p-2">{props.button && <button className="" style={{
+                                borderRadius: "61px",
+                                backgroundColor: "#77BB41",
+                                borderColor: "#77BB41",
+                                width: "255px",
+                                borderStyle: "solid",
+                                boxShadow: "0px 8px 15px rgba(0, 0, 0, 0.35)"
+                            }}>
+                                <Link to={"/event/" + props.event.id} style={{
+                                    textDecoration: "none",
+                                    color: "black",
+                                    fontFamily: "Outfit",
+                                    textShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
+                                    fontSize: "27px"
+                                }}> Jetzt
+                                    teilnehmen </Link></button>}
+
                             </div>
                         </div>
 

@@ -14,7 +14,7 @@ function EventsPerPage({eventsPerPage,setEventsPerPage,setTotalPages,events}) {
     }
     return (
         <div className="me-4">
-        <DropdownButton id="dropdown-basic-button" title={page}>
+        <DropdownButton id="dropdown-basic-button " title={page} className={"button"}>
 
             {options.map((option)=>{
                 if(option!==eventsPerPage){

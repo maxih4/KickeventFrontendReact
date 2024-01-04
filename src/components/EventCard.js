@@ -10,7 +10,8 @@ const ResponsiveLineEllipsis = responsiveHOC()(LinesEllipsis)
 
 
 function EventCard(props) {
-    let date = new Date(props.event.startDate);
+    const date = new Date(props.event.startDate);
+    const createdDate = new Date(props.event.createdDate)
     return (
 
         <>
@@ -34,7 +35,9 @@ function EventCard(props) {
                             fontSize: "81px",
                             textShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)"
                         }}>{date.toLocaleString("de-De", {month: "short"})}</h2>
-
+                        <p style={{color: "black",                                 fontFamily: "Inter",
+                            fontWeight: "Bold",
+                            textShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)"}}>Erstellt am: {createdDate.toLocaleString("de-De")}</p>
                     </div>
 
 
@@ -64,7 +67,7 @@ function EventCard(props) {
                              }}>
                             <div className="p-2">{props.event.streetName + " " + props.event.houseNumber}
                                 <br/>
-                                {props.event.city}
+                                {props.event.postalCode + " " + props.event.city}
                             </div>
                             <p className="p-2 " style={{
                                 fontFamily: "Inter",
@@ -89,6 +92,7 @@ function EventCard(props) {
                                     teilnehmen </Link></button>}
 
                             </div>
+
                         </div>
 
                     </div>

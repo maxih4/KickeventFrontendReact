@@ -62,32 +62,52 @@ function SingleEvent(props) {
     !editState &&
 
 
-    <div className="container bg-light pb-4 mt-5 main rounded-4" >
-        <div className="mt-4 pt-3">
-            <EventCard event={event} button={false}></EventCard>
-        </div>
+            <div className="container bg-light pb-4 mt-5 main rounded-4">
+                <div className="mt-4 pt-3">
+                    <EventCard event={event} button={false}></EventCard>
+                </div>
 
-        <div className=" mt-4 pt-3">
+                <div className=" mt-4 pt-3">
 
 
+                    <h1>{event.title}</h1>
+                    <p className="lead" dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(event.content)}}></p>
+                    <hr className="my-4"/>
+                    <p style={{
+                        fontFamily: "Inter",
+                        fontWeight: "Bold",
+                        textShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)"
+                    }}>Beginn: {new Date(event.startDate).toLocaleString()} </p>
+                    <p style={{
+                        fontFamily: "Inter",
+                        fontWeight: "Bold",
+                        textShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)"
+                    }}>Ende: {new Date(event.endDate).toLocaleString()}</p>
+                    <hr className="my-4"/>
+                    <p style={{
+                        fontFamily: "Inter",
+                        fontWeight: "Bold",
+                        textShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)"
+                    }}>Straße und Hausnummer: {event.streetName + " " + event.houseNumber}
+                    </p>
+                    <p style={{
+                        fontFamily: "Inter",
+                        fontWeight: "Bold",
+                        textShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)"
+                    }}>PLZ und Ort: {event.postalCode + " " + event.city}
+                    </p>
+                </div>
+                {
+                    (owner || admin) && <button onClick={deleteEvent}>Event löschen</button>
+                }
+                {
+                    (owner || admin) && <button onClick={editEvent}>Event editieren</button>
+                }
+                <hr className="my-4"/>
+                <Comments id={event.id}></Comments>
 
-            <h1>{event.title}</h1>
-            <p className="lead" dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(event.content)}}></p>
-
-            <p>StartDatum: {new Date(event.startDate).toLocaleString()} </p>
-            <p>Enddate: {new Date(event.endDate).toLocaleString()}</p>
-        </div>
-        {
-            (owner || admin) && <button onClick={deleteEvent}>Event löschen</button>
+            </div>
         }
-        {
-            (owner || admin) && <button onClick={editEvent}>Event editieren</button>
-        }
-        <hr className="my-4"/>
-        <Comments id={event.id}></Comments>
-
-    </div>
-}
 
     {editState &&
         <EventEditor title={event.title} html={event.content} streetName={event.streetName} houseNumber={event.houseNumber} postalCode={event.postalCode} city={event.city} date={dayjs(event.startDate)} startTime={dayjs(event.startDate)} endTime={dayjs(event.endDate) } mode="update" eventId={event.id} setEditState={setEditState} setToggleRefresh={setToggleRefresh}></EventEditor>

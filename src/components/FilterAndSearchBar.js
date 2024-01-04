@@ -16,7 +16,7 @@ function searchfunction(searchValue){
 
     return (
         <div className="d-flex flex-row justify-content-around">
-            <DropdownButton autoClose={"outside"} id="dropdown-basic-button" title={suche}>
+            <DropdownButton autoClose={"outside"} id="dropdown-basic-button" title={suche} className="button">
 
                 <div className="dropdown-item d-flex flex-row" onKeyDown={(e)=>{if(e.key==="Enter"){searchfunction(searchValue)}}}>
                     <Form.Control
@@ -26,11 +26,11 @@ function searchfunction(searchValue){
                         onChange={(e) => setSearchValue(e.target.value)}
                         value={searchValue}
 
-                    /><button className="btn btn-primary" type="submit" onClick={()=>searchfunction(searchValue)} ><i className="bi bi-search fs-4"></i></button>
+                    /><button className="btn btn-primary buttonSearch" type="submit" onClick={()=>searchfunction(searchValue)} ><i className="bi bi-search fs-4"></i></button>
                 </div>
             </DropdownButton>
 
-            <DropdownButton id="dropdown-basic-button" title={filter}>
+            <DropdownButton id="dropdown-basic-button" title={filter} className="button rounded-pill">
 
                 <Dropdown.Item onClick={() => setSort("startDate,asc")}><i
                     className="bi bi-sort-down-alt fs-4"></i> Event

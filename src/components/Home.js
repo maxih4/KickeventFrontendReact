@@ -15,7 +15,7 @@ const Home = () => {
     const navigate = useNavigate()
     const [currentPage, setCurrentPage] = useState(0)
     const [totalPages, setTotalPages] = useState(0)
-    const [eventsPerPage, setEventsPerPage] = useState(3)
+    const [eventsPerPage, setEventsPerPage] = useState(10)
     const [events, setEvents] = useState([])
     const [sort,setSort] = useState("")
     const [search, setSearch] =useState("")

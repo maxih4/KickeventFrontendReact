@@ -79,6 +79,11 @@ button:hover{
     color:black;
 }
 
+.dropdown-item.active, .dropdown-item:active {
+        color:black !important;
+     background-color: white!important;
+}
+
 
 
 

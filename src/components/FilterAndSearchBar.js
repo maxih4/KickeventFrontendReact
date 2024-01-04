@@ -4,21 +4,27 @@ import DropdownButton from 'react-bootstrap/DropdownButton';
 import Form from 'react-bootstrap/Form';
 
 
-function FilterAndSearchBar({setSort,setSearch,search}) {
+function FilterAndSearchBar({setSort, setSearch, search}) {
 
     const suche = <><i className="bi bi-search m-1"></i>Suchen</>
     const filter = <><i className="bi bi-arrow-down-up m-1"></i>Sortieren</>
     const [searchValue, setSearchValue] = useState("")
+    const [showState, setShowState] = useState(false)
 
-function searchfunction(searchValue){
+    function searchfunction(searchValue) {
         setSearch(searchValue)
+        setShowState(false)
     }
 
     return (
         <div className="d-flex flex-row justify-content-around">
-            <DropdownButton autoClose={"outside"} id="dropdown-basic-button" title={suche} className="button">
+            <DropdownButton autoClose={"outside"} id="dropdown-basic-button" title={suche} className="button"
+                            onClick={(e) => {
 
-                <div className="dropdown-item d-flex flex-row" onKeyDown={(e)=>{if(e.key==="Enter"){searchfunction(searchValue)}}}>
+                                if (e.target.toLocaleString().includes("Button")) setShowState(!showState)
+                            }} show={showState}>
+
+                <div className="dropdown-item d-flex flex-row" >
                     <Form.Control
                         autoFocus
                         className="mx-3 my-2 w-auto"
@@ -26,7 +32,9 @@ function searchfunction(searchValue){
                         onChange={(e) => setSearchValue(e.target.value)}
                         value={searchValue}
 
-                    /><button className="btn btn-primary buttonSearch" type="submit" onClick={()=>searchfunction(searchValue)} ><i className="bi bi-search fs-4"></i></button>
+                    />
+                    <button className="btn btn-primary buttonSearch" type="submit"
+                            onClick={() => searchfunction(searchValue)}><i className="bi bi-search fs-4"></i></button>
                 </div>
             </DropdownButton>
 

@@ -8,6 +8,7 @@ import {Link, useNavigate} from "react-router-dom";
 import HomeHeader from "./HomeHeader";
 import FilterAndSearchBar from "./FilterAndSearchBar";
 import EventsPerPage from "./EventsPerPage";
+import Error from "./Error";
 
 
 const Home = () => {
@@ -61,6 +62,7 @@ const Home = () => {
 
                     <EventCard key={event.id} event={event} button={true}></EventCard>
                 ))}
+            {currentEvents.length<1&& search.length>0 && <Error></Error>}
 
 
             <nav aria-label="Event page navigation" className="mt-5">

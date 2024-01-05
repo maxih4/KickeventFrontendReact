@@ -1,5 +1,5 @@
 import React from 'react'
-import {RequireAuth, useIsAuthenticated} from 'react-auth-kit'
+import {useIsAuthenticated} from 'react-auth-kit'
 import {BrowserRouter, Navigate, Route, Routes} from 'react-router-dom'
 import Home from '../components/Home'
 import Login from '../components/Login'
@@ -8,9 +8,6 @@ import SingleEvent from "../components/SingleEvent";
 import Navbar from "../components/Navbar";
 import Register from "../components/Register";
 import EventEditor from "../components/EventEditor";
-import Footer from "../components/Footer";
-
-
 
 
 const RoutesComponent = () => {

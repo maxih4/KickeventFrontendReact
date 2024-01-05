@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import Editor from 'react-simple-wysiwyg'
-import {Link, useParams} from "react-router-dom";
+import {useParams} from "react-router-dom";
 import axios from "axios";
 import {useAuthHeader} from "react-auth-kit";
 import DOMPurify from "dompurify";

@@ -23,7 +23,7 @@ const HomeHeader = () => {
                 <div className="col-lg-7 col-md-12 text-center text-md-start">
 
                     <Link to={"/createEvent"}>
-                        <SubmitButton size={"44px"} class={"ms-md-5 me-md-5"} text={"Event erstellen"}/></Link>
+                        <SubmitButton size={"35px"} class={"ms-md-2 me-md-2"} text={"Event erstellen"}/></Link>
                 </div>
             </div>
         </>

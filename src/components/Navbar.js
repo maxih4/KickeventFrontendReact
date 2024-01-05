@@ -10,16 +10,16 @@ function Navbar(props) {
     const signOut = useSignOut()
     const navigate = useNavigate()
     return (
-        <nav className="navbar navbar-expand navbar-light bg-white py-1">
+        <nav className="navbar navbar-expand navbar-light bg-white">
             <div className="container">
 
 
                     <Link to={"/"} className="navbar-brand " style={{
                         fontFamily: 'Sometype Mono',
-                        fontSize: "39px",
+                        fontSize: "30px",
                         textShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)"
                     }}><span className="d-none d-md-inline-block">KickEvent</span>
-                        <img src={logo} height="60px" alt="Kickevent Logo" className="">
+                        <img src={logo} height="40px" alt="Kickevent Logo" className="">
                         </img>
                     </Link>
 
@@ -34,11 +34,11 @@ function Navbar(props) {
                                             borderStyle: "solid",
                                             boxShadow: "0px 8px 15px rgba(0, 0, 0, 0.35)"
                                         }}>
-                                    <span className="ms-md-5 me-md-5" style={{
+                                    <span className="ms-md-2 me-md-2" style={{
                                         textDecoration: "none",
                                         color: "black",
                                         fontFamily: "Outfit",
-                                        fontSize: "25px",
+                                        fontSize: "20px",
                                         textShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)"
                                     }}>Login</span>
                                 </button>
@@ -51,11 +51,11 @@ function Navbar(props) {
                                     boxShadow: "0px 8px 15px rgba(0, 0, 0, 0.35)"
                                 }} onClick={() => navigate("/register")}>
                                     <span
-                                        className="ms-md-5 me-md-5" style={{
+                                        className="ms-md-2 me-md-2" style={{
                                         textDecoration: "none",
                                         color: "black",
                                         fontFamily: "Outfit",
-                                        fontSize: "25px",
+                                        fontSize: "20px",
                                         textShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)"
                                     }}>Registrieren</span>
                                 </button>
@@ -72,13 +72,13 @@ function Navbar(props) {
                                             borderStyle: "solid",
                                             boxShadow: "0px 8px 15px rgba(0, 0, 0, 0.35)"
                                         }}>
-                                    <span className="ms-md-5 me-md-5" style={{
+                                    <span className="ms-md-2 me-md-2" style={{
                                         textDecoration: "none",
                                         color: "black",
                                         fontFamily: "Outfit",
-                                        fontSize: "25px",
+                                        fontSize: "20px",
                                         textShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)"
-                                    }}>UserPanel</span>
+                                    }}><i className="bi bi-person-circle me-1"></i>UserPanel</span>
                                 </button>
                             </li>
                             <li className="nav-item px-2">
@@ -87,11 +87,11 @@ function Navbar(props) {
                                     borderColor: "#77BB41",
                                     borderStyle: "solid",
                                     fontFamily: "Outfit",
-                                    fontSize: "25px",
+                                    fontSize: "20px",
                                     boxShadow: "0px 8px 15px rgba(0, 0, 0, 0.35)"
                                 }} onClick={() => signOut()}>
-                                    <span className="ms-md-5 me-md-5"
-                                          style={{textShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)"}}>Logout</span>
+                                    <span className="ms-md-2 me-md-2"
+                                          style={{textShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)"}}><i className="bi bi-box-arrow-right me-1"></i>Logout</span>
                                 </button>
                             </li>
                         </ul>

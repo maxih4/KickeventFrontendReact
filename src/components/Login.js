@@ -15,8 +15,8 @@
  */
 import axios from "axios";
 import React, {useState} from 'react'
-import {useIsAuthenticated, useSignIn} from 'react-auth-kit'
-import {Navigate, useNavigate} from 'react-router-dom'
+import {useSignIn} from 'react-auth-kit'
+import {useNavigate} from 'react-router-dom'
 import SubmitButton from "./SubmitButton";
 
 
@@ -104,7 +104,7 @@ const Login = () => {
                         type={"password"} onChange={(e) => setFormData({...formData, password: e.target.value})}/>
                 </div>
                 <div className="d-flex flex-row justify-content-end">
-                    <SubmitButton size={"35px"} class={"ms-md-5 me-md-5"} text={"Login"}>
+                    <SubmitButton size={"20px"} class={"ms-md-5 me-md-5"} text={"Login"}>
 
                     </SubmitButton>
                 </div>

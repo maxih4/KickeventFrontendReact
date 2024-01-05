@@ -46,7 +46,7 @@ function FilterAndSearchBar({setSort, setSearch, search}) {
                     aufsteigend</Dropdown.Item>
                 <Dropdown.Item onClick={() => setSort("startDate,desc")}><i className="bi bi-sort-down fs-4"></i> Event
                     Datum absteigend</Dropdown.Item>
-                <Dropdown.Item onClick={() => setSort("createdDate,desc")}><i
+                <Dropdown.Item onClick={() => setSort("createdDate,asc")}><i
                     className="bi bi-sort-down-alt fs-4"></i> Erstellungs Datum
                     aufsteigend</Dropdown.Item>
                 <Dropdown.Item onClick={() => setSort("createdDate,desc")}><i

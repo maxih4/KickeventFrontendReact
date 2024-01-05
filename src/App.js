@@ -1,5 +1,3 @@
-
-
 import React from 'react';
 import {AuthProvider} from 'react-auth-kit'
 import RoutesComponent from './services/Routes';
@@ -10,6 +8,7 @@ import "./css/App.css"
 import Footer from "./components/Footer";
 
 function App() {
+
     return (
             <div className="app">
             <AuthProvider

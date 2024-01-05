@@ -1,7 +1,5 @@
 import React, {useEffect, useState} from 'react'
-import {useAuthHeader, useAuthUser, useIsAuthenticated, useSignOut} from 'react-auth-kit'
-
-import EventCard from "./EventCard";
+import {useAuthHeader, useAuthUser, useIsAuthenticated} from 'react-auth-kit'
 import axios from "axios";
 import AdminPanel from "./AdminPanel";
 

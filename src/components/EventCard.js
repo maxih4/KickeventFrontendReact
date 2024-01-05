@@ -1,5 +1,5 @@
 import React from 'react';
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import DOMPurify from "dompurify";
 
 import HTMLEllipsis from "react-lines-ellipsis/lib/html.modern.mjs";
@@ -12,6 +12,7 @@ const ResponsiveLineEllipsis = responsiveHOC()(LinesEllipsis)
 function EventCard(props) {
     const date = new Date(props.event.startDate);
     const createdDate = new Date(props.event.createdDate)
+    const navigate = useNavigate()
     return (
 
         <>
@@ -35,9 +36,11 @@ function EventCard(props) {
                             fontSize: "81px",
                             textShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)"
                         }}>{date.toLocaleString("de-De", {month: "short"})}</h2>
-                        <p style={{color: "black",                                 fontFamily: "Inter",
+                        <p style={{
+                            color: "black", fontFamily: "Inter",
                             fontWeight: "Bold",
-                            textShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)"}}>Erstellt am: {createdDate.toLocaleString("de-De")}</p>
+                            textShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)"
+                        }}>Erstellt am: {createdDate.toLocaleString("de-De")}</p>
                     </div>
 
 
@@ -74,7 +77,10 @@ function EventCard(props) {
                                 fontWeight: "Bold",
                                 textShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)"
                             }}>{date.toLocaleString("de-DE", {hour: "2-digit"})}</p>
-                            <div className="p-2">{props.button && <button className="" style={{
+                            <div className="p-2">
+                                {props.button &&
+
+                                    /*<button className="" style={{
                                 borderRadius: "61px",
                                 backgroundColor: "#77BB41",
                                 borderColor: "#77BB41",
@@ -89,7 +95,26 @@ function EventCard(props) {
                                     textShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
                                     fontSize: "27px"
                                 }}> Jetzt
-                                    teilnehmen </Link></button>}
+                                    teilnehmen </Link></button>
+                                    **/
+
+                                    <button onClick={() => navigate("/event/" + props.event.id)}
+                                            className="rounded-pill"
+                                            style={{
+                                                borderColor: "#77BB41",
+                                                borderStyle: "solid",
+                                                boxShadow: "0px 8px 15px rgba(0, 0, 0, 0.35)"
+                                            }}>
+                                    <span className="ms-md-2 me-md-2" style={{
+                                        textDecoration: "none",
+                                        color: "black",
+                                        fontFamily: "Outfit",
+                                        fontSize: "20px",
+                                        textShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)"
+                                    }}>Jetzt teilnehmen</span>
+                                    </button>
+                                }
+
 
                             </div>
 

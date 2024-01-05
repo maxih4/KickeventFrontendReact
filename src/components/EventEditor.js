@@ -1,15 +1,18 @@
 import React, {useState} from 'react';
 import Editor from "react-simple-wysiwyg";
-import {useNavigate, useParams} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import {useAuthHeader} from "react-auth-kit";
 import axios from "axios";
 import DOMPurify from "dompurify";
 import {DatePicker, TimePicker} from "antd";
 import dayjs from "dayjs";
+import {usePlacesWidget} from "react-google-autocomplete";
+
 
 const {RangePicker} = DatePicker;
 
 const EventEditor = (props) => {
+
     const [title, setTitle] = useState(props.title)
     const [html, setHtml] = useState(props.html);
     const [street, setStreet] = useState(props.streetName);
@@ -22,10 +25,14 @@ const EventEditor = (props) => {
     const navigate = useNavigate()
     const [startTime, setStartTime] = useState(props.startTime)
     const [endTime, setEndTime] = useState(props.endTime)
+    const [long,setLong] = useState(props.long)
+    const [lat, setLat] = useState(props.lat)
     const [date, setDate] = useState(props.date)
     const [mode, setMode] = useState(props.mode)
     const eventId = props.eventId
     const [dateEdited, setDateEdited] = useState(false)
+
+
 
     function onChangeHtml(e) {
         setHtml(DOMPurify.sanitize(e.target.value))
@@ -68,7 +75,52 @@ const EventEditor = (props) => {
         return current && current < new Date()
     };
 
+    function onMapSelected(place) {
 
+        setHouseNumber("")
+        setCity("")
+        setPostalCode("")
+        setStreet("")
+        setLat(place.geometry.location.lat().toString())
+        setLong(place.geometry.location.lng().toString())
+        console.log(lat)
+        console.log(long)
+        place.address_components.map((components) => {
+            switch (components.types[0]) {
+                case "street_number": {
+                    setHouseNumber(components.long_name)
+                    break;
+                }
+                case "route": {
+                    setStreet(components.short_name)
+                    break;
+                }
+                case "postal_code": {
+                    setPostalCode(components.long_name)
+                    break;
+                }
+                case "locality": {
+                    setCity(components.long_name)
+                    break;
+                }
+            }
+        })
+
+
+    }
+
+
+    const streetRef = usePlacesWidget({
+        apiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
+        onPlaceSelected: place => onMapSelected(place),
+        options: {
+            componentRestrictions: {country: "de"},
+            types: ["address"],
+            fields: ["address_components,geometry.location"]
+        },
+        libraries:["places"]
+
+    })
 
 
     const submitChanges = () => {
@@ -76,7 +128,7 @@ const EventEditor = (props) => {
         let endDate = ""
 
         if (mode === undefined) {
-            if(!(startTime===undefined)&&!(endTime===undefined)){
+            if (!(startTime === undefined) && !(endTime === undefined)) {
                 startDate = date.set("hour", startTime.split(":")[0]).set("minute", startTime.split(":")[1]).format("YYYY-MM-DD[T]HH:mm:ss.SSSZ")
                 endDate = date.set("hour", endTime.split(":")[0]).set("minute", endTime.split(":")[1]).format("YYYY-MM-DD[T]HH:mm:ss.SSSZ")
             }
@@ -90,7 +142,9 @@ const EventEditor = (props) => {
                 streetName: street,
                 houseNumber: houseNumber,
                 postalCode: postalCode,
-                city: city
+                city: city,
+                longitude:long.toString(),
+                latitude:lat.toString()
             }, {
                 headers: {
                     "Authorization": authHeader()
@@ -121,7 +175,9 @@ const EventEditor = (props) => {
                 streetName: street,
                 houseNumber: houseNumber,
                 postalCode: postalCode,
-                city: city
+                city: city,
+                longitude:long.toString(),
+                latitude:lat.toString()
             }, {
                 headers: {
                     "Authorization": authHeader()
@@ -159,24 +215,26 @@ const EventEditor = (props) => {
                 <br/>
                 <div className="d-flex flex-row justify-content-evenly mb-4 flex-wrap">
                     <div><label htmlFor="streetInput" className="form-label">Straße</label>
-                        <input type="text" className="form-control" id="streetInput" onChange={onChangeStreet}
-                               value={street}/>
+                        <input type="text" className="form-control" id="streetInput"
+                               value={street} ref={streetRef.ref} onChange={onChangeStreet}/>
                     </div>
                     <div><label htmlFor="houseNumberInput" className="form-label">Hausnummer</label>
-                        <input type="text" className="form-control" id="houseNumberInput" onChange={onChangeHouseNumber}
-                               value={houseNumber}/>
+                        <input type="text" className="form-control" id="houseNumberInput"
+                               value={houseNumber} onChange={onChangeHouseNumber}/>
 
                     </div>
                     <div><label htmlFor="postalCodeInput" className="form-label">PLZ</label>
-                        <input type="text" className="form-control" id="postalCodeInput" onChange={onChangePostalCode}
-                               value={postalCode}/>
+                        <input type="text" className="form-control" id="postalCodeInput"
+                               value={postalCode} onChange={onChangePostalCode}/>
                     </div>
                     <div><label htmlFor="cityInput" className="form-label">Ort</label>
-                        <input type="text" className="form-control" id="cityInput" onChange={onChangeCity}
-                               value={city}/>
+                        <input type="text" className="form-control" id="cityInput"
+                               value={city} onChange={onChangeCity}/>
 
                     </div>
                 </div>
+
+
                 <div className="d-flex flex-row justify-content-evenly mb-4 flex-wrap">
                     <div className="mb-2"> Datum:<br/>
                         <DatePicker id="datePicker" defaultValue={date} onChange={dateSelect} format="DD-MM-YYYY"

@@ -4,7 +4,7 @@ import React, {useEffect, useState} from 'react'
 import EventCard from "./EventCard";
 import ReactPaginate from "react-paginate";
 import axios from "axios";
-import {Link, useNavigate} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import HomeHeader from "./HomeHeader";
 import FilterAndSearchBar from "./FilterAndSearchBar";
 import EventsPerPage from "./EventsPerPage";

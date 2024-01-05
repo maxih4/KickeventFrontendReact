@@ -20,9 +20,6 @@ import axios from 'axios';
 import {createRefresh} from 'react-auth-kit'
 
 
-
-
-
 const refreshApi = createRefresh({
   interval: 5,
   refreshApiCallback: async (param) => {

@@ -9,8 +9,6 @@ import dayjs from "dayjs";
 import {usePlacesWidget} from "react-google-autocomplete";
 
 
-const {RangePicker} = DatePicker;
-
 const EventEditor = (props) => {
 
     const [title, setTitle] = useState(props.title)
@@ -25,13 +23,12 @@ const EventEditor = (props) => {
     const navigate = useNavigate()
     const [startTime, setStartTime] = useState(props.startTime)
     const [endTime, setEndTime] = useState(props.endTime)
-    const [long,setLong] = useState(props.long)
+    const [long, setLong] = useState(props.long)
     const [lat, setLat] = useState(props.lat)
     const [date, setDate] = useState(props.date)
-    const [mode, setMode] = useState(props.mode)
+    const mode = props.mode
     const eventId = props.eventId
     const [dateEdited, setDateEdited] = useState(false)
-
 
 
     function onChangeHtml(e) {
@@ -85,7 +82,8 @@ const EventEditor = (props) => {
         setLong(place.geometry.location.lng().toString())
         console.log(lat)
         console.log(long)
-        place.address_components.map((components) => {
+
+        place.address_components.forEach((components) => {
             switch (components.types[0]) {
                 case "street_number": {
                     setHouseNumber(components.long_name)
@@ -103,8 +101,11 @@ const EventEditor = (props) => {
                     setCity(components.long_name)
                     break;
                 }
-            }
-        })
+                default:{
+                    return;
+                }
+
+            }})
 
 
     }
@@ -118,7 +119,7 @@ const EventEditor = (props) => {
             types: ["address"],
             fields: ["address_components,geometry.location"]
         },
-        libraries:["places"]
+        libraries: ["places"]
 
     })
 
@@ -143,8 +144,8 @@ const EventEditor = (props) => {
                 houseNumber: houseNumber,
                 postalCode: postalCode,
                 city: city,
-                longitude:long.toString(),
-                latitude:lat.toString()
+                longitude: long.toString(),
+                latitude: lat.toString()
             }, {
                 headers: {
                     "Authorization": authHeader()
@@ -176,8 +177,8 @@ const EventEditor = (props) => {
                 houseNumber: houseNumber,
                 postalCode: postalCode,
                 city: city,
-                longitude:long.toString(),
-                latitude:lat.toString()
+                longitude: long.toString(),
+                latitude: lat.toString()
             }, {
                 headers: {
                     "Authorization": authHeader()

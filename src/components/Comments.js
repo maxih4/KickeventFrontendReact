@@ -22,7 +22,7 @@ const Comments = (eventId) => {
         }, (err) => {
             console.log(err)
         })
-    }, [toggleRefresh]);
+    }, [toggleRefresh,id]);
 
     return (
         <>

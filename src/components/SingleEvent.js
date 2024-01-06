@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {useLocation, useNavigate, useParams} from "react-router-dom"
+import { useNavigate, useParams} from "react-router-dom"
 import axios from "axios";
 import Comments from "./Comments";
 import DOMPurify from "dompurify";
@@ -12,7 +12,6 @@ import MapLocation from "./MapLocation";
 
 function SingleEvent(props) {
     const navigation = useNavigate()
-    const location = useLocation()
     const {id} = useParams()
     const [event, setEvent] = useState({
         title: "",
@@ -46,7 +45,7 @@ function SingleEvent(props) {
             }, (error) => {
                 console.log("Fehler bei der Anfrage " + error)
             })
-
+// eslint-disable-next-line react-hooks/exhaustive-deps
     }, [toggleRefresh]);
 
     const deleteEvent = () => {

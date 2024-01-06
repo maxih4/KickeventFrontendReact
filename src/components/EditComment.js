@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
 import Editor from "react-simple-wysiwyg";
-import {useParams} from "react-router-dom";
 import {useAuthHeader} from "react-auth-kit";
 import axios from "axios";
 import DOMPurify from "dompurify";
@@ -8,7 +7,6 @@ import DOMPurify from "dompurify";
 
 const EditComment = (props) => {
     const [html, setHtml] = useState(props.html);
-    const {id} = useParams()
     const authHeader = useAuthHeader()
 
     function onChange(e) {

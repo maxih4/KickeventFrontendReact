@@ -19,7 +19,7 @@ const AdminPanel = () => {
         },(err)=>{
             console.log(err)
         })
-
+// eslint-disable-next-line react-hooks/exhaustive-deps
     },[toggleRefresh]);
 
     return (

@@ -4,7 +4,7 @@ import React, {useEffect, useState} from 'react'
 import EventCard from "./EventCard";
 import ReactPaginate from "react-paginate";
 import axios from "axios";
-import {useNavigate} from "react-router-dom";
+
 import HomeHeader from "./HomeHeader";
 import FilterAndSearchBar from "./FilterAndSearchBar";
 import EventsPerPage from "./EventsPerPage";
@@ -13,30 +13,30 @@ import Error from "./Error";
 
 const Home = () => {
 
-    const navigate = useNavigate()
+
     const [currentPage, setCurrentPage] = useState(0)
     const [totalPages, setTotalPages] = useState(0)
     const [eventsPerPage, setEventsPerPage] = useState(10)
     const [events, setEvents] = useState([])
     const [sort,setSort] = useState("")
     const [search, setSearch] =useState("")
-    let events2 = []
+
 
 
     useEffect(() => {
         axios.get("https://localhost:8443/api/event",{params: {sort: sort,search: search.toLowerCase()}}).then((res) => {
             const data = res.data
-            events2 = data
+
             setEvents(data)
 
             console.log("events:" + events)
-            setTotalPages(Math.ceil(events2.length / eventsPerPage))
+            setTotalPages(Math.ceil(data.length / eventsPerPage))
 
         }, (err) => {
             console.log(err)
         })
 
-
+// eslint-disable-next-line react-hooks/exhaustive-deps
     }, [sort,search]);
 
     const startIndex = currentPage * eventsPerPage

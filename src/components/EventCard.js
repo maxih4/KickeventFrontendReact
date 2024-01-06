@@ -1,5 +1,5 @@
 import React from 'react';
-import {Link, useNavigate} from "react-router-dom";
+import { useNavigate} from "react-router-dom";
 import DOMPurify from "dompurify";
 
 import HTMLEllipsis from "react-lines-ellipsis/lib/html.modern.mjs";

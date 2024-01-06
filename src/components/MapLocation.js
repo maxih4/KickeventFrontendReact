@@ -1,4 +1,4 @@
-import React, {memo, useCallback, useState} from 'react'
+import React, {memo, useCallback} from 'react'
 import {GoogleMap, MarkerF, useJsApiLoader} from '@react-google-maps/api';
 
 
@@ -22,8 +22,8 @@ function MyComponent(props) {
     const center={
         lat: props.latitude,lng:props.longitude
     }
-    console.log(center)
-    const [map, setMap] = useState(null)
+
+
 
     const onLoad = useCallback(function callback(map) {
         // This is just an example of getting and using the map instance!!! don't just blindly copy!
@@ -31,7 +31,7 @@ function MyComponent(props) {
     }, [])
 
     const onUnmount = useCallback(function callback(map) {
-        setMap(null)
+
     }, [])
 
     return isLoaded&&center.lat !=null && center.lat!== 0&& center.lng!== 0 &&center.lng!=null ? (

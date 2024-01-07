@@ -38,7 +38,7 @@ function SingleEvent(props) {
 
     useEffect(() => {
         console.log()
-        axios.get("https://localhost:8443/api/event/" + id)
+        axios.get(process.env.REACT_BACKEND_URL+"/api/event/" + id)
             .then((res) => {
                 setEvent(res.data)
 
@@ -49,7 +49,7 @@ function SingleEvent(props) {
     }, [toggleRefresh]);
 
     const deleteEvent = () => {
-        axios.delete("https://localhost:8443/api/event/" + event.id, {
+        axios.delete(process.env.REACT_BACKEND_URL+"/api/event/" + event.id, {
             headers: {
                 "Authorization": authHeader()
             }

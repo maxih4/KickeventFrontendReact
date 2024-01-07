@@ -16,7 +16,7 @@ const Login = () => {
         e.preventDefault()
         setSuccess(false)
         setError(false)
-        axios.post("https://localhost:8443/register", JSON.stringify(formData), {
+        axios.post(process.env.REACT_BACKEND_URL+"/register", JSON.stringify(formData), {
             headers: {
                 'Content-Type': 'application/json'
             }

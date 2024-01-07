@@ -24,7 +24,7 @@ const Home = () => {
 
 
     useEffect(() => {
-        axios.get("https://localhost:8443/api/event",{params: {sort: sort,search: search.toLowerCase()}}).then((res) => {
+        axios.get(process.env.REACT_BACKEND_URL+"/api/event",{params: {sort: sort,search: search.toLowerCase()}}).then((res) => {
             const data = res.data
 
             setEvents(data)

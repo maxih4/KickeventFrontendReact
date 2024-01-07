@@ -9,7 +9,7 @@ const AdminPanel = () => {
     const [toggleRefresh,setToggleRefresh] = useState(false)
 
     useEffect(() => {
-        axios.get(process.env.REACT_BACKEND_URL+"/user/",{
+        axios.get(process.env.REACT_APP_BACKEND_URL+"/user/",{
             headers:{
                 "Authorization" : authHeader()
             }

@@ -24,7 +24,7 @@ const Home = () => {
 
 
     useEffect(() => {
-        axios.get(process.env.REACT_BACKEND_URL+"/api/event",{params: {sort: sort,search: search.toLowerCase()}}).then((res) => {
+        axios.get(process.env.REACT_APP_BACKEND_URL+"/api/event",{params: {sort: sort,search: search.toLowerCase()}}).then((res) => {
             const data = res.data
 
             setEvents(data)

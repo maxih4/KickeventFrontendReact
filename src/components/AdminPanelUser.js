@@ -6,7 +6,7 @@ const AdminPanelUser = (props) => {
     const authHeader=useAuthHeader()
     const authUser = useAuthUser()
     function deleteUser(){
-        axios.delete(process.env.REACT_BACKEND_URL+"/user/" + props.user.id, {
+        axios.delete(process.env.REACT_APP_BACKEND_URL+"/user/" + props.user.id, {
             headers: {
                 "Authorization": authHeader()
             }

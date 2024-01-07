@@ -16,7 +16,7 @@ const Comments = (eventId) => {
 
 
     useEffect(() => {
-        axios.get(process.env.REACT_BACKEND_URL+"/api/event/" + id + "/comment",).then((res) => {
+        axios.get(process.env.REACT_APP_BACKEND_URL+"/api/event/" + id + "/comment",).then((res) => {
             setComment(res.data)
 
         }, (err) => {

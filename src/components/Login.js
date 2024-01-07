@@ -32,6 +32,7 @@ const Login = () => {
 
     const loginHandler = (e) => {
         console.log("Backend URL: " + process.env.REACT_BACKEND_URL)
+        console.log("Maps APi Key: " + process.env.REACT_APP_GOOGLE_MAPS_API_KEY)
         setError(false)
         e.preventDefault()
         axios.post(process.env.REACT_BACKEND_URL+"/login", JSON.stringify(formData), {

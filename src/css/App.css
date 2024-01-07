@@ -103,7 +103,9 @@ button:hover {
     }
 }
 
-
+.ant-spin-dot-item{
+    background-color: #77BB41 !important;
+}
 
 
 

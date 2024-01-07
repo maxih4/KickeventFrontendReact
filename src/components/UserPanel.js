@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react'
 import {useAuthHeader, useAuthUser, useIsAuthenticated} from 'react-auth-kit'
 import axios from "axios";
 import AdminPanel from "./AdminPanel";
+import Loading from "./Loading";
 
 
 const UserPanel = () => {
@@ -14,6 +15,7 @@ const UserPanel = () => {
     if (isAuthenticated()) {
         admin = authUser().roles.some((e) => e.name === "ADMIN")
     }
+    const [loading,setLoading] = useState(true)
 
 
     useEffect(() => {
@@ -22,9 +24,11 @@ const UserPanel = () => {
                 "Authorization": authHeader()
             }
         }).then((res) => {
+            setLoading(false)
             setUserInfo(res.data)
 
         }, (err) => {
+            setLoading(false)
             console.log(err)
         })
 // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -35,10 +39,12 @@ const UserPanel = () => {
             <p>{`Hello ${authUser().userName}`} with ID: {authUser().userId}</p>
             <p>Folgende Rollen besitzt du:</p>
             <br/>
+            {loading&&<Loading></Loading>}
             <ul>
-                {userInfo.roles.map((role) => {
+                {!loading&&userInfo.roles.map((role) => {
                     return <li key={role}>{role.name} </li>
                 })}
+
 
             </ul>
 

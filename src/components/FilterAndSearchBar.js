@@ -4,7 +4,7 @@ import DropdownButton from 'react-bootstrap/DropdownButton';
 import Form from 'react-bootstrap/Form';
 
 
-function FilterAndSearchBar({setSort, setSearch, search}) {
+function FilterAndSearchBar({setSort, setSearch, search,setLoading}) {
 
     const suche = <><i className="bi bi-search m-1"></i>Suchen</>
     const filter = <><i className="bi bi-arrow-down-up m-1"></i>Sortieren</>
@@ -14,6 +14,7 @@ function FilterAndSearchBar({setSort, setSearch, search}) {
     function searchfunction(searchValue) {
         setSearch(searchValue)
         setShowState(false)
+        setLoading(true)
     }
 
     return (

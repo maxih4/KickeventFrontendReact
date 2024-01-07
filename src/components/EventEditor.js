@@ -144,8 +144,8 @@ const EventEditor = (props) => {
                 houseNumber: houseNumber,
                 postalCode: postalCode,
                 city: city,
-                longitude: long.toString(),
-                latitude: lat.toString()
+                longitude: long,
+                latitude: lat
             }, {
                 headers: {
                     "Authorization": authHeader()
@@ -177,8 +177,8 @@ const EventEditor = (props) => {
                 houseNumber: houseNumber,
                 postalCode: postalCode,
                 city: city,
-                longitude: long.toString(),
-                latitude: lat.toString()
+                longitude: long,
+                latitude: lat
             }, {
                 headers: {
                     "Authorization": authHeader()

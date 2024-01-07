@@ -8,6 +8,7 @@ import EventEditor from "./EventEditor";
 import dayjs from "dayjs";
 import EventCard from "./EventCard";
 import MapLocation from "./MapLocation";
+import Loading from "./Loading";
 
 
 function SingleEvent(props) {
@@ -34,12 +35,14 @@ function SingleEvent(props) {
     }
     const [editState, setEditState] = useState(false)
     const [toggleRefresh, setToggleRefresh] = useState(false)
+    const [loading,setLoading] =useState(true)
 
 
     useEffect(() => {
         console.log()
         axios.get(process.env.REACT_APP_BACKEND_URL+"/api/event/" + id)
             .then((res) => {
+                setLoading(false)
                 setEvent(res.data)
 
             }, (error) => {
@@ -68,7 +71,7 @@ function SingleEvent(props) {
     return (
         <>
             {
-                !editState &&
+                !editState && !loading &&
 
 
                 <div className="container bg-light pb-4 mt-5 main rounded-4">
@@ -127,7 +130,7 @@ function SingleEvent(props) {
             }
 
             {
-                editState &&
+                editState && !loading &&
                 <EventEditor title={event.title} html={event.content} streetName={event.streetName}
                              houseNumber={event.houseNumber}
                              postalCode={event.postalCode} city={event.city} date={dayjs(event.startDate)}
@@ -139,6 +142,7 @@ function SingleEvent(props) {
 
 
             }
+            {loading && <Loading></Loading>}
         </>
 
 

@@ -9,6 +9,7 @@ import HomeHeader from "./HomeHeader";
 import FilterAndSearchBar from "./FilterAndSearchBar";
 import EventsPerPage from "./EventsPerPage";
 import Error from "./Error";
+import Loading from "./Loading";
 
 
 const Home = () => {
@@ -18,13 +19,19 @@ const Home = () => {
     const [totalPages, setTotalPages] = useState(0)
     const [eventsPerPage, setEventsPerPage] = useState(10)
     const [events, setEvents] = useState([])
-    const [sort,setSort] = useState("")
-    const [search, setSearch] =useState("")
-
+    const [sort, setSort] = useState("")
+    const [search, setSearch] = useState("")
+    const [loading, setLoading] = useState(true)
 
 
     useEffect(() => {
-        axios.get(process.env.REACT_APP_BACKEND_URL+"/api/event",{params: {sort: sort,search: search.toLowerCase()}}).then((res) => {
+        axios.get(process.env.REACT_APP_BACKEND_URL + "/api/event", {
+            params: {
+                sort: sort,
+                search: search.toLowerCase()
+            }
+        }).then((res) => {
+            setLoading(false)
             const data = res.data
 
             setEvents(data)
@@ -33,11 +40,12 @@ const Home = () => {
             setTotalPages(Math.ceil(data.length / eventsPerPage))
 
         }, (err) => {
+            setLoading(false)
             console.log(err)
         })
 
 // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [sort,search]);
+    }, [sort, search]);
 
     const startIndex = currentPage * eventsPerPage
     const endIndex = startIndex + eventsPerPage
@@ -51,41 +59,47 @@ const Home = () => {
         <div className="container main">
             <HomeHeader/>
             <div className="row pb-4 pt-5">
-                <div className="d-flex flex-column justify-content-center col-12 col-md-4"><FilterAndSearchBar setSort={setSort} setSearch={setSearch} search={search}></FilterAndSearchBar></div>
+                <div className="d-flex flex-column justify-content-center col-12 col-md-4"><FilterAndSearchBar
+                    setLoading={setLoading} setSort={setSort} setSearch={setSearch} search={search}></FilterAndSearchBar></div>
                 <div className="text-white text-center text-md-end col-12 col-md-8"
                      style={{fontFamily: "Outfit", fontSize: "64px"}}>Aktuelle Events
                 </div>
             </div>
+            {loading &&
+<Loading></Loading>
 
-            {
+
+            }
+            {!loading &&
                 currentEvents.map(event => (
 
                     <EventCard key={event.id} event={event} button={true}></EventCard>
                 ))}
-            {currentEvents.length<1&& search.length>0 && <Error></Error>}
+            {currentEvents.length < 1 && search.length > 0 && <Error></Error>}
 
 
             <nav aria-label="Event page navigation" className="mt-5">
                 <div className="d-flex flex-row justify-content-between">
-                <EventsPerPage eventsPerPage={eventsPerPage} setEventsPerPage={setEventsPerPage} events={events} setTotalPages={setTotalPages}></EventsPerPage>
-                <ReactPaginate pageCount={totalPages}
-                               onPageChange={handlePageChange}
-                               forcePage={currentPage}
-                               previousLabel={"<<"}
-                               nextLabel={">>"}
-                               breakClassName="page-item"
-                               breakLinkClassName="page-link"
-                               containerClassName="pagination justify-content-center"
-                               pageClassName="page-item"
-                               pageLinkClassName="page-link"
-                               previousClassName="page-item"
-                               previousLinkClassName="page-link"
-                               nextClassName="page-item"
-                               nextLinkClassName="page-link"
-                               activeClassName="active color-pagination"
+                    <EventsPerPage eventsPerPage={eventsPerPage} setEventsPerPage={setEventsPerPage} events={events}
+                                   setTotalPages={setTotalPages}></EventsPerPage>
+                    <ReactPaginate pageCount={totalPages}
+                                   onPageChange={handlePageChange}
+                                   forcePage={currentPage}
+                                   previousLabel={"<<"}
+                                   nextLabel={">>"}
+                                   breakClassName="page-item"
+                                   breakLinkClassName="page-link"
+                                   containerClassName="pagination justify-content-center"
+                                   pageClassName="page-item"
+                                   pageLinkClassName="page-link"
+                                   previousClassName="page-item"
+                                   previousLinkClassName="page-link"
+                                   nextClassName="page-item"
+                                   nextLinkClassName="page-link"
+                                   activeClassName="active color-pagination"
 
-                />
-                <div></div>
+                    />
+                    <div></div>
                 </div>
             </nav>
 

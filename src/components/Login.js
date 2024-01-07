@@ -18,6 +18,7 @@ import React, {useState} from 'react'
 import {useSignIn} from 'react-auth-kit'
 import {useNavigate} from 'react-router-dom'
 import SubmitButton from "./SubmitButton";
+import Loading from "./Loading";
 
 
 const Login = () => {
@@ -28,10 +29,10 @@ const Login = () => {
 
     const [error, setError] = useState(false)
     const [errorMessage, setErrorMessage] = useState("")
-
+    const [loading,setLoading] =useState(false)
 
     const loginHandler = (e) => {
-
+        setLoading(true)
         setError(false)
         e.preventDefault()
         axios.post(process.env.REACT_APP_BACKEND_URL+"/login", JSON.stringify(formData), {
@@ -39,6 +40,7 @@ const Login = () => {
                 'Content-Type': 'application/json'
             }
         }).then((res) => {
+            setLoading(false)
             if (res.status === 200) {
 
                 if (signIn(
@@ -59,6 +61,7 @@ const Login = () => {
                 }
             }
         }, (err) => {
+            setLoading(false)
             if (err.response.status === 401) {
                 setErrorMessage("Daten nicht bekannt")
             } else {
@@ -84,7 +87,7 @@ const Login = () => {
                     {errorMessage}
                 </div>}
             <form onSubmit={loginHandler} className="m-5 bg-light p-5 pt-2 pb-4 rounded-4">
-                <h3 style={{fontFamily: "Outfit", fontSize: "45px"}} className="pb-2">Login</h3>
+                <h3 style={{fontFamily: "Outfit", fontSize: "35px"}} className="pb-2">Login</h3>
                 <div className="form-group pb-3">
                     <label htmlFor="usernameInput" className="pb-3"
                            style={{fontFamily: "Poppins", fontSize: "24px"}}>Username</label>
@@ -104,9 +107,11 @@ const Login = () => {
                         type={"password"} onChange={(e) => setFormData({...formData, password: e.target.value})}/>
                 </div>
                 <div className="d-flex flex-row justify-content-end">
-                    <SubmitButton size={"20px"} class={"ms-md-5 me-md-5"} text={"Login"}>
+                    {!loading &&                     <SubmitButton size={"20px"} class={"ms-md-5 me-md-5"} text={"Login"}>
 
-                    </SubmitButton>
+                    </SubmitButton>}
+                    {loading && <Loading></Loading>}
+
                 </div>
             </form>
         </div>

@@ -17,7 +17,7 @@ const UserPanel = () => {
 
 
     useEffect(() => {
-        axios.get(process.env.REACT_BACKEND_URL+"/user/" + authUser().userId, {
+        axios.get(process.env.REACT_APP_BACKEND_URL+"/user/" + authUser().userId, {
             headers: {
                 "Authorization": authHeader()
             }

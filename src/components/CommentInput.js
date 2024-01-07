@@ -15,7 +15,7 @@ const CommentInput = (props) => {
     }
 
     function submitComment() {
-        axios.post(process.env.REACT_BACKEND_URL+"/api/event/" + id + "/comment", {
+        axios.post(process.env.REACT_APP_BACKEND_URL+"/api/event/" + id + "/comment", {
             content: html
         }, {
             headers: {

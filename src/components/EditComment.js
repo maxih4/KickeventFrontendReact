@@ -14,7 +14,7 @@ const EditComment = (props) => {
     }
 
     const submitChanges = () => {
-        axios.put(process.env.REACT_BACKEND_URL+"api/comment/" + props.commentId, {
+        axios.put(process.env.REACT_APP_BACKEND_URL+"api/comment/" + props.commentId, {
             content: html
         }, {
             headers: {

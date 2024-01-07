@@ -135,7 +135,7 @@ const EventEditor = (props) => {
             }
 
 
-            axios.post(process.env.REACT_BACKEND_URL+"/api/event", {
+            axios.post(process.env.REACT_APP_BACKEND_URL+"/api/event", {
                 content: html,
                 title: title,
                 startDate: startDate,
@@ -168,7 +168,7 @@ const EventEditor = (props) => {
 
             }
 
-            axios.put(process.env.REACT_BACKEND_URL+"/api/event/" + eventId, {
+            axios.put(process.env.REACT_APP_BACKEND_URL+"/api/event/" + eventId, {
                 content: html,
                 title: title,
                 startDate: startDate,

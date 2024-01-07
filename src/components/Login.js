@@ -31,7 +31,7 @@ const Login = () => {
 
 
     const loginHandler = (e) => {
-
+        console.log("Backend URL: " + process.env.REACT_BACKEND_URL)
         setError(false)
         e.preventDefault()
         axios.post(process.env.REACT_BACKEND_URL+"/login", JSON.stringify(formData), {

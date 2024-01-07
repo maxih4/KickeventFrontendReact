@@ -17,7 +17,7 @@ const UserPanel = () => {
 
 
     useEffect(() => {
-        axios.get("https://localhost:8443/user/" + authUser().userId, {
+        axios.get(process.env.REACT_BACKEND_URL+"/user/" + authUser().userId, {
             headers: {
                 "Authorization": authHeader()
             }

@@ -32,7 +32,7 @@ function EventCard(props) {
     }
     const deleteComment = () => {
 
-        axios.delete("https://localhost:8443/api/comment/" + props.comment.id, {
+        axios.delete(process.env.REACT_BACKEND_URL+"/api/comment/" + props.comment.id, {
             headers: {
                 "Authorization": authHeader()
             }

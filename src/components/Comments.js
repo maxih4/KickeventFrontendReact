@@ -25,7 +25,7 @@ const Comments = (eventId) => {
     }, [toggleRefresh,id]);
 
     return (
-        <>
+        <><h3>Kommentare</h3>
             <div>
                 {comment.map((comment) => {
                     return <CommentCard key={comment.id} comment={comment} setToggleRefresh={setToggleRefresh}></CommentCard>

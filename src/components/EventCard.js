@@ -26,14 +26,14 @@ function EventCard(props) {
                         <br/>
                         <h2 style={{
                             fontFamily: "Outfit",
-                            fontSize: "80px",
+                            fontSize: "44px",
                             textShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)"
                         }}>{date.toLocaleString("de-De", {day: "numeric"}) + "."}</h2>
                         <br/>
                         <h2 style={{
                             fontFamily: "Outfit",
                             fontWeight: "bold",
-                            fontSize: "81px",
+                            fontSize: "44px",
                             textShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)"
                         }}>{date.toLocaleString("de-De", {month: "short"})}</h2>
                         <p style={{
@@ -47,7 +47,7 @@ function EventCard(props) {
                     <div className="card-body col-lg-10 col-md-8 text-center">
 
                         <h3 className="card-title"
-                            style={{fontFamily: "Outfit", fontSize: "64px"}}><ResponsiveLineEllipsis
+                            style={{fontFamily: "Outfit", fontSize: "44px"}}><ResponsiveLineEllipsis
                             text={props.event.title}>
 
 
@@ -56,7 +56,7 @@ function EventCard(props) {
 
                         <HTMLEllipsis
                             unsafeHTML={DOMPurify.sanitize(props.event.content)}
-                            maxLine='6'
+                            maxLine='3'
 
                             basedOn='letters'
                         />

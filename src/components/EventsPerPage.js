@@ -19,7 +19,7 @@ function EventsPerPage({eventsPerPage, setEventsPerPage, setTotalPages, events})
 
                 {options.map((option) => {
                     if (option !== eventsPerPage) {
-                        return <Dropdown.Item onClick={() => {
+                        return <Dropdown.Item key={option} onClick={() => {
                             handleChange(option)
                         }}>{option}</Dropdown.Item>
                     } else {

@@ -78,7 +78,7 @@ function SingleEvent(props) {
                     <div className="mt-4 pt-3">
                         <EventCard event={event} button={false}></EventCard>
                     </div>
-
+                    <hr className="my-4"/>
                     <div className=" mt-4 pt-3">
 
 

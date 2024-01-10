@@ -1,41 +1,27 @@
-/*
- * Copyright 2020 Arkadip Bhattacharya
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *         http://www.apache.org/licenses/LICENSE-2.0
- *
- *  Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+
 import axios from "axios";
 import React, {useState} from 'react'
 import {useSignIn} from 'react-auth-kit'
 import {useNavigate} from 'react-router-dom'
-import SubmitButton from "./SubmitButton";
 import Loading from "./Loading";
+import {Alert, Button, Checkbox, Form, Input, Space} from "antd";
 
 
 const Login = () => {
 
     const signIn = useSignIn()
     const navigate = useNavigate()
-    const [formData, setFormData] = useState({userName: "", password: ""})
+
 
     const [error, setError] = useState(false)
     const [errorMessage, setErrorMessage] = useState("")
-    const [loading,setLoading] =useState(false)
+    const [loading, setLoading] = useState(false)
 
-    const loginHandler = (e) => {
+    const loginHandler = (values) => {
         setLoading(true)
         setError(false)
-        e.preventDefault()
-        axios.post(process.env.REACT_APP_BACKEND_URL+"/login", JSON.stringify(formData), {
+
+        axios.post(process.env.REACT_APP_BACKEND_URL + "/login", JSON.stringify(values), {
             headers: {
                 'Content-Type': 'application/json'
             }
@@ -50,7 +36,7 @@ const Login = () => {
                         tokenType: res.data.type,
                         refreshToken: res.data.refreshToken,
                         refreshTokenExpireIn: Math.floor((new Date(res.data.expirationDateRefreshToken) - new Date()) / 1000 / 60),
-                        authState: {userName: formData.userName, userId: res.data.userId, roles: res.data.roles}
+                        authState: {userName: values.userName, userId: res.data.userId, roles: res.data.roles}
                     }
                 )) {
                     //Login successfull
@@ -78,43 +64,76 @@ const Login = () => {
 
     return (
 
-        <div className="container main">
-            <br/>
 
-            {error &&
+        <>                {error &&
 
-                <div className="alert alert-danger" role="alert">
-                    {errorMessage}
-                </div>}
-            <form onSubmit={loginHandler} className="m-5 bg-light p-5 pt-2 pb-4 rounded-4">
-                <h3 style={{fontFamily: "Outfit", fontSize: "35px"}} className="pb-2">Login</h3>
-                <div className="form-group pb-3">
-                    <label htmlFor="usernameInput" className="pb-3"
-                           style={{fontFamily: "Poppins", fontSize: "24px"}}>Username</label>
-                    <input
-                        className="form-control"
-                        id="usernameInput"
-                        placeholder="username"
-                        type={"userName"} onChange={(e) => setFormData({...formData, userName: e.target.value})}/>
-                </div>
-                <div className="form-group">
-                    <label htmlFor="passwordInput" className="pb-3"
-                           style={{fontFamily: "Poppins", fontSize: "24px"}}>Password</label>
-                    <input
-                        className="form-control"
-                        id="passwordInput"
-                        placeholder="password"
-                        type={"password"} onChange={(e) => setFormData({...formData, password: e.target.value})}/>
-                </div>
-                <div className="d-flex flex-row justify-content-end">
-                    {!loading &&                     <SubmitButton size={"20px"} class={"ms-md-5 me-md-5"} text={"Login"}>
+            <div className="container max-w-2xl"><Alert description={errorMessage} message="Fehler" type="error" showIcon/></div> }
+            <Form className="bg-background-900 container rounded text-text pb-2 max-w-2xl"
+                  name="basic"
 
-                    </SubmitButton>}
+                  initialValues={{
+                      remember: true,
+                  }}
+                  labelCol={{xs:{span:6,offset:0}}}
+                  wrapperCol={{xs:{span:12}}}
+
+                  onFinish={loginHandler}
+                  onFinishFailed={() => {
+                  }}
+                  autoComplete="off"
+            ><h1 className="text-center text-text"> Login </h1>
+
+
+                <Form.Item className={"m-2"}
+                    label={<div className="text-text">Username</div>}
+
+                    name="userName"
+                    rules={[
+                        {
+                            required: true,
+                            message: 'Please input your username!',
+                        },
+                    ]}
+
+                    style={{color: "red"}}
+
+                >
+                    <Input />
+                </Form.Item>
+
+                <Form.Item className={"m-2"}
+                    label={<div className="text-text">Password</div>}
+                    name="password"
+                    rules={[
+                        {
+                            required: true,
+                            message: 'Please input your password!',
+                        },
+                    ]}
+                >
+
+                        <Input.Password />
+                </Form.Item>
+
+
+                <Form.Item
+
+               className="flex flex-row justify-center" >
+                    {!loading && <button className="bg-none bg-inherit border-none p-0 outline-inherit" type="submit">
+                        <div
+                             className="select-none cursor-pointer relative rounded px-5 py-2.5 overflow-hidden group bg-primary-400 hover:bg-gradient-to-r hover:from-primary-400 hover:to-primary-500 text-text-900 hover:ring-2 hover:ring-offset-2 hover:ring-primary-400 transition-all ease-out duration-300 mr-1">
+                        <span
+                            className="absolute right-0 w-8 h-32 -mt-12 transition-all duration-1000 transform translate-x-12 bg-background opacity-10 rotate-12 group-hover:-translate-x-40 ease"></span>
+                            <span className="relative font-body">Login</span>
+                        </div>
+                    </button>
+
+                    }
                     {loading && <Loading></Loading>}
+                </Form.Item>
+            </Form>
 
-                </div>
-            </form>
-        </div>
+        </>
     )
 
 }

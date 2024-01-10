@@ -2,15 +2,15 @@ import React from 'react';
 import {AuthProvider} from 'react-auth-kit'
 import RoutesComponent from './services/Routes';
 import refreshApi from "./services/refreshApi";
-import "bootstrap/dist/css/bootstrap.min.css";
-import "bootstrap-icons/font/bootstrap-icons.css";
-import "./css/App.css"
+import "./css/App.scss"
 import Footer from "./components/Footer";
+import {ConfigProvider, theme} from "antd";
 
 function App() {
-
+    const { darkAlgorithm } = theme;
     return (
-            <div className="app">
+            <div className="app bg-background">
+                <ConfigProvider theme={{algorithm:darkAlgorithm}}>
             <AuthProvider
                 authName={"_auth"} authType={"cookie"}
                 refresh={refreshApi}
@@ -20,6 +20,7 @@ function App() {
                 <Footer/>
 
             </AuthProvider>
+                </ConfigProvider>
             </div>
     );
 }

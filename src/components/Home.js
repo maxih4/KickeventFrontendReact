@@ -2,22 +2,19 @@ import React, {useEffect, useState} from 'react'
 
 
 import EventCard from "./EventCard";
-import ReactPaginate from "react-paginate";
 import axios from "axios";
-
 import HomeHeader from "./HomeHeader";
 import FilterAndSearchBar from "./FilterAndSearchBar";
-import EventsPerPage from "./EventsPerPage";
 import Error from "./Error";
 import Loading from "./Loading";
+import {Divider, Pagination} from "antd";
 
 
 const Home = () => {
 
 
-    const [currentPage, setCurrentPage] = useState(0)
-    const [totalPages, setTotalPages] = useState(0)
-    const [eventsPerPage, setEventsPerPage] = useState(10)
+    const [currentPage, setCurrentPage] = useState(1)
+    const [eventsPerPage, setEventsPerPage] = useState(5)
     const [events, setEvents] = useState([])
     const [sort, setSort] = useState("")
     const [search, setSearch] = useState("")
@@ -32,13 +29,7 @@ const Home = () => {
             }
         }).then((res) => {
             setLoading(false)
-            const data = res.data
-
-            setEvents(data)
-
-            console.log("events:" + events)
-            setTotalPages(Math.ceil(data.length / eventsPerPage))
-
+            setEvents(res.data)
         }, (err) => {
             setLoading(false)
             console.log(err)
@@ -47,26 +38,35 @@ const Home = () => {
 // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [sort, search]);
 
-    const startIndex = currentPage * eventsPerPage
+    const startIndex = (currentPage - 1) * eventsPerPage
     const endIndex = startIndex + eventsPerPage
     const currentEvents = events.slice(startIndex, endIndex)
 
     const handlePageChange = (selectedPage) => {
-        setCurrentPage(selectedPage.selected)
+        console.log(selectedPage)
+        setCurrentPage(selectedPage)
     }
+    const onShowSizeChange = (current, pageSize) => {
+        setEventsPerPage(pageSize)
+        console.log(current, pageSize);
+    };
 
     return (
-        <div className="container main">
+        <div className="container">
             <HomeHeader/>
-            <div className="row pb-4 pt-5">
-                <div className="d-flex flex-column justify-content-center col-12 col-md-4"><FilterAndSearchBar
-                    setLoading={setLoading} setSort={setSort} setSearch={setSearch} search={search}></FilterAndSearchBar></div>
-                <div className="text-white text-center text-md-end col-12 col-md-8"
-                     style={{fontFamily: "Outfit", fontSize: "64px"}}>Aktuelle Events
+            <Divider className="bg-primary-100 w-full mt-5 m-0 opacity-50" orientationMargin=""/>
+            <div className="pb-4 pt-5">
+                <div className="flex md:flex-row flex-col justify-between "><FilterAndSearchBar
+                    setLoading={setLoading} setSort={setSort} setSearch={setSearch}
+                    search={search}></FilterAndSearchBar>
+                    <div
+                        className="text-text text-center md:text-end font-heading text-4xl order-first md:order-last pb-4 md:pb-0">Aktuelle
+                        Events
+                    </div>
                 </div>
             </div>
             {loading &&
-<Loading></Loading>
+                <Loading></Loading>
 
 
             }
@@ -77,7 +77,7 @@ const Home = () => {
                 ))}
             {currentEvents.length < 1 && search.length > 0 && <Error></Error>}
 
-
+            {/*
             <nav aria-label="Event page navigation" className="mt-5">
                 <div className="d-flex flex-row justify-content-between">
                     <EventsPerPage eventsPerPage={eventsPerPage} setEventsPerPage={setEventsPerPage} events={events}
@@ -101,7 +101,12 @@ const Home = () => {
                     />
                     <div></div>
                 </div>
-            </nav>
+            </nav>*/}
+            <div className="flex flex-row justify-center">
+                <Pagination showSizeChanger pageSizeOptions={[3, 5, 10, 20, 50]}
+                            onShowSizeChange={onShowSizeChange} current={currentPage} total={events.length}
+                            defaultPageSize={eventsPerPage} onChange={(page) => handlePageChange(page)}/>;
+            </div>
 
         </div>
     )

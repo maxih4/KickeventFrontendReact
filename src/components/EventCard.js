@@ -1,10 +1,17 @@
 import React from 'react';
-import { useNavigate} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import DOMPurify from "dompurify";
-
+import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined';
+import CalendarMonthOutlinedIcon from '@mui/icons-material/CalendarMonthOutlined';
 import HTMLEllipsis from "react-lines-ellipsis/lib/html.modern.mjs";
 import LinesEllipsis from "react-lines-ellipsis";
 import responsiveHOC from "react-lines-ellipsis/lib/responsiveHOC.modern.mjs";
+import {Card, Typography} from "antd";
+import AccessTimeIcon from '@mui/icons-material/AccessTime';
+import {EditOutlined, EllipsisOutlined, SettingOutlined} from "@ant-design/icons";
+
+const {Paragraph, Text} = Typography;
+
 
 const ResponsiveLineEllipsis = responsiveHOC()(LinesEllipsis)
 
@@ -14,14 +21,14 @@ function EventCard(props) {
     const createdDate = new Date(props.event.createdDate)
     const navigate = useNavigate()
     return (
-
+        /*
         <>
 
             <div className="card eventCard">
                 <div className="row g-0 row-cols-1 ">
 
                     <div className="text-center col-lg-2 col-md-4"
-                         style={{backgroundColor: "#77BB41", backgroundSize: "cover", color: "white"}}>
+                         style={{backgroundColor: "$primary", backgroundSize: "cover", color: "white"}}>
                         <br/>
                         <br/>
                         <h2 style={{
@@ -80,28 +87,11 @@ function EventCard(props) {
                             <div className="p-2">
                                 {props.button &&
 
-                                    /*<button className="" style={{
-                                borderRadius: "61px",
-                                backgroundColor: "#77BB41",
-                                borderColor: "#77BB41",
-                                width: "255px",
-                                borderStyle: "solid",
-                                boxShadow: "0px 8px 15px rgba(0, 0, 0, 0.35)"
-                            }}>
-                                <Link to={"/event/" + props.event.id} style={{
-                                    textDecoration: "none",
-                                    color: "black",
-                                    fontFamily: "Outfit",
-                                    textShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
-                                    fontSize: "27px"
-                                }}> Jetzt
-                                    teilnehmen </Link></button>
-                                    **/
 
                                     <button onClick={() => navigate("/event/" + props.event.id)}
                                             className="rounded-pill"
                                             style={{
-                                                borderColor: "#77BB41",
+                                                borderColor: "$primary",
                                                 borderStyle: "solid",
                                                 boxShadow: "0px 8px 15px rgba(0, 0, 0, 0.35)"
                                             }}>
@@ -125,6 +115,26 @@ function EventCard(props) {
             </div>
 
             <br/>
+            </>*/
+
+
+        <>
+            <Card hoverable onClick={() => navigate("/event/" + props.event.id)} title={<h2 className={"text-start"}>{props.event.title}</h2>} bordered={false} className="bg-primary-800 mb-7" actions={[
+                <div className="flex flex-row justify-center text-text-200 lg:text-xl" key="Location"> <LocationOnOutlinedIcon  /> <div>{props.event.city}</div></div>,
+                <div className="flex flex-row justify-center text-text-200 lg:text-xl" key="Calendar"> <CalendarMonthOutlinedIcon  /> <div>{date.toLocaleDateString("de-De",{  year: 'numeric',
+                    month: 'long',
+                    day: 'numeric',})}</div></div>,
+
+                <div className="flex flex-row justify-center text-text-200 lg:text-xl" key="time"> <AccessTimeIcon  /> <div>{date.toLocaleString("de-DE", {hour: "2-digit"})}</div></div>,
+            ]}><div className="text-text-200">
+                <HTMLEllipsis
+                    unsafeHTML={DOMPurify.sanitize(props.event.content)}
+                    maxLine='3'
+
+                    basedOn='words'
+
+                /></div>
+            </Card>
         </>
     );
 }

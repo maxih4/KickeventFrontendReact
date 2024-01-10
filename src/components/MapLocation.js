@@ -1,5 +1,6 @@
 import React, {memo, useCallback} from 'react'
 import {GoogleMap, MarkerF, useJsApiLoader} from '@react-google-maps/api';
+import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
 
 
 const containerStyle = {
@@ -49,12 +50,17 @@ function MyComponent(props) {
 
 
         </GoogleMap>
-            <div className="d-flex flex-row justify-content-center pt-4">
-                <button className="buttonSearch rounded-pill" onClick={() => window.open(url + center.lat + " " + center.lng, '_blank')}><i className="bi bi-geo-alt-fill me-1"></i>Route
-                    berechnen
+            <div className="flex flex-row justify-center pt-4">
+                <button className="bg-none bg-inherit border-none p-0 outline-inherit"
+                        onClick={() => window.open(url + center.lat + " " + center.lng, '_blank')}>
+                    <div
+                        className="inline-flex items-center justify-center h-10 px-8 py-0 text-xl font-semibold text-center text-text no-underline align-middle transition-all duration-300 ease-in-out bg-transparent border-2 border-white-500 border-solid rounded-full cursor-pointer select-none hover:text-primary-400 hover:border-primary-400 focus:shadow-xs focus:no-underline">
+                        <LocationOnOutlinedIcon/> Route berechnen
+                    </div>
                 </button>
             </div>
-            <hr className="my-4"/>
+
+
         </>
     ) : <></>
 }

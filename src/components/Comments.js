@@ -5,6 +5,7 @@ import CommentCard from "./CommentCard";
 import CommentInput from "./CommentInput";
 import {useIsAuthenticated} from "react-auth-kit";
 import axios from "axios";
+import MapLocation from "./MapLocation";
 
 
 const Comments = (eventId) => {
@@ -25,17 +26,24 @@ const Comments = (eventId) => {
     }, [toggleRefresh,id]);
 
     return (
-        <><h3>Kommentare</h3>
-            <div>
-                {comment.map((comment) => {
-                    return <CommentCard key={comment.id} comment={comment} setToggleRefresh={setToggleRefresh}></CommentCard>
-                })}
+        <>
+            <div className="container bg-primary-900 rounded-xl pl-1 pr-1 pt-0.5 pb-2 mt-4">
+                <h3 className="text-text font-heading pl-1 pr-1">Kommentare</h3>
+                <div className="m-3">{comment.map((comment) => {
+                    return <CommentCard key={comment.id} comment={comment}
+                                        setToggleRefresh={setToggleRefresh}></CommentCard>
+                })}</div>
             </div>
+
+            <div className="container bg-primary-900 rounded-xl pl-1 pr-1 pt-0.5 pb-2 mt-4">
             {isAuthenticated() &&
                 <CommentInput setToggleRefresh={setToggleRefresh}></CommentInput>
             }
-            {!isAuthenticated() && <p className={"pt-2 mt-1 fs-3 text-center"} >Bitte loggen Sie sich ein um das Event zu kommentieren</p>}
-        </>
+            {!isAuthenticated() &&
+                <h3 className="pt-2 mt-1 font-body text-text text-center mt-3">Bitte loggen Sie sich ein um das Event zu kommentieren</h3>}
+
+            </div>
+            </>
     );
 };
 

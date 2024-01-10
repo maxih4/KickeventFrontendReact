@@ -1,6 +1,4 @@
 import React from 'react';
-import DropdownButton from "react-bootstrap/DropdownButton";
-import Dropdown from "react-bootstrap/Dropdown";
 
 function EventsPerPage({eventsPerPage, setEventsPerPage, setTotalPages, events}) {
 
@@ -15,7 +13,7 @@ function EventsPerPage({eventsPerPage, setEventsPerPage, setTotalPages, events})
 
     return (
         <div className="me-4">
-            <DropdownButton id="dropdown-basic-button " title={page} className={"button"}>
+            {/*            <DropdownButton id="dropdown-basic-button " title={page} className={"button"}>
 
                 {options.map((option) => {
                     if (option !== eventsPerPage) {
@@ -28,7 +26,8 @@ function EventsPerPage({eventsPerPage, setEventsPerPage, setTotalPages, events})
                 })}
 
 
-            </DropdownButton></div>
+            </DropdownButton>*/}</div>
+
     );
 }
 

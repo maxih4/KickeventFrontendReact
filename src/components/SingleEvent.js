@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import { useNavigate, useParams} from "react-router-dom"
+import {useNavigate, useParams} from "react-router-dom"
 import axios from "axios";
 import Comments from "./Comments";
 import DOMPurify from "dompurify";
@@ -9,6 +9,10 @@ import dayjs from "dayjs";
 import EventCard from "./EventCard";
 import MapLocation from "./MapLocation";
 import Loading from "./Loading";
+import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
+import CalendarMonthOutlinedIcon from "@mui/icons-material/CalendarMonthOutlined";
+import AccessTimeIcon from "@mui/icons-material/AccessTime";
+import {Divider} from "antd";
 
 
 function SingleEvent(props) {
@@ -35,12 +39,12 @@ function SingleEvent(props) {
     }
     const [editState, setEditState] = useState(false)
     const [toggleRefresh, setToggleRefresh] = useState(false)
-    const [loading,setLoading] =useState(true)
+    const [loading, setLoading] = useState(true)
 
 
     useEffect(() => {
         console.log()
-        axios.get(process.env.REACT_APP_BACKEND_URL+"/api/event/" + id)
+        axios.get(process.env.REACT_APP_BACKEND_URL + "/api/event/" + id)
             .then((res) => {
                 setLoading(false)
                 setEvent(res.data)
@@ -52,7 +56,7 @@ function SingleEvent(props) {
     }, [toggleRefresh]);
 
     const deleteEvent = () => {
-        axios.delete(process.env.REACT_APP_BACKEND_URL+"/api/event/" + event.id, {
+        axios.delete(process.env.REACT_APP_BACKEND_URL + "/api/event/" + event.id, {
             headers: {
                 "Authorization": authHeader()
             }
@@ -70,7 +74,7 @@ function SingleEvent(props) {
 
     return (
         <>
-            {
+            {/*{
                 !editState && !loading &&
 
 
@@ -142,7 +146,51 @@ function SingleEvent(props) {
 
 
             }
-            {loading && <Loading></Loading>}
+            {loading && <Loading></Loading>}*/}
+
+            <div className="container bg-primary-900 rounded-xl pl-1 pr-1 pt-0.5 pb-2 ">
+                <h1 className="text-text font-heading pl-1 pr-1">
+                    {event.title}
+
+                </h1>
+                <div
+                    className="flex flex-row lg:border-3 lg:hover:border-secondary-300 lg:border-solid rounded-full lg:border-secondary-200 justify-evenly lg:m-2 lg:ml-3 lg:mr-3">
+                    <div className="flex flex-row justify-center text-secondary-200 font-heading m-2" key="Location">
+                        <LocationOnOutlinedIcon/>
+                        <div
+                            className="ps-1">{event.streetName + " " + event.houseNumber}, {event.postalCode + " " + event.city}</div>
+                    </div>
+                    <Divider type="vertical" className="h-6 -skew-x-12 bg-secondary-200 w-0.5 m-2 hidden lg:inline-block"></Divider>
+                    <div className="flex flex-row justify-center text-secondary-200 font-heading m-2" key="Calendar">
+                        <CalendarMonthOutlinedIcon/>
+                        <div className="ps-1">{new Date(event.startDate).toLocaleDateString("de-De", {
+                            year: 'numeric',
+                            month: 'long',
+                            day: 'numeric',
+                        })}</div>
+                    </div>
+                    <Divider type="vertical" className="h-6 -skew-x-12 bg-secondary-200 w-0.5 m-2 hidden lg:inline-block"></Divider>
+                    <div className="flex flex-row justify-center text-secondary-200 font-heading m-2" key="time">
+                        <AccessTimeIcon/>
+                        <div
+                            className="ps-1">{new Date(event.startDate).toLocaleString("de-DE", {hour: "2-digit"})} bis {new Date(event.endDate).toLocaleString("de-DE", {hour: "2-digit"})}</div>
+                    </div>
+
+
+                </div>
+            </div>
+            <div className="container bg-primary-900 rounded-xl pl-1 pr-1 pt-0.5 pb-2 mt-4">
+                <h3 className="text-text font-heading pl-1 pr-1">Über dieses Event</h3>
+                <p className="text-text-50 font-body m-3"
+                   dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(event.content)}}></p>
+            </div>
+
+            <div className="container bg-primary-900 rounded-xl pl-1 pr-1 pt-0.5 pb-2 mt-4">
+                <h3 className="text-text font-heading pl-1 pr-1">Standort</h3>
+                <div className="m-3"><MapLocation longitude={Number(event.longitude)}
+                             latitude={Number(event.latitude)}></MapLocation></div>
+            </div>
+            <Comments id={event.id}></Comments>
         </>
 
 

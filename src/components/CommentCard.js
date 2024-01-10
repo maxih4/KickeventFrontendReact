@@ -3,6 +3,7 @@ import DOMPurify from 'dompurify'
 import {useAuthHeader, useAuthUser, useIsAuthenticated} from "react-auth-kit";
 import EditComment from "./EditComment";
 import axios from "axios";
+import {Card} from "antd";
 
 
 function EventCard(props) {
@@ -46,7 +47,7 @@ function EventCard(props) {
     return (
 
         <>
-            <div className="card rounded-5">
+            {/* <div className="card rounded-5">
                 <div className="card-body">
                     {!editState && <div className="card-text" dangerouslySetInnerHTML={sanitizedData()}/>}
                     {editState &&
@@ -68,7 +69,13 @@ function EventCard(props) {
                 </div>
 
             </div>
-            <br/>
+            <br/>*/}
+            <Card className="mb-1 bg-background-700 cursor-default" hoverable>
+                <div className="text-text font-body" dangerouslySetInnerHTML={sanitizedData()}/>
+            </Card>
+            <div className="text-text font-body pb-2">
+                geschrieben von {props.comment.owner.userName} am {date} um {time}</div>
+
         </>
     );
 }

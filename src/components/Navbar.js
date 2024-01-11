@@ -3,7 +3,7 @@ import {Link, useNavigate} from "react-router-dom";
 import logo from "../img/logo.png"
 import {useIsAuthenticated, useSignOut} from "react-auth-kit";
 import {Button, Divider} from "antd";
-import {LogoutOutlined, UserOutlined} from "@ant-design/icons";
+import {LogoutOutlined, PlusCircleOutlined, PlusOutlined, UserOutlined} from "@ant-design/icons";
 
 
 function Navbar(props) {
@@ -143,28 +143,36 @@ m-220 -41 c0 -20 -5 -30 -15 -30 -10 0 -15 10 -15 30 0 20 5 30 15 30 10 0 15
                 <div className="flex flex-row justify-end">
                     {isAuthenticated() ? <>
                             <div onClick={() => navigate("/user")}
-                                 className="select-none cursor-pointer relative rounded px-5 py-2.5 overflow-hidden group bg-primary-400 hover:bg-gradient-to-r hover:from-primary-400 hover:to-primary-500 text-text-900 hover:ring-2 hover:ring-offset-2 hover:ring-primary-400 transition-all ease-out duration-300 mr-1">
+                                 className="select-none cursor-pointer relative rounded px-2.5 py-2.5 overflow-hidden group bg-primary-400 hover:bg-gradient-to-r hover:from-primary-400 hover:to-primary-500 text-text-900 hover:ring-2 hover:ring-offset-2 hover:ring-primary-400 transition-all ease-out duration-300 mr-2">
                         <span
                             className="absolute right-0 w-8 h-32 -mt-12 transition-all duration-1000 transform translate-x-12 bg-background opacity-10 rotate-12 group-hover:-translate-x-40 ease"></span>
                                 <span className="relative font-body"><UserOutlined className="md:text-xl"/></span>
                             </div>
 
+                            <div onClick={() => navigate("/createEvent")}
+                                 className="select-none cursor-pointer relative rounded px-2.5 py-2.5 overflow-hidden group bg-secondary-500 hover:bg-gradient-to-r hover:from-secondary-500 hover:to-secondary-500 text-text hover:ring-2 hover:ring-offset-2 hover:ring-secondary-500 transition-all ease-out duration-300 mr-2">
+                        <span
+                            className="absolute right-0 w-8 h-32 -mt-12 transition-all duration-1000 transform translate-x-12 bg-background opacity-10 rotate-12 group-hover:-translate-x-40 ease"></span>
+                                <span className="relative font-body"><PlusCircleOutlined className="md:text-xl"/></span>
+                            </div>
+
                             <div onClick={() => signOut()}
-                                 className="select-none cursor-pointer relative rounded px-5 py-2.5 overflow-hidden group bg-red-500 hover:bg-gradient-to-r hover:from-white-500 hover:to-white-500 text-text hover:ring-2 hover:ring-offset-2 hover:ring-white-400 transition-all ease-out duration-300 ml-1">
+                                 className="select-none cursor-pointer relative rounded px-2.5 py-2.5 overflow-hidden group bg-red-500 hover:bg-gradient-to-r hover:from-white-500 hover:to-white-500 text-text hover:ring-2 hover:ring-offset-2 hover:ring-white-400 transition-all ease-out duration-300">
                                 <div
                                     className="absolute right-0 w-8 h-32 -mt-12 transition-all duration-1000 transform translate-x-12 bg-white opacity-10 rotate-12 group-hover:-translate-x-40 ease"></div>
                                 <div className="relative font-body"><LogoutOutlined className="md:text-xl"/></div>
-                            </div></>:
+                            </div>
+                        </> :
 
-<>
-                        <div onClick={() => navigate("/login")}
-                             className="select-none cursor-pointer relative rounded px-5 py-2.5 overflow-hidden group bg-primary-400 hover:bg-gradient-to-r hover:from-primary-400 hover:to-primary-500 text-text-900 hover:ring-2 hover:ring-offset-2 hover:ring-primary-400 transition-all ease-out duration-300 mr-1">
+                        <>
+                            <div onClick={() => navigate("/login")}
+                                 className="select-none cursor-pointer relative rounded px-5 py-2.5 overflow-hidden group bg-primary-400 hover:bg-gradient-to-r hover:from-primary-400 hover:to-primary-500 text-text-900 hover:ring-2 hover:ring-offset-2 hover:ring-primary-400 transition-all ease-out duration-300 mr-1">
                         <span
                             className="absolute right-0 w-8 h-32 -mt-12 transition-all duration-1000 transform translate-x-12 bg-background opacity-10 rotate-12 group-hover:-translate-x-40 ease"></span>
-                            <span className="relative font-body">Login</span>
-                        </div>
+                                <span className="relative font-body">Login</span>
+                            </div>
 
-                        <div onClick={() => navigate("/register")}
+                            <div onClick={() => navigate("/register")}
                     className="select-none cursor-pointer relative rounded px-5 py-2.5 overflow-hidden group bg-secondary-500 hover:bg-gradient-to-r hover:from-secondary-500 hover:to-secondary-500 text-text hover:ring-2 hover:ring-offset-2 hover:ring-secondary-400 transition-all ease-out duration-300 ml-1">
                     <div
                         className="absolute right-0 w-8 h-32 -mt-12 transition-all duration-1000 transform translate-x-12 bg-white opacity-10 rotate-12 group-hover:-translate-x-40 ease"></div>

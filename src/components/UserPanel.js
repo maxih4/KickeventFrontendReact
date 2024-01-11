@@ -35,8 +35,8 @@ const UserPanel = () => {
     }, []);
 
     return (
-        <div className="container bg-light p-4 mt-5 rounded-4 main">
-            <h2>Userpanel</h2>
+        <div className="container p-4 mt-5 rounded-4 text-text font-body">
+            <h1 className="font-heading">Userpanel</h1>
             <p>{`Hello ${authUser().userName}`} with ID: {authUser().userId}</p>
             <p>Folgende Rollen besitzt du:</p>
             <br/>

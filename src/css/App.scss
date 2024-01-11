@@ -20,3 +20,13 @@
 .font-logo{
   font-family: 'Sometype Mono', sans-serif;
 }
+
+.create-event-card > .ant-card-actions{
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.create-event-card{
+  box-shadow:none !important;
+}
+

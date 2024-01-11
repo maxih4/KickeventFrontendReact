@@ -28,7 +28,7 @@ const AdminPanel = () => {
 
     return (
         <div>
-            <h4>Adminpanel</h4>
+            <h2  className="font-heading">Adminpanel</h2>
 
 
               {loading ? <Loading></Loading>: <AdminPanelUser user={user} setToggleRefresh={setToggleRefresh}></AdminPanelUser>

@@ -30,7 +30,7 @@ const AdminPanelUser = (props) => {
                                       rules={[{
                                           required: true,
                                           message: "Please enter a username",
-                                          len:254
+                                          max:254
                                       }]}>
                         <Input/>
                     </Form.Item>
@@ -159,9 +159,9 @@ const AdminPanelUser = (props) => {
     }
 
 
-    return (<>
+    return (<><div className="mb-3">
     {response &&<Alert message="Success" type="success" showIcon />}
-            {error !== "" && <Alert message={error.toString()} type="error" showIcon />}
+            {error !== "" && <Alert message={error.toString()} type="error" showIcon />}</div>
         <Form form={form}>
 
 

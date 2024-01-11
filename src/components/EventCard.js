@@ -119,13 +119,16 @@ function EventCard(props) {
 
 
         <>
-            <Card hoverable onClick={() => navigate("/event/" + props.event.id)} title={<h2 className={"text-start"}>{props.event.title}</h2>} bordered={false} className="bg-primary-800 mb-7" actions={[
-                <div className="flex flex-row justify-center text-text-200 lg:text-xl" key="Location"> <LocationOnOutlinedIcon  /> <div>{props.event.city}</div></div>,
-                <div className="flex flex-row justify-center text-text-200 lg:text-xl" key="Calendar"> <CalendarMonthOutlinedIcon  /> <div>{date.toLocaleDateString("de-De",{  year: 'numeric',
+            <Card hoverable onClick={() => navigate("/event/" + props.event.id)} title={<h2 className={"text-start"}>{props.event.title}</h2>}  bordered={false} className="bg-background-800 mb-7 " actions={[
+                <div className="flex flex-row justify-center text-text-200 lg:text-xl" key="Location"> <div className="flex flex-col justify-center"><LocationOnOutlinedIcon  /> </div><div>{props.event.city}</div></div>,
+                <div className="flex flex-row justify-center text-text-200 lg:text-xl" key="Calendar"> <div className="flex flex-col justify-center">
+                    <CalendarMonthOutlinedIcon/></div>
+                    <div>{date.toLocaleDateString("de-De", {
+                        year: 'numeric',
                     month: 'long',
                     day: 'numeric',})}</div></div>,
 
-                <div className="flex flex-row justify-center text-text-200 lg:text-xl" key="time"> <AccessTimeIcon  /> <div>{date.toLocaleString("de-DE", {hour: "2-digit"})}</div></div>,
+                <div className="flex flex-row justify-center text-text-200 lg:text-xl" key="time"><div className="flex flex-col justify-center"> <AccessTimeIcon  /> </div><div>{date.toLocaleString("de-DE", {hour: "2-digit"})}</div></div>,
             ]}><div className="text-text-200">
                 <HTMLEllipsis
                     unsafeHTML={DOMPurify.sanitize(props.event.content)}

@@ -249,8 +249,7 @@ const EventEditor = (props) => {
                     </div>,
                 ]}>
                     <div className="text-black">
-                        <Editor value={html} onChange={onChangeHtml}
-                                containerProps={{style: {backgroundColor: "white"}}}></Editor></div>
+                        <Editor value={html} onChange={onChangeHtml}></Editor></div>
                 </Card>
 
 

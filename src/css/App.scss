@@ -30,3 +30,59 @@
   box-shadow:none !important;
 }
 
+.ant-time-picker-panel .ant-time-picker-panel-select {
+  overflow-y: auto;
+
+  @media (min-width: 1024px) {
+    overflow: hidden;
+  }
+}
+
+.ant-picker-dropdown .ant-picker-panel-container .ant-picker-panels {
+  display: inline-flex;
+  animation: none;
+  flex-wrap: nowrap;
+  direction: ltr;
+  @media (max-width: 768px) {
+    display: inline-grid;
+  }
+}
+
+.rsw-editor{
+  background-color:oklch(19.98% 0.053 135.61);
+  color:oklch(96.51% 0.052 134.78);
+  border-color: rgba(128,128,128,0.4)
+}
+
+.rsw-ce{
+  cursor: text;
+}
+
+.rsw-toolbar{
+  background-color:#6a93fb;
+  border-color: rgba(128,128,128,0.4);
+
+}
+
+.rsw-btn{
+  color:black;
+}
+.rsw-btn:hover{
+  background-color:#386ffa
+}
+.rsw-btn[data-active=true] {
+  background-color: #064bf9
+}
+
+.rsw-dd{
+  background-color:#6a93fb;
+  color:black;
+  border-color: rgba(128,128,128,1);
+  border-radius:2px;
+}
+
+.rsw-separator{
+
+  border-color: rgba(128,128,128,1)
+}
+

@@ -157,16 +157,16 @@ function SingleEvent(props) {
 
                         </h1>
                         <div
-                            className="flex flex-row lg:border-3 lg:hover:border-secondary-300 lg:border-solid rounded-full lg:border-secondary-200 justify-evenly lg:m-2 lg:ml-3 lg:mr-3">
-                            <div className="flex flex-row justify-center text-secondary-200 font-heading m-2"
+                            className="flex flex-row lg:border-3 lg:hover:border-secondary-400 lg:border-solid rounded-full lg:border-secondary-300 justify-evenly lg:m-2 lg:ml-3 lg:mr-3">
+                            <div className="flex flex-row justify-center text-secondary-300 font-heading m-2"
                                  key="Location">
                                 <LocationOnOutlinedIcon/>
                                 <div
                                     className="ps-1">{event.streetName + " " + event.houseNumber}, {event.postalCode + " " + event.city}</div>
                             </div>
                             <Divider type="vertical"
-                                     className="h-6 -skew-x-12 bg-secondary-200 w-0.5 m-2 hidden lg:inline-block"></Divider>
-                            <div className="flex flex-row justify-center text-secondary-200 font-heading m-2"
+                                     className="h-6 -skew-x-12 bg-secondary-300 w-0.5 m-2 hidden lg:inline-block"></Divider>
+                            <div className="flex flex-row justify-center text-secondary-300 font-heading m-2"
                                  key="Calendar">
                                 <CalendarMonthOutlinedIcon/>
                                 <div className="ps-1">{new Date(event.startDate).toLocaleDateString("de-De", {
@@ -176,8 +176,8 @@ function SingleEvent(props) {
                                 })}</div>
                             </div>
                             <Divider type="vertical"
-                                     className="h-6 -skew-x-12 bg-secondary-200 w-0.5 m-2 hidden lg:inline-block"></Divider>
-                            <div className="flex flex-row justify-center text-secondary-200 font-heading m-2" key="time">
+                                     className="h-6 -skew-x-12 bg-secondary-300 w-0.5 m-2 hidden lg:inline-block"></Divider>
+                            <div className="flex flex-row justify-center text-secondary-300 font-heading m-2" key="time">
                                 <AccessTimeIcon/>
                                 <div
                                     className="ps-1">{new Date(event.startDate).toLocaleString("de-DE", {hour: "2-digit"})} bis {new Date(event.endDate).toLocaleString("de-DE", {hour: "2-digit"})}</div>

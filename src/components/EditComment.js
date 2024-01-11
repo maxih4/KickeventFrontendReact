@@ -35,7 +35,7 @@ const EditComment = (props) => {
     return (
         <>
             <Editor value={html} onChange={onChange}
-                    containerProps={{style: {backgroundColor: "white", color: "black"}}}></Editor>
+                    ></Editor>
             <br/>
             <button className="bg-none bg-inherit border-none p-0 outline-inherit" onClick={submitChanges}>
                 <div

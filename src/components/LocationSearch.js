@@ -78,11 +78,22 @@ function LocationSearch({setLong, setLang, setHouseNumber, setPostalCode, setCit
                         control:(provided)=>({
                             ...provided,
                             minHeight:0,
+                        }),
+                        placeholder:(provided)=>({
+                            ...provided,
+                            color:"darkgrey",
+                            opacity:0.4
+                        }),
+                        menuList:(provided)=>({
+                            ...provided,
+                            backgroundColor:"#141414"
                         })
+
                     },
                     className:"ant-input mx-auto w-5/6",
                     classNames:{
-                        control:()=>"min-h-0"
+                        control:()=>"min-h-0",
+                        menuList:()=>"mx-auto"
                     },
                     noOptionsMessage: () => "",
                 }}

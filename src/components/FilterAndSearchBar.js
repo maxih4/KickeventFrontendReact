@@ -3,7 +3,7 @@ import {Button, Dropdown, Input, Space} from "antd";
 import {ArrowDownOutlined, ArrowUpOutlined, DownOutlined, SearchOutlined} from "@ant-design/icons";
 
 
-function FilterAndSearchBar({setSort, setSearch, search, setLoading}) {
+function FilterAndSearchBar({setSort, setSearch, search}) {
 
 
     const [searchValue, setSearchValue] = useState("")
@@ -12,7 +12,6 @@ function FilterAndSearchBar({setSort, setSearch, search, setLoading}) {
     function searchfunction() {
         setSearch(searchValue)
         setShowState(false)
-        setLoading(true)
     }
 
     const items = [

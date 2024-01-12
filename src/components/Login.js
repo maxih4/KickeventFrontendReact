@@ -4,7 +4,7 @@ import React, {useState} from 'react'
 import {useSignIn} from 'react-auth-kit'
 import {useNavigate} from 'react-router-dom'
 import Loading from "./Loading";
-import {Alert, Button, Checkbox, Form, Input, Space} from "antd";
+import {Alert, Form, Input} from "antd";
 
 
 const Login = () => {

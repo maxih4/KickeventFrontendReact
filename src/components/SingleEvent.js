@@ -6,7 +6,6 @@ import DOMPurify from "dompurify";
 import {useAuthHeader, useAuthUser, useIsAuthenticated} from "react-auth-kit";
 import EventEditor from "./EventEditor";
 import dayjs from "dayjs";
-import EventCard from "./EventCard";
 import MapLocation from "./MapLocation";
 import Loading from "./Loading";
 import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";

@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
-import {Button, Dropdown, Input, message, Space} from "antd";
-import {ArrowDownOutlined, ArrowUpOutlined, DownOutlined, SearchOutlined, UserOutlined} from "@ant-design/icons";
-import SortIcon from '@mui/icons-material/Sort';
+import {Button, Dropdown, Input, Space} from "antd";
+import {ArrowDownOutlined, ArrowUpOutlined, DownOutlined, SearchOutlined} from "@ant-design/icons";
 
 
 function FilterAndSearchBar({setSort, setSearch, search, setLoading}) {

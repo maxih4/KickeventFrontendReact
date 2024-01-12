@@ -4,8 +4,8 @@ import {useAuthHeader, useAuthUser, useIsAuthenticated} from "react-auth-kit";
 import EditComment from "./EditComment";
 import axios from "axios";
 import {Card} from "antd";
-import {DeleteOutlined, EditOutlined, LogoutOutlined} from "@ant-design/icons";
-import editComment from "./EditComment";
+import {DeleteOutlined, EditOutlined} from "@ant-design/icons";
+
 
 
 function EventCard(props) {

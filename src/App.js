@@ -9,7 +9,7 @@ import {ConfigProvider, theme} from "antd";
 function App() {
     const { darkAlgorithm } = theme;
     return (
-            <div className="app bg-background">
+
                 <ConfigProvider theme={{algorithm:darkAlgorithm,hashed:false}}>
             <AuthProvider
                 authName={"_auth"} authType={"cookie"}
@@ -21,7 +21,7 @@ function App() {
 
             </AuthProvider>
                 </ConfigProvider>
-            </div>
+
     );
 }
 

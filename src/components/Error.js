@@ -4,7 +4,7 @@ import {Alert} from "antd";
 function Error({search}) {
     return (
         <div className="container mb-8">
-            <Alert message={<div className="text-text text-xl">Keine Events gefunden für "{search}"</div>} type="error" showIcon></Alert>
+            <Alert message={<div className="text-text text-xl">Keine Events gefunden {search=== "" ? "":"für \"" +search +"\""} </div>} type="error" showIcon></Alert>
         </div>
     );
 }

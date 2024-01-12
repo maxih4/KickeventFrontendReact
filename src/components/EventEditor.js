@@ -35,7 +35,7 @@ const EventEditor = (props) => {
     const [dateEdited, setDateEdited] = useState(false)
     const [form] = Form.useForm()
     const addressLabel = props.streetName + " " + props.houseNumber + ", " + props.city + ", Deutschland"
-    const [loading, setLoading] = useState(false)
+
     const queryClient = useQueryClient()
     const navigate=useNavigate()
 
@@ -271,7 +271,7 @@ const EventEditor = (props) => {
                         </div>
 
                         <div className="flex-row justify-center flex pt-5">
-                            {loading ? <Loading></Loading> :
+                            {mutation.isPending ? <Loading></Loading> :
                                 <button className="bg-none bg-inherit border-none p-0 outline-inherit"
                                         onClick={(e) => {
                                             mutation.reset()

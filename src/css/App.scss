@@ -49,40 +49,40 @@
 }
 
 .rsw-editor{
-  background-color:oklch(19.98% 0.053 135.61);
-  color:oklch(96.51% 0.052 134.78);
-  border-color: rgba(128,128,128,0.4)
+  background-color:oklch(19.98% 0.053 135.61) !important;
+  color:oklch(96.51% 0.052 134.78) !important;
+  border-color: rgba(128,128,128,0.4) !important;
 }
 
 .rsw-ce{
-  cursor: text;
+  cursor: text !important;
 }
 
 .rsw-toolbar{
-  background-color:#6a93fb;
-  border-color: rgba(128,128,128,0.4);
+  background-color:#6a93fb !important;
+  border-color: rgba(128,128,128,0.4) !important;
 
 }
 
 .rsw-btn{
-  color:black;
+  color:black !important;
 }
 .rsw-btn:hover{
-  background-color:#386ffa
+  background-color:#386ffa !important;
 }
 .rsw-btn[data-active=true] {
-  background-color: #064bf9
+  background-color: #064bf9 !important;
 }
 
 .rsw-dd{
-  background-color:#6a93fb;
-  color:black;
-  border-color: rgba(128,128,128,1);
-  border-radius:2px;
+  background-color:#6a93fb !important;
+  color:black !important;
+  border-color: rgba(128,128,128,1) !important;
+  border-radius:2px !important;
 }
 
 .rsw-separator{
 
-  border-color: rgba(128,128,128,1)
+  border-color: rgba(128,128,128,1) !important;
 }
 

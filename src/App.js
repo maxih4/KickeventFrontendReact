@@ -7,10 +7,10 @@ import Footer from "./components/Footer";
 import {ConfigProvider, theme} from "antd";
 
 function App() {
-    const { darkAlgorithm } = theme;
+    const {darkAlgorithm} = theme;
     return (
 
-                <ConfigProvider theme={{algorithm:darkAlgorithm,hashed:false}}>
+        <ConfigProvider theme={{algorithm: darkAlgorithm, hashed: false}}>
             <AuthProvider
                 authName={"_auth"} authType={"cookie"}
                 refresh={refreshApi}
@@ -20,7 +20,7 @@ function App() {
                 <Footer/>
 
             </AuthProvider>
-                </ConfigProvider>
+        </ConfigProvider>
 
     );
 }

@@ -13,50 +13,45 @@ import CalendarMonthOutlinedIcon from "@mui/icons-material/CalendarMonthOutlined
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import {Divider} from "antd";
 import {DeleteOutlined, EditOutlined} from "@ant-design/icons";
+import {useQuery} from "@tanstack/react-query";
 
 
 function SingleEvent(props) {
     const navigation = useNavigate()
     const {id} = useParams()
-    const [event, setEvent] = useState({
-        title: "",
-        content: "",
-        owner: "",
-        id: 0,
-        streetName: "",
-        houseNumber: 0,
-        postalCode: 0,
-        city: ""
-    })
     const isAuthenticated = useIsAuthenticated()
     const authUser = useAuthUser()
-    let owner = false
-    let admin = false
+    const [owner,setOwner] = useState(false)
+    const [admin,setAdmin] = useState(false)
+
     const authHeader = useAuthHeader()
-    if (isAuthenticated()) {
-        owner = event.owner.userName === authUser().userName
-        admin = authUser().roles.some((e) => e.name === "ADMIN")
-    }
+
     const [editState, setEditState] = useState(false)
     const [toggleRefresh, setToggleRefresh] = useState(false)
-    const [loading, setLoading] = useState(true)
 
+
+
+
+    const eventQuery = useQuery({
+        queryKey: ["event", id],
+        queryFn: async () => {
+            const res = await axios.get(process.env.REACT_APP_BACKEND_URL + "/api/event/" + id)
+
+            return await res.data
+        },
+    })
 
     useEffect(() => {
-        console.log()
-        axios.get(process.env.REACT_APP_BACKEND_URL + "/api/event/" + id)
-            .then((res) => {
-                setLoading(false)
-                setEvent(res.data)
 
-            }, (error) => {
-                console.log("Fehler bei der Anfrage " + error)
-            })
-// eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [toggleRefresh]);
+        if (isAuthenticated() && !eventQuery.isLoading) {
+            setOwner(eventQuery.data.owner.userName === authUser().userName)
+           setAdmin(authUser().roles.some((e) => e.name === "ADMIN"))
+        }
+
+    }, [eventQuery.isLoading]);
 
     const deleteEvent = () => {
-        axios.delete(process.env.REACT_APP_BACKEND_URL + "/api/event/" + event.id, {
+        axios.delete(process.env.REACT_APP_BACKEND_URL + "/api/event/" + id, {
             headers: {
                 "Authorization": authHeader()
             }
@@ -149,10 +144,10 @@ function SingleEvent(props) {
             {loading && <Loading></Loading>}*/}
 
             {
-                !editState && !loading && <>
+                !editState && !eventQuery.isLoading && <>
                     <div className="container bg-primary-900 rounded-xl pl-1 pr-1 pt-0.5 pb-2 ">
                         <h1 className="text-text font-heading pl-1 pr-1">
-                            {event.title}
+                            {eventQuery.data.title}
 
                         </h1>
                         <div
@@ -161,14 +156,14 @@ function SingleEvent(props) {
                                  key="Location">
                                 <LocationOnOutlinedIcon/>
                                 <div
-                                    className="ps-1">{event.streetName + " " + event.houseNumber}, {event.postalCode + " " + event.city}</div>
+                                    className="ps-1">{eventQuery.data.streetName + " " + eventQuery.data.houseNumber}, {eventQuery.data.postalCode + " " + eventQuery.data.city}</div>
                             </div>
                             <Divider type="vertical"
                                      className="h-6 -skew-x-12 bg-secondary-300 w-0.5 m-2 hidden lg:inline-block"></Divider>
                             <div className="flex flex-row justify-center text-secondary-300 font-heading m-2"
                                  key="Calendar">
                                 <CalendarMonthOutlinedIcon/>
-                                <div className="ps-1">{new Date(event.startDate).toLocaleDateString("de-De", {
+                                <div className="ps-1">{new Date(eventQuery.data.startDate).toLocaleDateString("de-De", {
                                     year: 'numeric',
                                     month: 'long',
                                     day: 'numeric',
@@ -179,7 +174,7 @@ function SingleEvent(props) {
                             <div className="flex flex-row justify-center text-secondary-300 font-heading m-2" key="time">
                                 <AccessTimeIcon/>
                                 <div
-                                    className="ps-1">{new Date(event.startDate).toLocaleString("de-DE", {hour: "2-digit"})} bis {new Date(event.endDate).toLocaleString("de-DE", {hour: "2-digit"})}</div>
+                                    className="ps-1">{new Date(eventQuery.data.startDate).toLocaleString("de-DE", {hour: "2-digit"})} bis {new Date(eventQuery.data.endDate).toLocaleString("de-DE", {hour: "2-digit"})}</div>
                             </div>
 
 
@@ -188,13 +183,13 @@ function SingleEvent(props) {
                     <div className="container bg-primary-900 rounded-xl pl-1 pr-1 pt-0.5 pb-2 mt-4">
                         <h3 className="text-text font-heading pl-1 pr-1">Über dieses Event</h3>
                         <p className="text-text-50 font-body m-3"
-                           dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(event.content)}}></p>
+                           dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(eventQuery.data.content)}}></p>
                     </div>
 
                     <div className="container bg-primary-900 rounded-xl pl-1 pr-1 pt-0.5 pb-2 mt-4">
                         <h3 className="text-text font-heading pl-1 pr-1">Standort</h3>
-                        <div className="m-3"><MapLocation longitude={Number(event.longitude)}
-                                                          latitude={Number(event.latitude)}></MapLocation></div>
+                        <div className="m-3"><MapLocation longitude={Number(eventQuery.data.longitude)}
+                                                          latitude={Number(eventQuery.data.latitude)}></MapLocation></div>
                     </div>
 
 
@@ -229,22 +224,22 @@ function SingleEvent(props) {
                             </div>
                         </div>
                     }
-                    <Comments id={event.id}></Comments>
+                    <Comments id={eventQuery.data.id}></Comments>
                 </>}
             {
-                editState && !loading &&
-                <EventEditor title={event.title} html={event.content} streetName={event.streetName}
-                             houseNumber={event.houseNumber}
-                             postalCode={event.postalCode} city={event.city} date={dayjs(event.startDate)}
-                             startTime={dayjs(event.startDate)} endTime={dayjs(event.endDate)} mode="update"
-                             eventId={event.id}
+                editState && !eventQuery.isLoading &&
+                <EventEditor title={eventQuery.data.title} html={eventQuery.data.content} streetName={eventQuery.data.streetName}
+                             houseNumber={eventQuery.data.houseNumber}
+                             postalCode={eventQuery.data.postalCode} city={eventQuery.data.city} date={dayjs(eventQuery.data.startDate)}
+                             startTime={dayjs(eventQuery.data.startDate)} endTime={dayjs(eventQuery.data.endDate)} mode="update"
+                             eventId={eventQuery.data.id}
                              setEditState={setEditState} setToggleRefresh={setToggleRefresh}
-                             long={Number(event.longitude)}
-                             lat={Number(event.latitude)}></EventEditor>
+                             long={Number(eventQuery.data.longitude)}
+                             lat={Number(eventQuery.data.latitude)}></EventEditor>
 
 
             }
-            {loading && <Loading></Loading>}
+            {eventQuery.isLoading && <Loading></Loading>}
         </>
 
     )

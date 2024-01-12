@@ -22,7 +22,7 @@ function EventCard(props) {
 
     const prefetch = ()=>{
         prefetchClient.prefetchQuery({
-            queryKey: ["event",props.event.id],
+            queryKey: ["event",props.event.id.toString()],
             queryFn: async () => {
                 const res = await axios.get(process.env.REACT_APP_BACKEND_URL + "/api/event/" + props.event.id)
             return await res.data

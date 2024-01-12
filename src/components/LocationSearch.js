@@ -63,6 +63,7 @@ function LocationSearch({setLong, setLang, setHouseNumber, setPostalCode, setCit
                     onChange: (e) => {
                         let placeId = ""
                         if (e) {
+                            // eslint-disable-next-line
                             placeId = e["value"]["place_id"]
                         }
                         setValue(e)

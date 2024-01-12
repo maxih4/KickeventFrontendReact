@@ -16,7 +16,7 @@ import AccessTimeIcon from '@mui/icons-material/AccessTime';
 
 function EventCard(props) {
     const date = new Date(props.event.startDate);
-    const createdDate = new Date(props.event.createdDate)
+    //const createdDate = new Date(props.event.createdDate)
     const navigate = useNavigate()
     return (
         /*
@@ -117,7 +117,9 @@ function EventCard(props) {
 
 
         <>
-            <Card hoverable onClick={() => navigate("/event/" + props.event.id)} title={<h2 className={"text-start"}>{props.event.title}</h2>}  bordered={false} className="bg-background-800 mb-7 " actions={[
+            <Card hoverable onClick={() => navigate("/event/" + props.event.id)} title={<h2 className={"text-start"}>{props.event.title}</h2>}  bordered={false} className="bg-background-800 mb-7 "
+                  //extra={<div>Vom {createdDate.toLocaleDateString()}</div>}
+                  actions={[
                 <div className="flex flex-row justify-center text-text-200 lg:text-xl" key="Location"> <div className="flex flex-col justify-center"><LocationOnOutlinedIcon  /> </div><div>{props.event.city}</div></div>,
                 <div className="flex flex-row justify-center text-text-200 lg:text-xl" key="Calendar"> <div className="flex flex-col justify-center">
                     <CalendarMonthOutlinedIcon/></div>

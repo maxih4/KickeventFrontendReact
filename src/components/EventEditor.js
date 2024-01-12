@@ -4,7 +4,7 @@ import {useNavigate} from "react-router-dom";
 import {useAuthHeader} from "react-auth-kit";
 import axios from "axios";
 import DOMPurify from "dompurify";
-import {Card, DatePicker, Form, Input, TimePicker} from "antd";
+import {Alert, Card, DatePicker, Form, Input, TimePicker} from "antd";
 import dayjs from "dayjs";
 
 import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
@@ -12,6 +12,11 @@ import CalendarMonthOutlinedIcon from "@mui/icons-material/CalendarMonthOutlined
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 
 import LocationSearch from "./LocationSearch";
+import Loading from "./Loading";
+
+
+
+
 
 
 const EventEditor = (props) => {
@@ -36,6 +41,7 @@ const EventEditor = (props) => {
     const [dateEdited, setDateEdited] = useState(false)
     const [form] = Form.useForm()
     const addressLabel = props.streetName + " " + props.houseNumber + ", " + props.city + ", Deutschland"
+    const [loading,setLoading]=useState(false)
 
 
     function onChangeHtml(e) {
@@ -61,6 +67,7 @@ const EventEditor = (props) => {
 
 
     const submitChanges = () => {
+        setLoading(true)
         let startDate = ""
         let endDate = ""
         form.validateFields().then((values) => {
@@ -89,10 +96,11 @@ const EventEditor = (props) => {
                         "Authorization": authHeader()
                     }
                 }).then((res) => {
-
+                    setLoading(false)
                     navigate("/event/" + res.data.id)
                 }, (err) => {
                     console.log(err)
+                    setLoading(false)
                     setErrorMessage(err.response.data.message)
                     setError(true)
                 })
@@ -122,10 +130,11 @@ const EventEditor = (props) => {
                         "Authorization": authHeader()
                     }
                 }).then((res) => {
-
+                    setLoading(false)
                     props.setEditState(prev => !prev)
                     props.setToggleRefresh(prev => !prev)
                 }, (err) => {
+                    setLoading(false)
                     console.log(err)
                     setErrorMessage(err.response.data.message)
                     setError(true)
@@ -203,17 +212,19 @@ const EventEditor = (props) => {
             </div>
         </div>*/
 //TODO Validator function for all
+        //Todo wait spinner when clicking
+        <>{error && <Alert message={errorMessage} className="container mb-2" type="error" showIcon />
+
+        }
+
         <div className="container">
 
 
             <Form form={form} layout={"vertical"}>
                 <Card title={
-                    <Form.Item initialValue={title} label="Titel" name="title" className="mt-3" rules={[
-                        {
-                            required: true,
-                            message: 'Bitte einen Titel eingeben',
-                        },
-                    ]}><Input/></Form.Item>
+                    <Form.Item initialValue={title} label="Titel" name="title" className="mt-3" //rules={[{required: true, message: 'Bitte einen Titel eingeben',},]}
+                        >
+                        <Input/></Form.Item>
 
                 } bordered={false} className="bg-background-800 create-event-card mb-0 " actions={[
                     <div className="md:flex hidden flex-col justify-center text-white pt-2 cursor-default"
@@ -294,22 +305,26 @@ const EventEditor = (props) => {
                     </div>
 
                     <div className="flex-row justify-center flex pt-5">
-                        <button className="bg-none bg-inherit border-none p-0 outline-inherit" onClick={submitChanges}>
-                            <div
-                                className="select-none cursor-pointer relative rounded px-5 py-2.5 overflow-hidden group bg-primary-400 hover:bg-gradient-to-r hover:from-primary-400 hover:to-primary-500 text-text-900 hover:ring-2 hover:ring-offset-2 hover:ring-primary-400 transition-all ease-out duration-300 mr-1">
+                        {loading ? <Loading></Loading> :
+                            <button className="bg-none bg-inherit border-none p-0 outline-inherit"
+                                    onClick={submitChanges}>
+                                <div
+                                    className="select-none cursor-pointer relative rounded px-5 py-2.5 overflow-hidden group bg-primary-400 hover:bg-gradient-to-r hover:from-primary-400 hover:to-primary-500 text-text-900 hover:ring-2 hover:ring-offset-2 hover:ring-primary-400 transition-all ease-out duration-300 mr-1">
                         <span
                             className="absolute right-0 w-8 h-32 -mt-12 transition-all duration-1000 transform translate-x-12 bg-background opacity-10 rotate-12 group-hover:-translate-x-40 ease"></span>
-                                <span
-                                    className="relative font-body">                        {mode === "update" && "Änderungen speichern"}
-                                    {mode === undefined && "Event erstellen"}</span>
-                            </div>
-                        </button>
+                                    <span
+                                        className="relative font-body">                        {mode === "update" && "Änderungen speichern"}
+                                        {mode === undefined && "Event erstellen"}</span>
+                                </div>
+                            </button>}
+
                     </div>
 
                 </div>
             </Form>
 
         </div>
+        </>
     );
 };
 

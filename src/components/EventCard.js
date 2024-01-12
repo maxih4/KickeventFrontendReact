@@ -4,16 +4,14 @@ import DOMPurify from "dompurify";
 import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined';
 import CalendarMonthOutlinedIcon from '@mui/icons-material/CalendarMonthOutlined';
 import HTMLEllipsis from "react-lines-ellipsis/lib/html.modern.mjs";
-import LinesEllipsis from "react-lines-ellipsis";
-import responsiveHOC from "react-lines-ellipsis/lib/responsiveHOC.modern.mjs";
-import {Card, Typography} from "antd";
+import {Card} from "antd";
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
-import {EditOutlined, EllipsisOutlined, SettingOutlined} from "@ant-design/icons";
-
-const {Paragraph, Text} = Typography;
 
 
-const ResponsiveLineEllipsis = responsiveHOC()(LinesEllipsis)
+
+
+
+
 
 
 function EventCard(props) {

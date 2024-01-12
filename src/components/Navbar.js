@@ -1,9 +1,9 @@
 import React from 'react';
 import {Link, useNavigate} from "react-router-dom";
-import logo from "../img/logo.png"
+
 import {useIsAuthenticated, useSignOut} from "react-auth-kit";
-import {Button, Divider} from "antd";
-import {LogoutOutlined, PlusCircleOutlined, PlusOutlined, UserOutlined} from "@ant-design/icons";
+import { Divider} from "antd";
+import {LogoutOutlined, PlusCircleOutlined, UserOutlined} from "@ant-design/icons";
 
 
 function Navbar(props) {

@@ -4,19 +4,19 @@ import {useNavigate} from "react-router-dom";
 import {useAuthHeader} from "react-auth-kit";
 import axios from "axios";
 import DOMPurify from "dompurify";
-import {AutoComplete, Card, DatePicker, Form, Input, Space, TimePicker} from "antd";
+import {Card, DatePicker, Form, Input, TimePicker} from "antd";
 import dayjs from "dayjs";
-import {usePlacesWidget} from "react-google-autocomplete";
+
 import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
 import CalendarMonthOutlinedIcon from "@mui/icons-material/CalendarMonthOutlined";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
-import {Autocomplete} from "@react-google-maps/api";
+
 import LocationSearch from "./LocationSearch";
 
 
 const EventEditor = (props) => {
 
-    const [title, setTitle] = useState(props.title)
+    const title = props.title
     const [html, setHtml] = useState(props.html);
     const [street, setStreet] = useState(props.streetName);
     const [houseNumber, setHouseNumber] = useState(props.houseNumber);
@@ -35,7 +35,7 @@ const EventEditor = (props) => {
     const eventId = props.eventId
     const [dateEdited, setDateEdited] = useState(false)
     const [form] = Form.useForm()
-    const [addressLabel, setAddressLabel] = useState(props.streetName + " " + props.houseNumber + ", " + props.city + ", Deutschland")
+    const addressLabel = props.streetName + " " + props.houseNumber + ", " + props.city + ", Deutschland"
 
 
     function onChangeHtml(e) {

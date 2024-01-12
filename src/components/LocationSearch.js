@@ -1,5 +1,5 @@
-import React, {useEffect, useRef, useState} from 'react';
-import GooglePlacesAutocomplete, {geocodeByAddress, geocodeByPlaceId} from 'react-google-places-autocomplete';
+import React, {useEffect, useState} from 'react';
+import GooglePlacesAutocomplete, { geocodeByPlaceId} from 'react-google-places-autocomplete';
 import {getLatLng} from "use-places-autocomplete";
 
 function LocationSearch({setLong, setLang, setHouseNumber, setPostalCode, setCity, setStreet, addressLabel}) {
@@ -11,7 +11,7 @@ function LocationSearch({setLong, setLang, setHouseNumber, setPostalCode, setCit
         if (value !== null) {
             getCoords()
         }
-
+// eslint-disable-next-line react-hooks/exhaustive-deps
     }, [value]);
 
     function getCoords() {

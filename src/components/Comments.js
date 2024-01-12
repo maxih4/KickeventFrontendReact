@@ -5,7 +5,7 @@ import CommentCard from "./CommentCard";
 import CommentInput from "./CommentInput";
 import {useIsAuthenticated} from "react-auth-kit";
 import axios from "axios";
-import MapLocation from "./MapLocation";
+
 
 
 const Comments = (eventId) => {

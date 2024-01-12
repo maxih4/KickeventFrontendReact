@@ -27,7 +27,7 @@ function SingleEvent(props) {
     const authHeader = useAuthHeader()
 
     const [editState, setEditState] = useState(false)
-    const [toggleRefresh, setToggleRefresh] = useState(false)
+
 
 
 
@@ -47,7 +47,7 @@ function SingleEvent(props) {
             setOwner(eventQuery.data.owner.userName === authUser().userName)
            setAdmin(authUser().roles.some((e) => e.name === "ADMIN"))
         }
-
+// eslint-disable-next-line react-hooks/exhaustive-deps
     }, [eventQuery.isLoading]);
 
     const deleteEvent = () => {
@@ -233,7 +233,7 @@ function SingleEvent(props) {
                              postalCode={eventQuery.data.postalCode} city={eventQuery.data.city} date={dayjs(eventQuery.data.startDate)}
                              startTime={dayjs(eventQuery.data.startDate)} endTime={dayjs(eventQuery.data.endDate)} mode="update"
                              eventId={eventQuery.data.id}
-                             setEditState={setEditState} setToggleRefresh={setToggleRefresh}
+                             setEditState={setEditState}
                              long={Number(eventQuery.data.longitude)}
                              lat={Number(eventQuery.data.latitude)}></EventEditor>
 

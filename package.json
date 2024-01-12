@@ -2,6 +2,9 @@
   "name": "create-react-app-refresh-token",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": ">18"
+  },
   "dependencies": {
     "@ant-design/icons": "^5.2.6",
     "@emotion/react": "^11.11.3",

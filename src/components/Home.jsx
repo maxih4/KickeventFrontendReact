@@ -23,7 +23,7 @@ const Home = () => {
     const eventsQuery = useQuery({
         queryKey: ["events", page, eventsPerPage,sort,search],
         queryFn: async () => {
-            const res = await axios.get(process.env.REACT_APP_BACKEND_URL + "/api/event", {
+            const res = await axios.get(import.meta.env.VITE_BACKEND_URL + "/api/event", {
                 params: {
                     sort: sort,
                     search: search.toLowerCase(),

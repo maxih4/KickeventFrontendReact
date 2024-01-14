@@ -3,6 +3,15 @@
 @tailwind utilities;
 
 
+
+body{
+  background: url("../img/bg2.svg") repeat-y;
+  background-size: cover;
+
+}
+
+
+
 .logo{
   font-family: 'Sometype Mono', sans-serif;
   font-size: 40px
@@ -56,6 +65,8 @@
 
 .rsw-ce{
   cursor: text !important;
+  font-family: Inter, sans-serif;
+  font-size: 0.85rem;
 }
 
 .rsw-toolbar{
@@ -86,3 +97,15 @@
   border-color: rgba(128,128,128,1) !important;
 }
 
+
+.search-location{
+  background-color: #141414;
+  border-width: 1px;
+  border-style: solid;
+  border-color: #424242;
+  border-radius: 6px;
+}
+
+.search-location:hover{
+  border-color:#3c89e8;
+}

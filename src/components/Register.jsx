@@ -22,7 +22,7 @@ const Login = () => {
         setLoading(true)
         setSuccess(false)
         setError(false)
-        axios.post(process.env.REACT_APP_BACKEND_URL+"/register", JSON.stringify({userName: values.userName, password: values.password}), {
+        axios.post(import.meta.env.VITE_BACKEND_URL+"/register", JSON.stringify({userName: values.userName, password: values.password}), {
             headers: {
                 'Content-Type': 'application/json'
             }

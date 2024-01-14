@@ -24,8 +24,16 @@ function EventCard(props) {
         prefetchClient.prefetchQuery({
             queryKey: ["event",props.event.id.toString()],
             queryFn: async () => {
-                const res = await axios.get(process.env.REACT_APP_BACKEND_URL + "/api/event/" + props.event.id)
+                const res = await axios.get(import.meta.env.VITE_BACKEND_URL + "/api/event/" + props.event.id)
             return await res.data
+            },
+            staleTime: 60000
+        })
+        prefetchClient.prefetchQuery({
+            queryKey: ["comments",props.event.id.toString()],
+            queryFn: async () => {
+                const res = await axios.get(import.meta.env.VITE_BACKEND_URL + "/api/event/" + props.event.id+ "/comment")
+                return await res.data
             },
             staleTime: 60000
         })

@@ -11,9 +11,9 @@ import Loading from "./Loading";
 import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
 import CalendarMonthOutlinedIcon from "@mui/icons-material/CalendarMonthOutlined";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
-import {Divider} from "antd";
+import {Divider, Spin} from "antd";
 import {DeleteOutlined, EditOutlined} from "@ant-design/icons";
-import {useQuery} from "@tanstack/react-query";
+import {useMutation, useQuery, useQueryClient} from "@tanstack/react-query";
 
 
 function SingleEvent(props) {
@@ -23,11 +23,12 @@ function SingleEvent(props) {
     const authUser = useAuthUser()
     const [owner,setOwner] = useState(false)
     const [admin,setAdmin] = useState(false)
+    const [loading,setLoading] = useState(false)
 
     const authHeader = useAuthHeader()
 
     const [editState, setEditState] = useState(false)
-
+    const query=useQueryClient()
 
 
 
@@ -35,7 +36,7 @@ function SingleEvent(props) {
     const eventQuery = useQuery({
         queryKey: ["event", id],
         queryFn: async () => {
-            const res = await axios.get(process.env.REACT_APP_BACKEND_URL + "/api/event/" + id)
+            const res = await axios.get(import.meta.env.VITE_BACKEND_URL + "/api/event/" + id)
 
             return await res.data
         },
@@ -50,18 +51,29 @@ function SingleEvent(props) {
 // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [eventQuery.isLoading]);
 
-    const deleteEvent = () => {
-        axios.delete(process.env.REACT_APP_BACKEND_URL + "/api/event/" + id, {
+
+
+    const mutation = useMutation(({
+        mutationFn: ()=>deleteEvent(),
+        onSuccess: ()=>query.invalidateQueries({queryKey:["event",id]}),
+        onSettled:()=> {
+            setLoading(false)
+            navigation("/")
+        },
+        onError:(err)=> {
+            setLoading(false)
+            console.log(err)
+        }
+    }))
+
+
+    const deleteEvent = async () => {
+        setLoading(true)
+        return axios.delete(import.meta.env.VITE_BACKEND_URL + "/api/event/" + id, {
             headers: {
                 "Authorization": authHeader()
             }
-        }).then((res) => {
-            // props.setToggleRefresh(prev=>!prev)
-            navigation("/")
-        }, (err) => {
-
-        })
-    }
+        }).then((res) =>res.data)    }
 
     const editEvent = () => {
         setEditState(true)
@@ -139,13 +151,13 @@ function SingleEvent(props) {
                                 </button>
 
                                 <button className="bg-none bg-inherit border-none p-0 outline-inherit"
-                                        onClick={deleteEvent}>
+                                        onClick={mutation.mutate}>
                                     <div
                                         className="select-none cursor-pointer relative rounded px-5 py-2.5 overflow-hidden group bg-red-500 hover:bg-gradient-to-r hover:from-white-500 hover:to-white-500 text-text hover:ring-2 hover:ring-offset-2 hover:ring-white-400 transition-all ease-out duration-300 ml-1">
                                         <div
                                             className="absolute right-0 w-8 h-32 -mt-12 transition-all duration-1000 transform translate-x-12 bg-white opacity-10 rotate-12 group-hover:-translate-x-40 ease"></div>
-                                        <div className="relative font-body"><DeleteOutlined/>
-                                            Delete
+                                        <div className="relative font-body">{loading ?<> <Spin ></Spin> Wait</> : <><DeleteOutlined/>
+                                            Delete</>}
                                         </div>
                                     </div>
                                 </button>

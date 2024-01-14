@@ -56,7 +56,7 @@ function LocationSearch({setLong, setLang, setHouseNumber, setPostalCode, setCit
         <>
             <GooglePlacesAutocomplete
                 autocompletionRequest={{componentRestrictions: {country: ["de"]}}}
-                apiKey={process.env.REACT_APP_GOOGLE_MAPS_API_KEY}
+                apiKey={import.meta.env.VITE_GOOGLE_MAPS_API_KEY}
                 selectProps={{
                     defaultInputValue: addressLabel.toString().includes("undefined") ? null:addressLabel,
                     value: value,
@@ -75,6 +75,7 @@ function LocationSearch({setLong, setLang, setHouseNumber, setPostalCode, setCit
                         input: (provided) => ({
                             ...provided,
                             color: 'white',
+
                         }),
                         control:(provided)=>({
                             ...provided,
@@ -91,7 +92,7 @@ function LocationSearch({setLong, setLang, setHouseNumber, setPostalCode, setCit
                         })
 
                     },
-                    className:"ant-input mx-auto w-5/6",
+                    className:"ant-input mx-auto w-5/6 search-location",
                     classNames:{
                         control:()=>"min-h-0",
                         menuList:()=>"mx-auto"

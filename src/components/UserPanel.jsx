@@ -1,38 +1,36 @@
-import React, {useEffect, useState} from 'react'
+import React from 'react'
 import {useAuthHeader, useAuthUser, useIsAuthenticated} from 'react-auth-kit'
 import axios from "axios";
 import AdminPanel from "./AdminPanel";
 import Loading from "./Loading";
+import {useQuery} from "@tanstack/react-query";
 
 
 const UserPanel = () => {
 
     const authUser = useAuthUser()
     const authHeader = useAuthHeader();
-    const [userInfo, setUserInfo] = useState({id: 0, userName: "", roles: []})
     const isAuthenticated = useIsAuthenticated()
     let admin = false
     if (isAuthenticated()) {
         admin = authUser().roles.some((e) => e.name === "ADMIN")
     }
-    const [loading,setLoading] = useState(true)
 
 
-    useEffect(() => {
-        axios.get(process.env.REACT_APP_BACKEND_URL+"/user/" + authUser().userId, {
-            headers: {
-                "Authorization": authHeader()
-            }
-        }).then((res) => {
-            setLoading(false)
-            setUserInfo(res.data)
+    const userQuery = useQuery({
+        queryKey: ["user"],
+        queryFn: async () => {
+            const res = await axios.get(import.meta.env.VITE_BACKEND_URL + "/user/" + authUser().userId, {
+                headers: {
+                    "Authorization": authHeader()
+                }
+            })
 
-        }, (err) => {
-            setLoading(false)
-            console.log(err)
-        })
-// eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+            return await res.data
+        },
+        keepPreviousData: true
+    })
+
 
     return (
         <div className="container p-4 mt-5 rounded-4 text-text font-body">
@@ -40,9 +38,9 @@ const UserPanel = () => {
             <p>{`Hello ${authUser().userName}`} with ID: {authUser().userId}</p>
             <p>Folgende Rollen besitzt du:</p>
             <br/>
-            {loading&&<Loading></Loading>}
+            {userQuery.isLoading && <Loading></Loading>}
             <ul>
-                {!loading&&userInfo.roles.map((role) => {
+                {!userQuery.isLoading && userQuery.data.roles.map((role) => {
                     return <li key={role}>{role.name} </li>
                 })}
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate} from "react-router-dom";
-
+import imgurl from "../img/Fußballimage.webp"
 
 const HomeHeader = () => {
 const navigate = useNavigate()
@@ -32,7 +32,7 @@ const navigate = useNavigate()
                     className="text-primary-400 font-bold">Event</span> zum <span
                     className="text-primary-400 font-bold">Kicken</span> & finde heute noch passende Mitspieler</h1>
             <div className=""></div>
-            <img className="w-full xl:col-span-2 col-span-3 my-auto" src={require("../img/Fußballimage.png")}
+            <img className="w-full xl:col-span-2 col-span-3 my-auto" src={imgurl}
                  alt="Header"></img>
             <div className="pt-4 flex justify-center md:justify-normal col-span-2">
                 <button className="bg-none bg-inherit border-none p-0 outline-inherit" onClick={()=>navigate("/createEvent")}>

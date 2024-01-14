@@ -21,7 +21,7 @@ const Login = () => {
         setLoading(true)
         setError(false)
 
-        axios.post(process.env.REACT_APP_BACKEND_URL + "/login", JSON.stringify(values), {
+        axios.post(import.meta.env.VITE_BACKEND_URL + "/login", JSON.stringify(values), {
             headers: {
                 'Content-Type': 'application/json'
             }

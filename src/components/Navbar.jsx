@@ -100,8 +100,8 @@ function Navbar(props) {
 
 
 
-        </nav>*/}
-            <nav className="flex flex-wrap flex-row items-center justify-between container ">
+        </nav>*/}<div className="bg-background -m-2">
+            <nav className="flex flex-wrap flex-row items-center justify-between container">
                 <Link to={"/"} className=" no-underline">
                     <span className="logo text-text no-underline align-middle hidden md:inline-block">KickEvent</span>
 
@@ -184,7 +184,7 @@ m-220 -41 c0 -20 -5 -30 -15 -30 -10 0 -15 10 -15 30 0 20 5 30 15 30 10 0 15
             </div>
     </nav>
     <Divider className="bg-primary-100 w-full mt-1 opacity-50" orientationMargin=""/>
-</>
+        </div></>
 )
     ;
 }

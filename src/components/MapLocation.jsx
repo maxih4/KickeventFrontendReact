@@ -1,4 +1,4 @@
-import React, {memo, useCallback} from 'react'
+import React, {memo} from 'react'
 import {GoogleMap, MarkerF, useJsApiLoader} from '@react-google-maps/api';
 import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
 
@@ -16,8 +16,9 @@ function MyComponent(props) {
 
     const { isLoaded } = useJsApiLoader({
         id: 'google-map-script',
-        googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
-        libraries:["places"]
+        googleMapsApiKey: import.meta.env.VITE_GOOGLE_MAPS_API_KEY,
+        libraries:["places"],
+        language:"de"
     })
 
     const center={
@@ -26,22 +27,15 @@ function MyComponent(props) {
 
 
 
-    const onLoad = useCallback(function callback(map) {
-        // This is just an example of getting and using the map instance!!! don't just blindly copy!
 
-    }, [])
-
-    const onUnmount = useCallback(function callback(map) {
-
-    }, [])
 
     return isLoaded&&center.lat !=null && center.lat!== 0&& center.lng!== 0 &&center.lng!=null ? (
         <><GoogleMap
             mapContainerStyle={containerStyle}
             center={center}
-            zoom={9}
-            onLoad={onLoad}
-            onUnmount={onUnmount}
+            zoom={11}
+
+
 
         >
             { /* Child components, such as markers, info windows, etc. */}

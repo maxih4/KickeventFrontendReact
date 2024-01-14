@@ -25,7 +25,7 @@ const refreshApi = createRefresh({
   refreshApiCallback: async (param) => {
     console.log("Refresh Api Parameter " + param)
     try {
-      const response = await axios.post(process.env.REACT_APP_BACKEND_URL +"/refreshtoken", param,
+      const response = await axios.post(import.meta.env.VITE_BACKEND_URL +"/refreshtoken", param,
         //{headers: {'Authorization': `Bearer ${param.authToken}`}}
       )
       console.log("Refreshing")

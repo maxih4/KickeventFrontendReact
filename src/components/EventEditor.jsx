@@ -93,7 +93,7 @@ const EventEditor = (props) => {
             }
 
 
-            return axios.post(process.env.REACT_APP_BACKEND_URL + "/api/event", {
+            return axios.post(import.meta.env.VITE_BACKEND_URL + "/api/event", {
                 content: html,
                 title: form.getFieldValue("title"),
                 startDate: startDate,
@@ -118,7 +118,7 @@ const EventEditor = (props) => {
                 }
 
 
-                return axios.post(process.env.REACT_APP_BACKEND_URL + "/api/event", {
+                return axios.post(import.meta.env.VITE_BACKEND_URL + "/api/event", {
                     content: html,
                     title: form.getFieldValue("title"),
                     startDate: startDate,
@@ -144,7 +144,7 @@ const EventEditor = (props) => {
                     endDate = date.set("hour", endTime.split(":")[0]).set("minute", endTime.split(":")[1]).format("YYYY-MM-DD[T]HH:mm:ss.SSSZ")
 
                 }
-                return axios.put(process.env.REACT_APP_BACKEND_URL + "/api/event/" + eventId, {
+                return axios.put(import.meta.env.VITE_BACKEND_URL + "/api/event/" + eventId, {
                     content: html,
                     title: form.getFieldValue("title"),
                     startDate: startDate,

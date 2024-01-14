@@ -3,31 +3,52 @@ import Editor from "react-simple-wysiwyg";
 import {useAuthHeader} from "react-auth-kit";
 import axios from "axios";
 import DOMPurify from "dompurify";
+import {useMutation, useQueryClient} from "@tanstack/react-query";
 
 
-const EditComment = (props) => {
+const CommentEdit = (props) => {
     const [html, setHtml] = useState(props.html);
     const authHeader = useAuthHeader()
+    const queryClient = useQueryClient()
 
     function onChange(e) {
         setHtml(DOMPurify.sanitize(e.target.value));
     }
 
-    const submitChanges = () => {
+    //Array Copy und neues Element statt altem element
 
-        axios.put(process.env.REACT_APP_BACKEND_URL + "/api/comment/" + props.commentId, {
+
+    const mutation = useMutation({
+        mutationFn: () =>
+            submitChanges(),
+        onSuccess: (responseComment) => {
+            console.log(responseComment)
+            console.log(props)
+            queryClient.invalidateQueries({queryKey:["comments",props.children[1].toString()]})
+           /* queryClient.setQueryData(["comments", props.eventId.toString()], (oldList)=>{
+                return oldList.filter((com)=>{
+                    console.log(responseComment.content)
+                    console.log(responseComment.id)
+                    if(com.id === responseComment.id) return responseComment;
+                    else return com
+                })
+            })*/
+        },
+        onSettled:()=>props.setEditState(prev=>!prev),
+        onError:(error)=>console.log(error)
+
+
+    })
+
+    const submitChanges = async () => {
+
+       return axios.put(import.meta.env.VITE_BACKEND_URL + "/api/comment/" + props.commentId, {
             content: html
         }, {
             headers: {
                 "Authorization": authHeader()
             }
-        }).then((res) => {
-            props.setToggleRefresh(prev => !prev)
-            props.setEditState(prev => !prev)
-
-        }, (err) => {
-            console.log(err)
-        })
+        }).then((res) => res.data)
 
 
     }
@@ -37,7 +58,7 @@ const EditComment = (props) => {
             <Editor value={html} onChange={onChange}
                     ></Editor>
             <br/>
-            <button className="bg-none bg-inherit border-none p-0 outline-inherit" onClick={submitChanges}>
+            <button className="bg-none bg-inherit border-none p-0 outline-inherit" onClick={mutation.mutate}>
                 <div
                     className="select-none cursor-pointer relative rounded px-5 py-2.5 overflow-hidden group bg-primary-400 hover:bg-gradient-to-r hover:from-primary-400 hover:to-primary-500 text-text-900 hover:ring-2 hover:ring-offset-2 hover:ring-primary-400 transition-all ease-out duration-300 mr-1">
                         <span
@@ -49,4 +70,4 @@ const EditComment = (props) => {
     );
 };
 
-export default EditComment;
+export default CommentEdit;

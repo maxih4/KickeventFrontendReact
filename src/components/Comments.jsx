@@ -41,7 +41,7 @@ const Comments = (eventId) => {
                 <CommentInput></CommentInput>
             }
             {!isAuthenticated() &&
-                <h3 className="pt-2 mt-1 font-body text-text text-center mt-3">Bitte loggen Sie sich ein um das Event zu kommentieren</h3>}
+                <h3 className="pt-2 mt-1 font-body text-text text-center mt-3">Bitte loggen Sie sich ein, um das Event zu kommentieren</h3>}
 
             </div>
             </>

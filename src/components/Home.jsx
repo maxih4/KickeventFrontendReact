@@ -9,6 +9,7 @@ import Error from "./Error";
 import Loading from "./Loading";
 import {Divider, Pagination} from "antd";
 import {useQuery} from "@tanstack/react-query";
+import qs from "qs"
 
 
 const Home = () => {
@@ -29,7 +30,8 @@ const Home = () => {
                     search: search.toLowerCase(),
                     page: page-1,
                     size: eventsPerPage
-                }
+                },
+                paramsSerializer: params => qs.stringify(params, { encode: false }),
             })
             return await res.data
         },

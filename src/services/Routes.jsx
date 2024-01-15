@@ -1,7 +1,7 @@
 import React from 'react'
 import {useIsAuthenticated} from 'react-auth-kit'
 import {BrowserRouter, Navigate, Route, Routes} from 'react-router-dom'
-import Home from './Home'
+import Home from '../pages/Home'
 import Login from '../pages/Login'
 import UserPanel from '../pages/UserPanel'
 import SingleEvent from "../pages/SingleEvent";

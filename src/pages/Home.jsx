@@ -1,4 +1,4 @@
-import React, { useState} from 'react'
+import React, {useState} from 'react'
 
 
 import EventCard from "../components/EventCard";
@@ -8,7 +8,7 @@ import FilterAndSearchBar from "../components/FilterAndSearchBar";
 import Error from "../components/Error";
 import Loading from "../components/Loading";
 import {Divider, Pagination} from "antd";
-import {useQuery} from "@tanstack/react-query";
+import {useQuery, useQueryClient} from "@tanstack/react-query";
 import qs from "qs"
 
 
@@ -35,8 +35,11 @@ const Home = () => {
             })
             return await res.data
         },
-        keepPreviousData:true
+        keepPreviousData:true,
+
     })
+
+
 
 
 

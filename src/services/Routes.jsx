@@ -1,13 +1,13 @@
 import React from 'react'
 import {useIsAuthenticated} from 'react-auth-kit'
 import {BrowserRouter, Navigate, Route, Routes} from 'react-router-dom'
-import Home from '../components/Home'
-import Login from '../components/Login'
-import UserPanel from '../components/UserPanel'
-import SingleEvent from "../components/SingleEvent";
+import Home from './Home'
+import Login from '../pages/Login'
+import UserPanel from '../pages/UserPanel'
+import SingleEvent from "../pages/SingleEvent";
 import Navbar from "../components/Navbar";
-import Register from "../components/Register";
-import EventEditor from "../components/EventEditor";
+import Register from "../pages/Register";
+import EventEditor from "../pages/EventEditor";
 
 
 const RoutesComponent = () => {

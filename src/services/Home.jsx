@@ -1,12 +1,12 @@
 import React, { useState} from 'react'
 
 
-import EventCard from "./EventCard";
+import EventCard from "../components/EventCard";
 import axios from "axios";
-import HomeHeader from "./HomeHeader";
-import FilterAndSearchBar from "./FilterAndSearchBar";
-import Error from "./Error";
-import Loading from "./Loading";
+import HomeHeader from "../components/HomeHeader";
+import FilterAndSearchBar from "../components/FilterAndSearchBar";
+import Error from "../components/Error";
+import Loading from "../components/Loading";
 import {Divider, Pagination} from "antd";
 import {useQuery} from "@tanstack/react-query";
 import qs from "qs"

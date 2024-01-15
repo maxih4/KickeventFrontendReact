@@ -11,8 +11,8 @@ import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
 import CalendarMonthOutlinedIcon from "@mui/icons-material/CalendarMonthOutlined";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 
-import LocationSearch from "./LocationSearch";
-import Loading from "./Loading";
+import LocationSearch from "../components/LocationSearch";
+import Loading from "../components/Loading";
 import {useMutation, useQueryClient} from "@tanstack/react-query";
 
 

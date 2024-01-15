@@ -1,8 +1,8 @@
 import React from 'react'
 import {useAuthHeader, useAuthUser, useIsAuthenticated} from 'react-auth-kit'
 import axios from "axios";
-import AdminPanel from "./AdminPanel";
-import Loading from "./Loading";
+import AdminPanel from "../components/AdminPanel";
+import Loading from "../components/Loading";
 import {useQuery} from "@tanstack/react-query";
 
 

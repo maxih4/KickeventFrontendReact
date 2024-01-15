@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import axios from "axios";
 
-import Loading from "./Loading";
+import Loading from "../components/Loading";
 import {Alert, Button, Form, Input} from "antd";
 
 import {useNavigate} from "react-router-dom";

@@ -1,13 +1,13 @@
 import React, {useEffect, useState} from 'react';
 import {useNavigate, useParams} from "react-router-dom"
 import axios from "axios";
-import Comments from "./Comments";
+import Comments from "../components/Comments";
 import DOMPurify from "dompurify";
 import {useAuthHeader, useAuthUser, useIsAuthenticated} from "react-auth-kit";
 import EventEditor from "./EventEditor";
 import dayjs from "dayjs";
-import MapLocation from "./MapLocation";
-import Loading from "./Loading";
+import MapLocation from "../components/MapLocation";
+import Loading from "../components/Loading";
 import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
 import CalendarMonthOutlinedIcon from "@mui/icons-material/CalendarMonthOutlined";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";

@@ -2,41 +2,36 @@
 @tailwind components;
 @tailwind utilities;
 
-
-
-body{
+body {
   background: url("../img/bg2.svg") repeat-y;
   background-size: cover;
 
 }
 
-
-
-.logo{
+.logo {
   font-family: 'Sometype Mono', sans-serif;
   font-size: 40px
 }
 
-.ant-spin-dot-item{
+.ant-spin-dot-item {
   background-color: oklch(86.58% 0.242 137.28) !important;
 }
 
-
-.ant-card-actions{
+.ant-card-actions {
   background-color: #112f04 !important;
 }
 
-.font-logo{
+.font-logo {
   font-family: 'Sometype Mono', sans-serif;
 }
 
-.create-event-card > .ant-card-actions{
+.create-event-card > .ant-card-actions {
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
 }
 
-.create-event-card{
-  box-shadow:none !important;
+.create-event-card {
+  box-shadow: none !important;
 }
 
 .ant-time-picker-panel .ant-time-picker-panel-select {
@@ -57,48 +52,49 @@ body{
   }
 }
 
-.rsw-editor{
-  background-color:oklch(19.98% 0.053 135.61) !important;
-  color:oklch(96.51% 0.052 134.78) !important;
-  border-color: rgba(128,128,128,0.4) !important;
+.rsw-editor {
+  background-color: oklch(19.98% 0.053 135.61) !important;
+  color: oklch(96.51% 0.052 134.78) !important;
+  border-color: rgba(128, 128, 128, 0.4) !important;
 }
 
-.rsw-ce{
+.rsw-ce {
   cursor: text !important;
   font-family: Inter, sans-serif;
   font-size: 0.85rem;
 }
 
-.rsw-toolbar{
-  background-color:#6a93fb !important;
-  border-color: rgba(128,128,128,0.4) !important;
+.rsw-toolbar {
+  background-color: #6a93fb !important;
+  border-color: rgba(128, 128, 128, 0.4) !important;
 
 }
 
-.rsw-btn{
-  color:black !important;
+.rsw-btn {
+  color: black !important;
 }
-.rsw-btn:hover{
-  background-color:#386ffa !important;
+
+.rsw-btn:hover {
+  background-color: #386ffa !important;
 }
+
 .rsw-btn[data-active=true] {
   background-color: #064bf9 !important;
 }
 
-.rsw-dd{
-  background-color:#6a93fb !important;
-  color:black !important;
-  border-color: rgba(128,128,128,1) !important;
-  border-radius:2px !important;
+.rsw-dd {
+  background-color: #6a93fb !important;
+  color: black !important;
+  border-color: rgba(128, 128, 128, 1) !important;
+  border-radius: 2px !important;
 }
 
-.rsw-separator{
+.rsw-separator {
 
-  border-color: rgba(128,128,128,1) !important;
+  border-color: rgba(128, 128, 128, 1) !important;
 }
 
-
-.search-location{
+.search-location {
   background-color: #141414;
   border-width: 1px;
   border-style: solid;
@@ -106,10 +102,10 @@ body{
   border-radius: 6px;
 }
 
-.search-location:hover{
-  border-color:#3c89e8;
+.search-location:hover {
+  border-color: #3c89e8;
 }
 
-.spin-black  .ant-spin-dot-item{
+.spin-black .ant-spin-dot-item {
   background-color: black !important;
 }

@@ -15,8 +15,6 @@ const UserPanel = () => {
     if (isAuthenticated()) {
         admin = authUser().roles.some((e) => e.name === "ADMIN")
     }
-
-
     const userQuery = useQuery({
         queryKey: ["user"],
         queryFn: async () => {
@@ -25,12 +23,10 @@ const UserPanel = () => {
                     "Authorization": authHeader()
                 }
             })
-
             return await res.data
         },
         keepPreviousData: true
     })
-
 
     return (
         <div className="container p-4 mt-5 rounded-4 text-text font-body">
@@ -43,11 +39,7 @@ const UserPanel = () => {
                 {!userQuery.isLoading && userQuery.data.roles.map((role) => {
                     return <li key={role}>{role.name} </li>
                 })}
-
-
             </ul>
-
-
             {admin && <AdminPanel></AdminPanel>}
         </div>
     )

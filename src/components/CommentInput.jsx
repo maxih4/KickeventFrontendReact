@@ -13,12 +13,9 @@ const CommentInput = (props) => {
     const authHeader = useAuthHeader()
     const queryClient = useQueryClient()
     const [isLoading,setIsLoading] = useState(false)
-
     function onChange(e) {
         setHtml(DOMPurify.sanitize(e.target.value))
     }
-
-
     const mutation = useMutation({
         mutationFn:()=>
             submitComment()
@@ -41,16 +38,11 @@ const CommentInput = (props) => {
         }).then((res) => {
             setHtml("")
             return res.data
-
         })
     }
 
     return (<div className="m-3 mb-0">
-
-            <div className="py-3 text-text"><Editor className="text-text" value={html} onChange={onChange}
-            ></Editor></div>
-
-
+            <div className="py-3 text-text"><Editor className="text-text" value={html} onChange={onChange}></Editor></div>
             <div className=" flex flex-row justify-center py-2">
                 {isLoading ? <Loading/> :
                     <button className="bg-none bg-inherit border-none p-0 outline-inherit" onClick={mutation.mutate}>
@@ -61,7 +53,6 @@ const CommentInput = (props) => {
                             <span className="relative font-body">Kommentar speichern</span>
                         </div>
                     </button>}
-
             </div>
         </div>
 

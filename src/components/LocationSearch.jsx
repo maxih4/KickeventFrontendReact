@@ -3,22 +3,16 @@ import GooglePlacesAutocomplete, { geocodeByPlaceId} from 'react-google-places-a
 import {getLatLng} from "use-places-autocomplete";
 
 function LocationSearch({setLong, setLang, setHouseNumber, setPostalCode, setCity, setStreet, addressLabel}) {
-
     const [value, setValue] = useState(null);
-
-
     useEffect(() => {
         if (value !== null) {
-            getCoords()
-        }
-// eslint-disable-next-line react-hooks/exhaustive-deps
+            getCoords()}
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [value]);
 
     function getCoords() {
         geocodeByPlaceId(value.value.place_id)
             .then(results => {
-                console.log(results)
-                console.log(value)
                 results[0].address_components.forEach((components) => {
                     switch (components.types[0]) {
                         case "street_number": {
@@ -40,7 +34,6 @@ function LocationSearch({setLong, setLang, setHouseNumber, setPostalCode, setCit
                         default: {
                             return;
                         }
-
                     }
                 })
                 const {lat, lng} = getLatLng(results[0])
@@ -52,7 +45,6 @@ function LocationSearch({setLong, setLang, setHouseNumber, setPostalCode, setCit
 
 
     return (
-
         <>
             <GooglePlacesAutocomplete
                 autocompletionRequest={{componentRestrictions: {country: ["de"]}}}
@@ -67,7 +59,6 @@ function LocationSearch({setLong, setLang, setHouseNumber, setPostalCode, setCit
                             placeId = e["value"]["place_id"]
                         }
                         setValue(e)
-
                     },
                     placeholder: "Bitte Standort eingeben",
                     unstyled: true,
@@ -75,7 +66,6 @@ function LocationSearch({setLong, setLang, setHouseNumber, setPostalCode, setCit
                         input: (provided) => ({
                             ...provided,
                             color: 'white',
-
                         }),
                         control:(provided)=>({
                             ...provided,
@@ -99,10 +89,8 @@ function LocationSearch({setLong, setLang, setHouseNumber, setPostalCode, setCit
                     },
                     noOptionsMessage: () => "",
                 }}
-
             />
         </>
-
     );
 }
 

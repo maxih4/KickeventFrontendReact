@@ -4,45 +4,26 @@ import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
 
 
 const containerStyle = {
-
     height: '400px'
 };
-
-
-
-const url="https://www.google.com/maps/dir/?api=1&destination="
+const url = "https://www.google.com/maps/dir/?api=1&destination="
 
 function MyComponent(props) {
-
-    const { isLoaded } = useJsApiLoader({
+    const {isLoaded} = useJsApiLoader({
         id: 'google-map-script',
         googleMapsApiKey: import.meta.env.VITE_GOOGLE_MAPS_API_KEY,
-        libraries:["places"],
-        language:"de"
+        libraries: ["places"],
+        language: "de"
     })
-
-    const center={
-        lat: props.latitude,lng:props.longitude
+    const center = {
+        lat: props.latitude, lng: props.longitude
     }
-
-
-
-
-
-    return isLoaded&&center.lat !=null && center.lat!== 0&& center.lng!== 0 &&center.lng!=null ? (
+    return isLoaded && center.lat != null && center.lat !== 0 && center.lng !== 0 && center.lng != null ? (
         <><GoogleMap
             mapContainerStyle={containerStyle}
             center={center}
-            zoom={11}
-
-
-
-        >
-            { /* Child components, such as markers, info windows, etc. */}
-
+            zoom={11}>
             <MarkerF position={center}></MarkerF>
-
-
         </GoogleMap>
             <div className="flex flex-row justify-center pt-4">
                 <button className="bg-none bg-inherit border-none p-0 outline-inherit"
@@ -53,8 +34,6 @@ function MyComponent(props) {
                     </div>
                 </button>
             </div>
-
-
         </>
     ) : <></>
 }

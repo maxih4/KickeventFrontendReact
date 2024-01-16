@@ -6,15 +6,12 @@ import axios from "axios";
 import DOMPurify from "dompurify";
 import {Alert, Card, DatePicker, Form, Input, TimePicker} from "antd";
 import dayjs from "dayjs";
-
 import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
 import CalendarMonthOutlinedIcon from "@mui/icons-material/CalendarMonthOutlined";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
-
 import LocationSearch from "../components/LocationSearch";
 import Loading from "../components/Loading";
 import {useMutation, useQueryClient} from "@tanstack/react-query";
-
 
 const EventEditor = (props) => {
 
@@ -35,34 +32,26 @@ const EventEditor = (props) => {
     const [dateEdited, setDateEdited] = useState(false)
     const [form] = Form.useForm()
     const addressLabel = props.streetName + " " + props.houseNumber + ", " + props.city + ", Deutschland"
-
     const queryClient = useQueryClient()
-    const navigate=useNavigate()
-
-
+    const navigate = useNavigate()
     const mutation = useMutation({
         mutationFn: () =>
             submitChanges(),
         onSuccess: (event) => {
             console.log(event)
             queryClient.setQueryData(["event", event.id.toString()], event)
-            if(mode==="update"){
+            if (mode === "update") {
                 props.setEditState(prev => !prev)
-            }else{
+            } else {
                 navigate("/event/" + event.id)
             }
-
         },
-        onError:(error)=>console.log(error)
-
-
+        onError: (error) => console.log(error)
     })
-
 
     function onChangeHtml(e) {
         setHtml(DOMPurify.sanitize(e.target.value))
     }
-
 
     function dateSelect(date, dateString) {
 
@@ -80,18 +69,15 @@ const EventEditor = (props) => {
         return current && current < new Date()
     };
 
-
     async function submitChanges() {
         let startDate = ""
         let endDate = ""
-
 
         if (mode === undefined) {
             if (!(startTime === undefined) && !(endTime === undefined)) {
                 startDate = date.set("hour", startTime.split(":")[0]).set("minute", startTime.split(":")[1]).format("YYYY-MM-DD[T]HH:mm:ss.SSSZ")
                 endDate = date.set("hour", endTime.split(":")[0]).set("minute", endTime.split(":")[1]).format("YYYY-MM-DD[T]HH:mm:ss.SSSZ")
             }
-
 
             return axios.post(import.meta.env.VITE_BACKEND_URL + "/api/event", {
                 content: html,
@@ -109,15 +95,12 @@ const EventEditor = (props) => {
                     "Authorization": authHeader()
                 }
             }).then((res) => res.data)
-
         } else {
             if (mode === undefined) {
                 if (!(startTime === undefined) && !(endTime === undefined)) {
                     startDate = date.set("hour", startTime.split(":")[0]).set("minute", startTime.split(":")[1]).format("YYYY-MM-DD[T]HH:mm:ss.SSSZ")
                     endDate = date.set("hour", endTime.split(":")[0]).set("minute", endTime.split(":")[1]).format("YYYY-MM-DD[T]HH:mm:ss.SSSZ")
                 }
-
-
                 return axios.post(import.meta.env.VITE_BACKEND_URL + "/api/event", {
                     content: html,
                     title: form.getFieldValue("title"),
@@ -134,7 +117,6 @@ const EventEditor = (props) => {
                         "Authorization": authHeader()
                     }
                 }).then((res) => res.data)
-
             } else {
                 if (!dateEdited) {
                     startDate = date.set("hour", startTime.get("hour")).set("minute", startTime.get("minute")).format("YYYY-MM-DD[T]HH:mm:ss.SSSZ")
@@ -142,7 +124,6 @@ const EventEditor = (props) => {
                 } else {
                     startDate = date.set("hour", startTime.split(":")[0]).set("minute", startTime.split(":")[1]).format("YYYY-MM-DD[T]HH:mm:ss.SSSZ")
                     endDate = date.set("hour", endTime.split(":")[0]).set("minute", endTime.split(":")[1]).format("YYYY-MM-DD[T]HH:mm:ss.SSSZ")
-
                 }
                 return axios.put(import.meta.env.VITE_BACKEND_URL + "/api/event/" + eventId, {
                     content: html,
@@ -160,79 +141,57 @@ const EventEditor = (props) => {
                         "Authorization": authHeader()
                     }
                 }).then((res) => res.data)
-
             }
         }
-
-
     }
 
-
     return (
-
-
-//TODO Validator function for all
-        //Todo wait spinner when clicking
         <>{mutation.isError && mutation.error.response &&
-            <Alert message={mutation.error.response.data.message} className="container mb-2" type="error" showIcon/>
-
-        }
-
+            <Alert message={mutation.error.response.data.message} className="container mb-2" type="error" showIcon/>}
             <div className="container">
-
-
                 <Form form={form} layout={"vertical"}>
                     <Card title={
                         <Form.Item initialValue={title} label="Titel" name="title"
-                                   className="mt-3" //rules={[{required: true, message: 'Bitte einen Titel eingeben',},]}
-                        >
-                            <Input/></Form.Item>
-
-                    } bordered={false} className="bg-background-800 create-event-card mb-0 " actions={[
-                        <div className="md:flex hidden flex-col justify-center text-white pt-2 cursor-default"
-                             key="Location">
-                            <div className="flex-row justify-center flex font-body label-text pb-2">
-                                <LocationOnOutlinedIcon/>Standort
-                            </div>
-                            <LocationSearch setLong={setLong} setLang={setLat} setHouseNumber={setHouseNumber}
-                                            setCity={setCity} setStreet={setStreet}
-                                            setPostalCode={setPostalCode} addressLabel={addressLabel}></LocationSearch>
-                        </div>,
-                        <div className="md:flex hidden flex-col justify-center text-white pt-2 cursor-default"
-                             key="Calendar">
-
-                            <div className="flex flex-row justify-center pb-2 font-body"><CalendarMonthOutlinedIcon/>
-                                Datum
-                            </div>
-
-
-                            <div><DatePicker id="datePicker" defaultValue={date} onChange={dateSelect}
-                                             format="DD-MM-YYYY"
-                                             disabledDate={disabledDate}/></div>
-                        </div>,
-
-                        <div className="md:flex hidden flex-col justify-center text-white pt-2 cursor-default"
-                             key="time">
-                            <div className="flex flex-row justify-center pb-2 font-body"><AccessTimeIcon/>
-                                Uhrzeit
-                            </div>
-
-
-                            <div className="px-2"><TimePicker.RangePicker defaultValue={[startTime, endTime]}
-                                                                          format="HH:mm"
-                                                                          onChange={timeSelect}
-                                                                          minuteStep={30}/></div>
-                        </div>,
-                    ]}>
+                                   className="mt-3">
+                            <Input/></Form.Item>} bordered={false} className="bg-background-800 create-event-card mb-0 "
+                          actions={[
+                              <div className="md:flex hidden flex-col justify-center text-white pt-2 cursor-default"
+                                   key="Location">
+                                  <div className="flex-row justify-center flex font-body label-text pb-2">
+                                      <LocationOnOutlinedIcon/>Standort
+                                  </div>
+                                  <LocationSearch setLong={setLong} setLang={setLat} setHouseNumber={setHouseNumber}
+                                                  setCity={setCity} setStreet={setStreet}
+                                                  setPostalCode={setPostalCode}
+                                                  addressLabel={addressLabel}></LocationSearch>
+                              </div>,
+                              <div className="md:flex hidden flex-col justify-center text-white pt-2 cursor-default"
+                                   key="Calendar">
+                                  <div className="flex flex-row justify-center pb-2 font-body">
+                                      <CalendarMonthOutlinedIcon/>
+                                      Datum
+                                  </div>
+                                  <div><DatePicker id="datePicker" defaultValue={date} onChange={dateSelect}
+                                                   format="DD-MM-YYYY"
+                                                   disabledDate={disabledDate}/></div>
+                              </div>,
+                              <div className="md:flex hidden flex-col justify-center text-white pt-2 cursor-default"
+                                   key="time">
+                                  <div className="flex flex-row justify-center pb-2 font-body"><AccessTimeIcon/>
+                                      Uhrzeit
+                                  </div>
+                                  <div className="px-2"><TimePicker.RangePicker defaultValue={[startTime, endTime]}
+                                                                                format="HH:mm"
+                                                                                onChange={timeSelect}
+                                                                                minuteStep={30}/></div>
+                              </div>,
+                          ]}>
                         <div className="text-black">
                             <Editor value={html} onChange={onChangeHtml}></Editor></div>
                     </Card>
-
-
                     {/*/FOR MOBILE*/}
                     <div className="bg-background-900 flex-col flex justify-center pb-5">
                         <div className=" md:hidden">
-
                             <div className="flex-row justify-start flex font-body label-text pb-2 ml-3">
                                 <LocationOnOutlinedIcon/>Standort
                             </div>
@@ -242,10 +201,7 @@ const EventEditor = (props) => {
                                                                            setPostalCode={setPostalCode}
                                                                            addressLabel={addressLabel}></LocationSearch>
                             </div>
-
-
                             <div className="text-white pt-2">
-
                                 <div className="flex flex-row justify-start pb-2 ml-3 font-body">
                                     <CalendarMonthOutlinedIcon/>
                                     Datum
@@ -259,17 +215,13 @@ const EventEditor = (props) => {
                                 <div className="flex flex-row justify-start pb-2 font-body ml-3"><AccessTimeIcon/>
                                     Uhrzeit
                                 </div>
-
-
                                 <div className="flex flex-row"><TimePicker.RangePicker className="w-5/6 mx-auto"
                                                                                        defaultValue={[startTime, endTime]}
                                                                                        format="HH:mm"
                                                                                        onChange={timeSelect}
                                                                                        minuteStep={30}/></div>
                             </div>
-
                         </div>
-
                         <div className="flex-row justify-center flex pt-5">
                             {mutation.isPending ? <Loading></Loading> :
                                 <button className="bg-none bg-inherit border-none p-0 outline-inherit"
@@ -286,12 +238,9 @@ const EventEditor = (props) => {
                                             {mode === undefined && "Event erstellen"}</span>
                                     </div>
                                 </button>}
-
                         </div>
-
                     </div>
                 </Form>
-
             </div>
         </>
     );

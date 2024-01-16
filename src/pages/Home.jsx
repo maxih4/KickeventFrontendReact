@@ -13,14 +13,10 @@ import qs from "qs"
 
 
 const Home = () => {
-
     const [page, setPage] = useState(1)
     const [eventsPerPage, setEventsPerPage] = useState(3)
     const [sort, setSort] = useState("")
     const [search, setSearch] = useState("")
-
-
-
     const eventsQuery = useQuery({
         queryKey: ["events", page, eventsPerPage,sort,search],
         queryFn: async () => {
@@ -36,24 +32,11 @@ const Home = () => {
             return await res.data
         },
         keepPreviousData:true,
-
     })
-
-
-
-
-
-
-
-
 
     const onShowSizeChange = (current, pageSize) => {
         setEventsPerPage(pageSize)
     };
-
-
-
-
     return (
         <div className="container">
             <HomeHeader/>
@@ -69,29 +52,19 @@ const Home = () => {
                 </div>
             </div>
             {eventsQuery.isLoading &&
-                <Loading></Loading>
-
-
-            }
-
-
+                <Loading></Loading>}
             {eventsQuery.data && eventsQuery.data.content.map((e) => (
             <EventCard key={e.id} event={e} button={true}></EventCard>
             ))}
             {!eventsQuery.isLoading &&eventsQuery.data.empty && <Error search={search}></Error>
             }
-
-
             <div className="flex flex-row justify-center">
                 {!eventsQuery.isLoading && <Pagination showSizeChanger pageSizeOptions={[3, 5, 10, 20, 50]}
                                                        onShowSizeChange={onShowSizeChange} current={page} total={eventsQuery.data.totalElements}
-                                                       defaultPageSize={eventsPerPage} onChange={(page)=>{setPage(page)
-                                                       console.log(page)}}/>}
+                                                       defaultPageSize={eventsPerPage} onChange={(page)=>setPage(page)}/>}
             </div>
-
         </div>
     )
 }
-
 
 export default Home

@@ -15,7 +15,6 @@ import {Divider, Spin} from "antd";
 import {DeleteOutlined, EditOutlined} from "@ant-design/icons";
 import {useMutation, useQuery, useQueryClient} from "@tanstack/react-query";
 
-
 function SingleEvent(props) {
     const navigation = useNavigate()
     const {id} = useParams()
@@ -24,15 +23,9 @@ function SingleEvent(props) {
     const [owner,setOwner] = useState(false)
     const [admin,setAdmin] = useState(false)
     const [loading,setLoading] = useState(false)
-
     const authHeader = useAuthHeader()
-
     const [editState, setEditState] = useState(false)
     const query=useQueryClient()
-
-
-
-
     const eventQuery = useQuery({
         queryKey: ["event", id],
         queryFn: async () => {
@@ -41,7 +34,6 @@ function SingleEvent(props) {
             return await res.data
         },
     })
-
     useEffect(() => {
         window.scrollTo({top:-20})
         if (isAuthenticated() && !eventQuery.isLoading) {
@@ -50,9 +42,6 @@ function SingleEvent(props) {
         }
 // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [eventQuery.isLoading]);
-
-
-
     const mutation = useMutation(({
         mutationFn: ()=>deleteEvent(),
         onSuccess: ()=>query.invalidateQueries({queryKey:["event",id]}),
@@ -66,7 +55,6 @@ function SingleEvent(props) {
         }
     }))
 
-
     const deleteEvent = async () => {
         setLoading(true)
         return axios.delete(import.meta.env.VITE_BACKEND_URL + "/api/event/" + id, {
@@ -74,21 +62,15 @@ function SingleEvent(props) {
                 "Authorization": authHeader()
             }
         }).then((res) =>res.data)    }
-
     const editEvent = () => {
         setEditState(true)
     }
-
     return (<>
-
-
-
             {
                 !editState && !eventQuery.isLoading && <>
                     <div className="container bg-primary-900 rounded-xl pl-1 pr-1 pt-0.5 pb-2 ">
                         <h1 className="text-text font-heading pl-1 pr-1">
                             {eventQuery.data.title}
-
                         </h1>
                         <div
                             className="flex flex-row lg:border-3 lg:hover:border-secondary-400 lg:border-solid rounded-full lg:border-secondary-300 justify-evenly lg:m-2 lg:ml-3 lg:mr-3">
@@ -116,8 +98,6 @@ function SingleEvent(props) {
                                 <div
                                     className="ps-1">{new Date(eventQuery.data.startDate).toLocaleString("de-DE", {hour: "2-digit"})} bis {new Date(eventQuery.data.endDate).toLocaleString("de-DE", {hour: "2-digit"})}</div>
                             </div>
-
-
                         </div>
                     </div>
                     <div className="container bg-primary-900 rounded-xl pl-1 pr-1 pt-0.5 pb-2 mt-4">
@@ -125,19 +105,15 @@ function SingleEvent(props) {
                         <p className="text-text-50 font-body m-3"
                            dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(eventQuery.data.content)}}></p>
                     </div>
-
                     <div className="container bg-primary-900 rounded-xl pl-1 pr-1 pt-0.5 pb-2 mt-4">
                         <h3 className="text-text font-heading pl-1 pr-1">Standort</h3>
                         <div className="m-3"><MapLocation longitude={Number(eventQuery.data.longitude)}
                                                           latitude={Number(eventQuery.data.latitude)}></MapLocation></div>
                     </div>
-
-
                     {
                         (owner || admin) && <div className="container bg-primary-900 rounded-xl pl-1 pr-1 pt-0.5 pb-2 mt-4">
                             <h3 className="text-text font-heading pl-1 pr-1">Event Aktionen</h3>
                             <div className="flex flex-row justify-center">
-
                                 <button className="bg-none bg-inherit border-none p-0 outline-inherit"
                                         onClick={editEvent}>
                                     <div
@@ -149,7 +125,6 @@ function SingleEvent(props) {
                                         </div>
                                     </div>
                                 </button>
-
                                 <button className="bg-none bg-inherit border-none p-0 outline-inherit"
                                         onClick={mutation.mutate}>
                                     <div
@@ -176,14 +151,10 @@ function SingleEvent(props) {
                              setEditState={setEditState}
                              long={Number(eventQuery.data.longitude)}
                              lat={Number(eventQuery.data.latitude)}></EventEditor>
-
-
             }
             {eventQuery.isLoading && <Loading></Loading>}
         </>
-
     )
-
 }
 
 export default SingleEvent;

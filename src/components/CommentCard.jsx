@@ -7,15 +7,11 @@ import {Card, Spin} from "antd";
 import {DeleteOutlined, EditOutlined} from "@ant-design/icons";
 import {useMutation, useQueryClient} from "@tanstack/react-query";
 
-
 function EventCard(props) {
-
-
     const sanitizedData = () => (
         {
             __html: DOMPurify.sanitize(props.comment.content)
         })
-
     const date = new Date(props.comment.created).toLocaleDateString("de-DE")
     const time = new Date(props.comment.created).toLocaleTimeString()
     const authUser = useAuthUser()
@@ -28,32 +24,28 @@ function EventCard(props) {
         owner = props.comment.owner.userName === authUser().userName
         admin = authUser().roles.some((e) => e.name === "ADMIN")
     }
-    const [loading,setLoading] = useState(false)
-
+    const [loading, setLoading] = useState(false)
     const query = useQueryClient()
-
-
     const mutation = useMutation(({
-        mutationFn: ()=>deleteComment(),
-        onSuccess: ()=>query.setQueryData(["comments",props.comment.event.id.toString()],(oldComments)=>{
-            return oldComments.filter((oldComment)=>{
+        mutationFn: () => deleteComment(),
+        onSuccess: () => query.setQueryData(["comments", props.comment.event.id.toString()], (oldComments) => {
+            return oldComments.filter((oldComment) => {
                 return oldComment.id !== props.comment.id
             })
         }),
-        onSettled:()=> {
+        onSettled: () => {
             setLoading(false)
         },
-        onError:(err)=> {
+        onError: (err) => {
             setLoading(false)
             console.log(err)
         }
     }))
-
     const openEditFunction = () => {
         setEditState(true)
     }
     const deleteComment = async () => {
-setLoading(true)
+        setLoading(true)
         return axios.delete(import.meta.env.VITE_BACKEND_URL + "/api/comment/" + props.comment.id, {
             headers: {
                 "Authorization": authHeader()
@@ -61,39 +53,13 @@ setLoading(true)
         }).then((res) => res.data)
     }
 
-    return (
-
-        <>
-            {/* <div className="card rounded-5">
-                <div className="card-body">
-                    {!editState && <div className="card-text" dangerouslySetInnerHTML={sanitizedData()}/>}
-                    {editState &&
-                        <CommentEdit commentId={props.comment.id} html={DOMPurify.sanitize(props.comment.content)}
-                                     setToggleRefresh={props.setToggleRefresh}
-                                     setEditState={setEditState}></CommentEdit>
-                    }
-
-
-                </div>
-            </div>
-            <div className="d-flex justify-content-between">
-                <div>
-                    geschrieben von {props.comment.owner.userName} am {date} um {time}</div>
-                <div>
-                    {(owner|| admin) && !editState &&
-                        <button onClick={openEditFunction}><i className="bi bi-pencil-square"></i></button>}
-                    {(owner||admin) && <button onClick={deleteComment}><i className="bi bi-trash"></i></button>}
-                </div>
-
-            </div>
-            <br/>*/}
+    return (<>
             <Card className="mb-1 bg-background-800 cursor-default" hoverable>
                 {!editState && <div className="text-text font-body" dangerouslySetInnerHTML={sanitizedData()}/>}
                 {editState &&
                     <CommentEdit commentId={props.comment.id} html={DOMPurify.sanitize(props.comment.content)}
                                  setToggleRefresh={props.setToggleRefresh}
-                                 setEditState={setEditState}> eventId={props.comment.event.id}</CommentEdit>
-                }
+                                 setEditState={setEditState}> eventId={props.comment.event.id}</CommentEdit>}
             </Card>
             <div className="text-text font-body pb-2">
                 <div className="md:flex md:flex-row md:justify-between grid-cols-2 grid">
@@ -103,10 +69,8 @@ setLoading(true)
                         {(owner || admin) && !editState &&
                             <button className="bg-none bg-inherit border-none p-0 outline-inherit"
                                     onClick={openEditFunction}>
-                                <div
-                                    className="select-none cursor-pointer relative rounded px-5 py-2.5 overflow-hidden group bg-secondary-500 hover:bg-gradient-to-r hover:from-secondary-500 hover:to-secondary-500 text-text hover:ring-2 hover:ring-offset-2 hover:ring-secondary-400 transition-all ease-out duration-300 ml-1">
-                                    <div
-                                        className="absolute right-0 w-8 h-32 -mt-12 transition-all duration-1000 transform translate-x-12 bg-white opacity-10 rotate-12 group-hover:-translate-x-40 ease"></div>
+                                <div className="select-none cursor-pointer relative rounded px-5 py-2.5 overflow-hidden group bg-secondary-500 hover:bg-gradient-to-r hover:from-secondary-500 hover:to-secondary-500 text-text hover:ring-2 hover:ring-offset-2 hover:ring-secondary-400 transition-all ease-out duration-300 ml-1">
+                                    <div className="absolute right-0 w-8 h-32 -mt-12 transition-all duration-1000 transform translate-x-12 bg-white opacity-10 rotate-12 group-hover:-translate-x-40 ease"></div>
                                     <div className="relative font-body"><EditOutlined/></div>
                                 </div>
                             </button>}
@@ -117,7 +81,7 @@ setLoading(true)
                                     className="select-none cursor-pointer relative rounded px-5 py-2.5 overflow-hidden group bg-red-500 hover:bg-gradient-to-r hover:from-white-500 hover:to-white-500 text-text hover:ring-2 hover:ring-offset-2 hover:ring-white-400 transition-all ease-out duration-300 ml-1">
                                     <div
                                         className="absolute right-0 w-8 h-32 -mt-12 transition-all duration-1000 transform translate-x-12 bg-white opacity-10 rotate-12 group-hover:-translate-x-40 ease"></div>
-                                    <div className="relative font-body">{loading ? <Spin></Spin> :<DeleteOutlined/>}
+                                    <div className="relative font-body">{loading ? <Spin></Spin> : <DeleteOutlined/>}
 
                                     </div>
                                 </div>

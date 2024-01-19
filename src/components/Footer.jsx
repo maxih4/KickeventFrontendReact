@@ -11,7 +11,7 @@ const Footer = () => {
                     Impressum
                 </h4>
                 <h4 className="font-body text-text">
-                    Kontakt
+                    Kontaktformular
                 </h4>
             </div>
         </>

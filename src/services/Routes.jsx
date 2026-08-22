@@ -1,5 +1,5 @@
 import React from 'react'
-import {useIsAuthenticated} from 'react-auth-kit'
+import useIsAuthenticated from 'react-auth-kit/hooks/useIsAuthenticated'
 import {BrowserRouter, Navigate, Route, Routes} from 'react-router-dom'
 import Home from '../pages/Home'
 import Login from '../pages/Login'

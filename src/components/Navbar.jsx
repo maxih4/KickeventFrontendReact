@@ -1,7 +1,8 @@
 import React from 'react';
 import {Link, useNavigate} from "react-router-dom";
 
-import {useIsAuthenticated, useSignOut} from "react-auth-kit";
+import useIsAuthenticated from "react-auth-kit/hooks/useIsAuthenticated";
+import useSignOut from "react-auth-kit/hooks/useSignOut";
 import {Divider} from "antd";
 import {LogoutOutlined, PlusCircleOutlined, UserOutlined} from "@ant-design/icons";
 

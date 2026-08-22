@@ -1,6 +1,8 @@
 import React, {useState} from 'react';
 import DOMPurify from 'dompurify'
-import {useAuthHeader, useAuthUser, useIsAuthenticated} from "react-auth-kit";
+import useAuthHeader from "react-auth-kit/hooks/useAuthHeader";
+import useAuthUser from "react-auth-kit/hooks/useAuthUser";
+import useIsAuthenticated from "react-auth-kit/hooks/useIsAuthenticated";
 import CommentEdit from "./CommentEdit";
 import axios from "axios";
 import {Card, Spin} from "antd";

@@ -1,9 +1,10 @@
 import axios from "axios";
 import React, {useState} from 'react'
-import {useSignIn} from 'react-auth-kit'
+import useSignIn from 'react-auth-kit/hooks/useSignIn'
 import {useNavigate} from 'react-router-dom'
 import Loading from "../components/Loading";
 import {Alert, Form, Input} from "antd";
+import {toAuthKitRefreshToken} from "../services/refreshApi";
 
 const Login = () => {
 
@@ -24,12 +25,12 @@ const Login = () => {
             if (res.status === 200) {
                 if (signIn(
                     {
-                        token: res.data.jwtToken,
-                        expiresIn: Math.floor((new Date(res.data.expirationDate) - new Date()) / 1000 / 60),
-                        tokenType: res.data.type,
-                        refreshToken: res.data.refreshToken,
-                        refreshTokenExpireIn: Math.floor((new Date(res.data.expirationDateRefreshToken) - new Date()) / 1000 / 60),
-                        authState: {userName: values.userName, userId: res.data.userId, roles: res.data.roles}
+                        auth: {
+                            token: res.data.jwtToken,
+                            type: res.data.type
+                        },
+                        refresh: toAuthKitRefreshToken(res.data.refreshToken, res.data.expirationDateRefreshToken),
+                        userState: {userName: values.userName, userId: res.data.userId, roles: res.data.roles}
                     }
                 )) {
                     navigate('/user')

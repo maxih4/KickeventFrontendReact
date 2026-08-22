@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import Editor from 'react-simple-wysiwyg'
 import {useParams} from "react-router-dom";
 import axios from "axios";
-import {useAuthHeader} from "react-auth-kit";
+import useAuthHeader from "react-auth-kit/hooks/useAuthHeader";
 import DOMPurify from "dompurify";
 import {useMutation, useQueryClient} from "@tanstack/react-query";
 import Loading from "./Loading";

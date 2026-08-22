@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from "axios";
-import {useAuthHeader} from "react-auth-kit";
+import useAuthHeader from "react-auth-kit/hooks/useAuthHeader";
 import AdminPanelTabel from "./AdminPanelTabel";
 import Loading from "./Loading";
 import {useQuery} from "@tanstack/react-query";

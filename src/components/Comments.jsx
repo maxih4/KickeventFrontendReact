@@ -3,7 +3,7 @@ import {useParams} from "react-router-dom";
 
 import CommentCard from "./CommentCard";
 import CommentInput from "./CommentInput";
-import {useIsAuthenticated} from "react-auth-kit";
+import useIsAuthenticated from "react-auth-kit/hooks/useIsAuthenticated";
 import axios from "axios";
 import {useQuery} from "@tanstack/react-query";
 import Loading from "./Loading";

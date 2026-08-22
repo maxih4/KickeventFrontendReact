@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import axios from "axios";
-import {useAuthHeader, useAuthUser} from "react-auth-kit";
+import useAuthHeader from "react-auth-kit/hooks/useAuthHeader";
+import useAuthUser from "react-auth-kit/hooks/useAuthUser";
 import {Button, Space, Table, Tag, Tooltip, Form, Input, Alert, Spin} from "antd";
 import {DeleteOutlined, EditOutlined, SaveOutlined} from "@ant-design/icons";
 import {useQueryClient} from "@tanstack/react-query";

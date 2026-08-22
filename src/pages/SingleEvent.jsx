@@ -3,7 +3,9 @@ import {useNavigate, useParams} from "react-router-dom"
 import axios from "axios";
 import Comments from "../components/Comments";
 import DOMPurify from "dompurify";
-import {useAuthHeader, useAuthUser, useIsAuthenticated} from "react-auth-kit";
+import useAuthHeader from "react-auth-kit/hooks/useAuthHeader";
+import useAuthUser from "react-auth-kit/hooks/useAuthUser";
+import useIsAuthenticated from "react-auth-kit/hooks/useIsAuthenticated";
 import EventEditor from "./EventEditor";
 import dayjs from "dayjs";
 import MapLocation from "../components/MapLocation";

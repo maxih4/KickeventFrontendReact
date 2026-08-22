@@ -1,5 +1,7 @@
 import React from 'react'
-import {useAuthHeader, useAuthUser, useIsAuthenticated} from 'react-auth-kit'
+import useAuthHeader from 'react-auth-kit/hooks/useAuthHeader'
+import useAuthUser from 'react-auth-kit/hooks/useAuthUser'
+import useIsAuthenticated from 'react-auth-kit/hooks/useIsAuthenticated'
 import axios from "axios";
 import AdminPanel from "../components/AdminPanel";
 import Loading from "../components/Loading";

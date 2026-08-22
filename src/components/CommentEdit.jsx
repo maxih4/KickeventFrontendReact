@@ -41,7 +41,7 @@ const CommentEdit = (props) => {
             content: html
         }, {
             headers: {
-                "Authorization": authHeader()
+                "Authorization": authHeader
             }
         }).then((res) => res.data)
     }

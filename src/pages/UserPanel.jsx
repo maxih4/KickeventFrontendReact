@@ -14,15 +14,15 @@ const UserPanel = () => {
     const authHeader = useAuthHeader();
     const isAuthenticated = useIsAuthenticated()
     let admin = false
-    if (isAuthenticated()) {
-        admin = authUser().roles.some((e) => e.name === "ADMIN")
+    if (isAuthenticated) {
+        admin = authUser.roles.some((e) => e.name === "ADMIN")
     }
     const userQuery = useQuery({
         queryKey: ["user"],
         queryFn: async () => {
-            const res = await axios.get(import.meta.env.VITE_BACKEND_URL + "/user/" + authUser().userId, {
+            const res = await axios.get(import.meta.env.VITE_BACKEND_URL + "/user/" + authUser.userId, {
                 headers: {
-                    "Authorization": authHeader()
+                    "Authorization": authHeader
                 }
             })
             return await res.data
@@ -33,7 +33,7 @@ const UserPanel = () => {
     return (
         <div className="container p-4 mt-5 rounded-4 text-text font-body">
             <h1 className="font-heading">Userpanel</h1>
-            <p>{`Hello ${authUser().userName}`} with ID: {authUser().userId}</p>
+            <p>{`Hello ${authUser.userName}`} with ID: {authUser.userId}</p>
             <p>Folgende Rollen besitzt du:</p>
             <br/>
             {userQuery.isLoading && <Loading></Loading>}

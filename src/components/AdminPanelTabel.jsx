@@ -77,7 +77,7 @@ const AdminPanelTabel = (props) => {
                                 icon={loading ? <Spin/> : <SaveOutlined/>}
                                 onClick={onFinish}/>
                     </Tooltip> : <Tooltip title="edit">
-                        <Button type="primary" shape="circle" disabled={(user.userName === authUser().userName)}
+                        <Button type="primary" shape="circle" disabled={(user.userName === authUser.userName)}
                                 icon={<EditOutlined/>}
                                 onClick={() => {
                                     setResponse(false)
@@ -93,7 +93,7 @@ const AdminPanelTabel = (props) => {
                     <Tooltip title="delete">
                         <Button danger type="primary" shape="circle"
                                 icon={loading && loadingId === user.id.toString() ? <Spin/> : <DeleteOutlined/>}
-                                disabled={(user.userName === authUser().userName)}
+                                disabled={(user.userName === authUser.userName)}
                                 onClick={(e) => deleteUser(user, e)}
                                 id={user.id.toString()}/>
                     </Tooltip>
@@ -109,7 +109,7 @@ const AdminPanelTabel = (props) => {
         setError("")
         axios.delete(import.meta.env.VITE_BACKEND_URL + "/user/" + user.id, {
             headers: {
-                "Authorization": authHeader()
+                "Authorization": authHeader
             }
         }).then((res) => {
             setLoading(false)
@@ -137,7 +137,7 @@ const AdminPanelTabel = (props) => {
                 userName: values.userName
             }, {
                 headers: {
-                    "Authorization": authHeader()
+                    "Authorization": authHeader
                 }
             }).then((res) => {
                 setResponse(true)

@@ -22,9 +22,9 @@ function EventCard(props) {
     const isAuthenticated = useIsAuthenticated()
     let owner = false
     let admin = false
-    if (isAuthenticated()) {
-        owner = props.comment.owner.userName === authUser().userName
-        admin = authUser().roles.some((e) => e.name === "ADMIN")
+    if (isAuthenticated) {
+        owner = props.comment.owner.userName === authUser.userName
+        admin = authUser.roles.some((e) => e.name === "ADMIN")
     }
     const [loading, setLoading] = useState(false)
     const query = useQueryClient()
@@ -50,7 +50,7 @@ function EventCard(props) {
         setLoading(true)
         return axios.delete(import.meta.env.VITE_BACKEND_URL + "/api/comment/" + props.comment.id, {
             headers: {
-                "Authorization": authHeader()
+                "Authorization": authHeader
             }
         }).then((res) => res.data)
     }

@@ -38,9 +38,9 @@ function SingleEvent(props) {
     })
     useEffect(() => {
         window.scrollTo({top:-20})
-        if (isAuthenticated() && !eventQuery.isLoading) {
-            setOwner(eventQuery.data.owner.userName === authUser().userName)
-           setAdmin(authUser().roles.some((e) => e.name === "ADMIN"))
+        if (isAuthenticated && !eventQuery.isLoading) {
+            setOwner(eventQuery.data.owner.userName === authUser.userName)
+           setAdmin(authUser.roles.some((e) => e.name === "ADMIN"))
         }
 // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [eventQuery.isLoading]);
@@ -61,7 +61,7 @@ function SingleEvent(props) {
         setLoading(true)
         return axios.delete(import.meta.env.VITE_BACKEND_URL + "/api/event/" + id, {
             headers: {
-                "Authorization": authHeader()
+                "Authorization": authHeader
             }
         }).then((res) =>res.data)    }
     const editEvent = () => {

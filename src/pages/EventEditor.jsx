@@ -92,7 +92,7 @@ const EventEditor = (props) => {
                 latitude: lat
             }, {
                 headers: {
-                    "Authorization": authHeader()
+                    "Authorization": authHeader
                 }
             }).then((res) => res.data)
         } else {
@@ -114,7 +114,7 @@ const EventEditor = (props) => {
                     latitude: lat
                 }, {
                     headers: {
-                        "Authorization": authHeader()
+                        "Authorization": authHeader
                     }
                 }).then((res) => res.data)
             } else {
@@ -138,7 +138,7 @@ const EventEditor = (props) => {
                     latitude: lat
                 }, {
                     headers: {
-                        "Authorization": authHeader()
+                        "Authorization": authHeader
                     }
                 }).then((res) => res.data)
             }

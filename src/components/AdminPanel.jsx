@@ -13,7 +13,7 @@ const AdminPanel = () => {
         queryFn: async () => {
             const res = await axios.get(import.meta.env.VITE_BACKEND_URL + "/user", {
                 headers: {
-                    "Authorization": authHeader()
+                    "Authorization": authHeader
                 }
             })
             return await res.data

@@ -33,7 +33,7 @@ const CommentInput = (props) => {
             content: html
         }, {
             headers: {
-                "Authorization": authHeader()
+                "Authorization": authHeader
             }
         }).then((res) => {
             setHtml("")

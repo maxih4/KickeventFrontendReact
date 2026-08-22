@@ -50,7 +50,7 @@ m-220 -41 c0 -20 -5 -30 -15 -30 -10 0 -15 10 -15 30 0 20 5 30 15 30 10 0 15
                         </svg>
                     </Link>
                     <div className="flex flex-row justify-end">
-                        {isAuthenticated() ? <>
+                        {isAuthenticated ? <>
                             <div onClick={() => navigate("/user")}
                                  className="select-none cursor-pointer relative rounded px-2.5 py-2.5 overflow-hidden group bg-primary-400 hover:bg-gradient-to-r hover:from-primary-400 hover:to-primary-500 text-text-900 hover:ring-2 hover:ring-offset-2 hover:ring-primary-400 transition-all ease-out duration-300 mr-2">
                         <span

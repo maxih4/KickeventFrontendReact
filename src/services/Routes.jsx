@@ -12,7 +12,7 @@ import EventEditor from "../pages/EventEditor";
 const RoutesComponent = () => {
     const PrivateRoute = ({ Component }) => {
         const isAuthenticated = useIsAuthenticated();
-        const auth = isAuthenticated();
+        const auth = isAuthenticated;
         return auth ? <Component /> : <Navigate to="/login" />;
     };
 

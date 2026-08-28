@@ -17,7 +17,24 @@ const store = createStore({
 function App() {
     const {darkAlgorithm} = theme;
     return (
-        <ConfigProvider theme={{algorithm: darkAlgorithm, hashed: false}}>
+        <ConfigProvider theme={{
+            algorithm: darkAlgorithm,
+            hashed: false,
+            token: {
+                colorBgBase: '#112f04',
+                colorBgContainer: '#235f07',
+                colorBgElevated: '#235f07',
+                colorBorder: '#338d0c',
+                colorText: '#effde7',
+                colorTextSecondary: '#bff7a1',
+            },
+            components: {
+                Card: {
+                    actionsBg: '#112f04',
+                    headerBg: '#235f07',
+                },
+            },
+        }}>
             <AuthProvider store={store}>
                 <RoutesComponent/>
             </AuthProvider>

@@ -29,22 +29,28 @@ const UserPanel = () => {
     const roles = userQuery.data?.roles || [];
 
     return (
-        <div className="page-container user-panel-page">
-            <div className="panel-layout">
-                <Card className="user-card" variant="outlined">
-                    <h1>Userpanel</h1>
-                    <div className="user-card-divider"/>
-                    <p className="user-card-copy">
+        <div className="mx-auto w-[calc(100%-1.5rem)] max-w-[1232px] pb-10 pt-5 sm:w-[calc(100%-2rem)] sm:pb-[60px] sm:pt-[30px]">
+            <div className="grid items-start gap-[22px] min-[901px]:grid-cols-[minmax(250px,320px)_minmax(0,1fr)]">
+                <Card
+                    className="shadow-md"
+                    classNames={{body: "p-5 sm:p-[26px]"}}
+                    variant="outlined"
+                >
+                    <h1 className="m-0 font-heading text-[27px] font-[650] leading-tight tracking-[-0.035em] text-slate-900 dark:text-text sm:text-[30px]">Userpanel</h1>
+                    <div className="my-5 border-t border-slate-200 dark:border-background-600"/>
+                    <p className="m-0 text-base text-slate-600 dark:text-text-300">
                         Hello <strong><bdi>{authUser.userName}</bdi></strong> with ID: <strong>{authUser.userId}</strong>
                     </p>
-                    <p className="role-label">Folgende Rollen besitzt du:</p>
+                    <p className="mb-2 mt-[22px] text-sm text-slate-600 dark:text-text-300">Folgende Rollen besitzt du:</p>
                     {userQuery.isLoading ? (
                         <Loading/>
                     ) : (
-                        <ul className="role-list" aria-label="Rollen">
+                        <ul className="m-0 flex list-none flex-wrap gap-2 p-0" aria-label="Rollen">
                             {roles.map((role) => (
                                 <li key={role.name}>
-                                    <Tag className={role.name === "ADMIN" ? "role-admin" : "role-user"}>
+                                    <Tag className={role.name === "ADMIN"
+                                        ? "m-0 rounded-full border-secondary-300 bg-secondary-50 font-[650] text-secondary-700 dark:border-secondary-700 dark:bg-secondary-950 dark:text-secondary-300"
+                                        : "m-0 rounded-full border-primary-200 bg-primary-50 font-[650] text-primary-700 dark:border-primary-800 dark:bg-primary-950 dark:text-primary-300"}>
                                         {role.name}
                                     </Tag>
                                 </li>

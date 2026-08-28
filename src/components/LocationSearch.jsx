@@ -167,13 +167,13 @@ function LocationSearch({setLong, setLang, setHouseNumber, setPostalCode, setCit
     }
 
     return (
-        <div className="location-search">
+        <div className="relative w-full">
             <input
                 aria-autocomplete="list"
                 aria-activedescendant={highlightedIndex >= 0 ? `${suggestionsId}-option-${highlightedIndex}` : undefined}
                 aria-controls={suggestionsId}
                 aria-expanded={suggestions.length > 0}
-                className="search-location"
+                className="block min-h-11 w-full rounded-[9px] border border-slate-300 bg-white px-3 py-2 text-slate-900 outline-none transition-[border-color,box-shadow] duration-150 placeholder:text-slate-500 hover:border-slate-400 focus-visible:border-secondary-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-0 focus-visible:outline-secondary-500 disabled:cursor-not-allowed disabled:opacity-55 dark:border-background-600 dark:bg-background-950 dark:text-text dark:placeholder:text-text-400 dark:hover:border-background-500"
                 disabled={!apiKey}
                 id={inputId}
                 onBlur={() => window.setTimeout(() => setSuggestions([]), 150)}
@@ -190,14 +190,14 @@ function LocationSearch({setLong, setLang, setHouseNumber, setPostalCode, setCit
             />
             {suggestions.length > 0 && (
                 <ul
-                    className="location-suggestions"
+                    className="absolute top-[calc(100%+4px)] z-50 m-0 max-h-60 w-full list-none overflow-auto rounded-[10px] border border-slate-200 bg-white p-1 shadow-xl dark:border-background-600 dark:bg-background-900"
                     id={suggestionsId}
                     role="listbox"
                 >
                     {suggestions.map(({placePrediction}, index) => (
                         <li
                             aria-selected={index === highlightedIndex}
-                            className={`location-suggestion ${index === highlightedIndex ? 'is-highlighted' : ''}`}
+                            className={`cursor-pointer rounded-[7px] px-3 py-2 text-start text-slate-900 hover:bg-slate-100 dark:text-text dark:hover:bg-background-800 ${index === highlightedIndex ? 'bg-slate-100 dark:bg-background-800' : ''}`}
                             id={`${suggestionsId}-option-${index}`}
                             key={`${placePrediction.placeId || getPredictionText(placePrediction)}-${index}`}
                             onMouseDown={(event) => {

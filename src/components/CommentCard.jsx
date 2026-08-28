@@ -43,11 +43,15 @@ function CommentCard({comment}) {
     };
 
     return (
-        <article className="comment-item">
-            <Card className="comment-card" variant="outlined">
+        <article>
+            <Card
+                className="rounded-[10px] bg-slate-50 shadow-none dark:bg-background-950"
+                classNames={{body: "p-4"}}
+                variant="outlined"
+            >
                 {!editState && (
                     <div
-                        className="comment-body"
+                        className="break-words text-slate-900 dark:text-text"
                         dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(comment.content)}}
                     />
                 )}
@@ -60,25 +64,25 @@ function CommentCard({comment}) {
                     />
                 )}
             </Card>
-            <div className="comment-meta-row">
+            <div className="flex flex-col items-start justify-between gap-4 pt-2.5 text-xs text-slate-500 dark:text-text-400 sm:flex-row sm:items-center">
                 <span>
                     geschrieben von <bdi>{comment.owner.userName}</bdi> am {date} um {time.split(":")[0] + ":" + time.split(":")[1]}
                 </span>
                 {(owner || admin) && (
-                    <div className="comment-actions">
+                    <div className="flex gap-2 self-end sm:self-auto">
                         {!editState && (
                             <Button
                                 aria-label="Kommentar bearbeiten"
-                                className="app-button app-button-secondary app-button-icon app-button-icon-compact"
-                                icon={<EditOutlined/>}
+                                className="!h-8 !min-w-8 !rounded-lg !border-secondary-500 !bg-secondary-500 !p-0 !text-white hover:!border-secondary-400 hover:!bg-secondary-400"
+                                icon={<EditOutlined fontSize="small"/>}
                                 onClick={() => setEditState(true)}
                             />
                         )}
                         <Button
                             aria-label="Kommentar löschen"
-                            className="app-button app-button-danger app-button-icon app-button-icon-compact"
+                            className="!h-8 !min-w-8 !rounded-lg !border-red-500 !bg-red-500 !p-0 !text-white hover:!border-red-400 hover:!bg-red-400"
                             danger
-                            icon={<DeleteOutlined/>}
+                            icon={<DeleteOutlined fontSize="small"/>}
                             loading={loading}
                             onClick={mutation.mutate}
                         />

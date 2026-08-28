@@ -20,7 +20,7 @@ KickEvent is a React/Vite single-page application for creating and finding footb
 - React Router for client-side routing
 - TanStack React Query for server state, caching, and mutations
 - Axios for API requests
-- Ant Design, MUI Icons, Tailwind CSS, and Sass for the interface
+- Ant Design, MUI Icons, and Tailwind CSS for the interface
 - Google Maps and Places API for location search, maps, and route links
 - DOMPurify for sanitizing rendered event content
 

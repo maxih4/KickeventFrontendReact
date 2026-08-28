@@ -3,7 +3,7 @@ import {Alert} from "antd";
 
 function Error({search}) {
     return (
-        <div className="page-alert">
+        <div className="my-4">
             <Alert title={`Keine Events gefunden${search === "" ? "" : ` für \"${search}\"`}`} type="error" showIcon/>
         </div>
     );

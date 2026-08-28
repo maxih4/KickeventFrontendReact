@@ -142,33 +142,46 @@ const EventEditor = (props) => {
         : "Event konnte nicht erstellt werden";
 
     return (
-        <div className="page-container editor-page">
+        <div className="mx-auto w-[calc(100%-1.5rem)] max-w-[1232px] pb-10 pt-5 sm:w-[calc(100%-2rem)] sm:pb-[60px] sm:pt-[30px]">
             {mutation.isError && (
                 <Alert
-                    className="editor-alert"
+                    className="mb-4"
                     description={getSubmitErrorMessage(mutation.error)}
                     showIcon
                     title={editorErrorTitle}
                     type="error"
                 />
             )}
-            <Form className="editor-form" form={form} initialValues={{title}} layout="vertical">
-                <Card className="editor-card" variant="outlined">
-                    <Form.Item className="editor-title-item" label="Titel" name="title">
-                        <Input/>
+            <Form
+                className="[&_.ant-form-item-label]:pb-1.5 [&_.ant-form-item-label>label]:font-[650] [&_.ant-form-item-label>label]:text-slate-900 dark:[&_.ant-form-item-label>label]:text-text"
+                form={form}
+                initialValues={{title}}
+                layout="vertical"
+            >
+                <Card
+                    className="shadow-lg"
+                    classNames={{body: "p-5 sm:p-6"}}
+                    variant="outlined"
+                >
+                    <Form.Item className="mb-0 border-b border-slate-200 pb-[18px] dark:border-background-800" label="Titel" name="title">
+                        <Input className="!min-h-11 !rounded-[9px]"/>
                     </Form.Item>
 
-                    <div className="editor-description">
-                        <Editor className="rich-text-editor" value={html} onChange={onChangeHtml}/>
+                    <div className="py-5 pb-[22px]">
+                        <Editor
+                            className="!overflow-hidden !rounded-[10px] !border-slate-300 !bg-white !text-slate-900 dark:!border-background-600 dark:!bg-background-950 dark:!text-text [&_.rsw-toolbar]:min-h-11 [&_.rsw-toolbar]:border-slate-200 [&_.rsw-toolbar]:bg-slate-100 [&_.rsw-btn]:text-slate-600 [&_.rsw-btn:hover]:bg-slate-200 [&_.rsw-btn:hover]:text-slate-900 [&_.rsw-ce]:min-h-[238px] [&_.rsw-ce]:p-4 [&_.rsw-ce]:font-body [&_.rsw-ce]:text-sm [&_.rsw-ce]:leading-[1.55] dark:[&_.rsw-toolbar]:border-background-600 dark:[&_.rsw-toolbar]:bg-background-900 dark:[&_.rsw-btn]:text-text-300 dark:[&_.rsw-btn:hover]:bg-background-800 dark:[&_.rsw-btn:hover]:text-text dark:[&_.rsw-ce]:text-text"
+                            value={html}
+                            onChange={onChangeHtml}
+                        />
                     </div>
 
-                    <div className="editor-details-grid">
-                        <div className="editor-detail">
-                            <label className="editor-field-label" htmlFor="event-location">
-                                <span className="field-icon" aria-hidden="true"><LocationOnOutlinedIcon/></span>
+                    <div className="-mx-5 grid grid-cols-1 border-t border-slate-200 dark:border-background-800 sm:-mx-6 sm:grid-cols-[minmax(0,1.45fr)_minmax(200px,.75fr)_minmax(240px,.9fr)]">
+                        <div className="min-w-0 px-4 pb-5 pt-5 sm:px-[22px] sm:pb-0">
+                            <label className="flex items-center gap-2 font-[650] text-slate-900 dark:text-text" htmlFor="event-location">
+                                <span className="inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-[7px] bg-primary-50 text-primary-700 dark:bg-background-700 dark:text-primary-400" aria-hidden="true"><LocationOnOutlinedIcon fontSize="inherit"/></span>
                                 Standort
                             </label>
-                            <div className="editor-field-control">
+                            <div className="pt-3">
                                 <LocationSearch
                                     addressLabel={addressLabel}
                                     inputId="event-location"
@@ -181,13 +194,14 @@ const EventEditor = (props) => {
                                 />
                             </div>
                         </div>
-                        <div className="editor-detail">
-                            <label className="editor-field-label" htmlFor="event-date">
-                                <span className="field-icon" aria-hidden="true"><CalendarMonthOutlinedIcon/></span>
+                        <div className="min-w-0 border-t border-slate-200 px-4 pb-5 pt-5 dark:border-background-800 sm:border-s sm:border-t-0 sm:px-[22px] sm:pb-0">
+                            <label className="flex items-center gap-2 font-[650] text-slate-900 dark:text-text" htmlFor="event-date">
+                                <span className="inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-[7px] bg-primary-50 text-primary-700 dark:bg-background-700 dark:text-primary-400" aria-hidden="true"><CalendarMonthOutlinedIcon fontSize="inherit"/></span>
                                 Datum
                             </label>
-                            <div className="editor-field-control">
+                            <div className="pt-3">
                                 <DatePicker
+                                    className="!min-h-11 !w-full !rounded-[9px]"
                                     defaultValue={date}
                                     disabledDate={disabledDate}
                                     format="DD-MM-YYYY"
@@ -196,13 +210,14 @@ const EventEditor = (props) => {
                                 />
                             </div>
                         </div>
-                        <div className="editor-detail">
-                            <label className="editor-field-label" htmlFor="event-time">
-                                <span className="field-icon" aria-hidden="true"><AccessTimeIcon/></span>
+                        <div className="min-w-0 border-t border-slate-200 px-4 pb-5 pt-5 dark:border-background-800 sm:border-s sm:border-t-0 sm:px-[22px] sm:pb-0">
+                            <label className="flex items-center gap-2 font-[650] text-slate-900 dark:text-text" htmlFor="event-time">
+                                <span className="inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-[7px] bg-primary-50 text-primary-700 dark:bg-background-700 dark:text-primary-400" aria-hidden="true"><AccessTimeIcon fontSize="inherit"/></span>
                                 Uhrzeit
                             </label>
-                            <div className="editor-field-control">
+                            <div className="pt-3">
                                 <TimePicker.RangePicker
+                                    className="!min-h-11 !w-full !rounded-[9px]"
                                     defaultValue={[startTime, endTime]}
                                     format="HH:mm"
                                     id="event-time"
@@ -214,14 +229,15 @@ const EventEditor = (props) => {
                     </div>
                 </Card>
 
-                <div className="editor-submit">
+                <div className="flex justify-center pt-6">
                     <Button
-                        className="app-button app-button-primary editor-submit-button"
+                        className="!min-h-[42px] !min-w-[190px] !rounded-[9px] !font-[650]"
                         loading={mutation.isPending}
                         onClick={() => {
                             mutation.reset();
                             mutation.mutate();
                         }}
+                        type="primary"
                     >
                         {editorActionLabel}
                     </Button>

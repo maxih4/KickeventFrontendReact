@@ -48,9 +48,13 @@ const CommentEdit = (props) => {
 
     return (
         <>
-            <Editor className="rich-text-editor comment-editor" value={html} onChange={onChange}/>
-            <div className="comment-edit-submit">
-                <Button className="app-button app-button-primary" loading={loading} onClick={mutation.mutate}>
+            <Editor
+                className="!overflow-hidden !rounded-[10px] !border-slate-300 !bg-white !text-slate-900 dark:!border-background-600 dark:!bg-background-950 dark:!text-text [&_.rsw-toolbar]:min-h-11 [&_.rsw-toolbar]:border-slate-200 [&_.rsw-toolbar]:bg-slate-100 [&_.rsw-btn]:text-slate-600 [&_.rsw-btn:hover]:bg-slate-200 [&_.rsw-btn:hover]:text-slate-900 [&_.rsw-ce]:min-h-[140px] [&_.rsw-ce]:p-4 [&_.rsw-ce]:font-body [&_.rsw-ce]:text-sm [&_.rsw-ce]:leading-[1.55] dark:[&_.rsw-toolbar]:border-background-600 dark:[&_.rsw-toolbar]:bg-background-900 dark:[&_.rsw-btn]:text-text-300 dark:[&_.rsw-btn:hover]:bg-background-800 dark:[&_.rsw-btn:hover]:text-text dark:[&_.rsw-ce]:text-text"
+                value={html}
+                onChange={onChange}
+            />
+            <div className="flex justify-end pt-3">
+                <Button className="!min-h-10 !rounded-[9px] !font-[650]" loading={loading} onClick={mutation.mutate} type="primary">
                     Änderungen speichern
                 </Button>
             </div>

@@ -26,14 +26,14 @@ function MapLocation(props) {
     }
 
     return (
-        <div className="map-location">
+        <div className="mt-4 overflow-hidden rounded-[10px] border border-slate-200 dark:border-background-600">
             <GoogleMap mapContainerStyle={containerStyle} center={center} zoom={11}>
                 <MarkerF position={center}/>
             </GoogleMap>
-            <div className="map-route-button">
+            <div className="flex justify-center border-t border-slate-200 px-4 pb-4 pt-3.5 dark:border-background-800">
                 <Button
-                    className="app-button app-button-secondary"
-                    icon={<LocationOnOutlinedIcon/>}
+                    className="!min-h-[38px] !rounded-[9px] !border-secondary-500 !bg-secondary-500 !px-4 !font-[650] !text-white hover:!border-secondary-400 hover:!bg-secondary-400"
+                    icon={<LocationOnOutlinedIcon fontSize="inherit"/>}
                     onClick={() => window.open(url + center.lat + " " + center.lng, '_blank')}
                 >
                     Route berechnen

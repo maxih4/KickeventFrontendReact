@@ -34,7 +34,7 @@ function FilterAndSearchBar({setSort, setSearch, search}) {
     const searchMenu = {
         items: [{
             label: (
-                <div className="search-menu-content">
+                <div className="flex min-w-[260px] items-center gap-2">
                     <Input
                         aria-label="Events suchen"
                         onChange={(event) => setSearchValue(event.target.value)}
@@ -44,7 +44,7 @@ function FilterAndSearchBar({setSort, setSearch, search}) {
                     />
                     <Button
                         aria-label="Suche starten"
-                        className="app-button app-button-secondary app-button-icon"
+                        className="!h-10 !min-w-10 !rounded-[9px] !border-secondary-500 !bg-secondary-500 !px-0 !text-white hover:!border-secondary-400 hover:!bg-secondary-400"
                         icon={<SearchOutlined/>}
                         onClick={searchFunction}
                     />
@@ -61,9 +61,9 @@ function FilterAndSearchBar({setSort, setSearch, search}) {
     };
 
     return (
-        <div className="home-filters site-nav-actions">
+        <div className="order-2 flex items-center gap-2.5 max-[640px]:flex sm:order-1">
             <Dropdown menu={sortMenu} placement="bottomLeft" trigger={['click']}>
-                <Button className="app-button app-button-secondary">
+                <Button className="!min-h-10 !rounded-[9px] !border-slate-300 !bg-white !px-4 !font-semibold !text-slate-700 hover:!border-slate-400 hover:!text-slate-900 dark:!border-background-600 dark:!bg-background-800 dark:!text-text-200 dark:hover:!border-background-500 dark:hover:!text-text max-[640px]:flex-1">
                     Sortieren <DownOutlined/>
                 </Button>
             </Dropdown>
@@ -74,7 +74,7 @@ function FilterAndSearchBar({setSort, setSearch, search}) {
                 placement="bottomLeft"
                 trigger={['click']}
             >
-                <Button className="app-button app-button-secondary">
+                <Button className="!min-h-10 !rounded-[9px] !border-slate-300 !bg-white !px-4 !font-semibold !text-slate-700 hover:!border-slate-400 hover:!text-slate-900 dark:!border-background-600 dark:!bg-background-800 dark:!text-text-200 dark:hover:!border-background-500 dark:hover:!text-text max-[640px]:flex-1">
                     Suche <DownOutlined/>
                 </Button>
             </Dropdown>

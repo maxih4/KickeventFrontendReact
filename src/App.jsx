@@ -3,7 +3,6 @@ import AuthProvider from 'react-auth-kit/AuthProvider'
 import createStore from 'react-auth-kit/createStore'
 import RoutesComponent from './services/Routes';
 import refreshApi from "./services/refreshApi";
-import "./css/App.scss"
 import {ConfigProvider, theme} from "antd";
 
 const store = createStore({

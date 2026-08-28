@@ -20,10 +20,15 @@ const PrivateRoute = ({ Component }) => {
 const RoutesComponent = () => {
     return (
         <BrowserRouter>
-            <div className="app-shell">
+            <div className="flex min-h-dvh flex-col bg-slate-50 font-body text-text-900 dark:bg-background-950 dark:text-text">
                 <Navbar/>
-                <a className="skip-link" href="#main-content">Zum Inhalt springen</a>
-                <main className="app-main" id="main-content">
+                <a
+                    className="absolute start-2 top-2 z-[1000] -translate-y-[150%] rounded-lg bg-white px-3 py-2 text-text-900 shadow-lg transition-transform focus-visible:translate-y-0 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary-500 dark:bg-background-800 dark:text-text"
+                    href="#main-content"
+                >
+                    Zum Inhalt springen
+                </a>
+                <main className="block flex-1" id="main-content">
                     <Routes>
                         <Route path={'/'} element={<Home/>}/>
                         <Route path={'/login'} element={<Login/>}/>

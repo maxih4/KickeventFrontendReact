@@ -38,10 +38,10 @@ const Home = () => {
         setEventsPerPage(pageSize)
     };
     return (
-        <div className="page-container home-page">
+        <div className="mx-auto w-[calc(100%-1.5rem)] max-w-[1232px] pb-9 pt-5 sm:w-[calc(100%-2rem)] sm:pb-12 sm:pt-[34px]">
             <HomeHeader/>
-            <div className="home-section-header">
-                <h2>Aktuelle Events</h2>
+            <div className="mt-6 flex flex-col items-stretch justify-between gap-3.5 sm:mt-7 sm:flex-row sm:items-end sm:gap-6">
+                <h2 className="order-1 m-0 font-heading text-[27px] font-[650] leading-[1.1] tracking-[-0.04em] text-slate-900 dark:text-text sm:order-2 sm:text-[30px]">Aktuelle Events</h2>
                 <FilterAndSearchBar
                     setSort={setSort}
                     setSearch={setSearch}
@@ -50,14 +50,14 @@ const Home = () => {
             </div>
             {eventsQuery.isLoading && <Loading/>}
             {eventsQuery.data && (
-                <div className="event-list">
+                <div className="flex flex-col gap-3">
                     {eventsQuery.data.content.map((event) => (
                         <EventCard key={event.id} event={event}/>
                     ))}
                 </div>
             )}
             {!eventsQuery.isLoading && eventsQuery.data?.empty && <Error search={search}/>}
-            <div className="pagination-wrap">
+            <div className="flex justify-center pt-7">
                 {!eventsQuery.isLoading && eventsQuery.data && (
                     <Pagination
                         showSizeChanger

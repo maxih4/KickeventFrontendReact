@@ -60,7 +60,12 @@ const AdminPanelTabel = (props) => {
                     </Form.Item>
                 } else {
                     return <>{roles.map((role) => (
-                        <Tag className={role.name === "ADMIN" ? "role-admin" : "role-user"} key={role.name}>
+                        <Tag
+                            className={role.name === "ADMIN"
+                                ? "m-0 rounded-full border-secondary-300 bg-secondary-50 font-[650] text-secondary-700 dark:border-secondary-700 dark:bg-secondary-950 dark:text-secondary-300"
+                                : "m-0 rounded-full border-primary-200 bg-primary-50 font-[650] text-primary-700 dark:border-primary-800 dark:bg-primary-950 dark:text-primary-300"}
+                            key={role.name}
+                        >
                             {role.name}
                         </Tag>
                     ))}</>
@@ -73,12 +78,12 @@ const AdminPanelTabel = (props) => {
             render: (_, user) => (
                 <Space size="small">
                     {editState && user.id === editingRow ? <Tooltip title="Speichern">
-                        <Button aria-label="Benutzer speichern" className="app-button app-button-primary app-button-icon app-button-icon-compact" htmlType="submit"
+                        <Button aria-label="Benutzer speichern" className="!h-8 !min-w-8 !rounded-lg !border-primary-400 !bg-primary-400 !p-0 !text-[#071008] hover:!border-primary-300 hover:!bg-primary-300" htmlType="submit"
                                 icon={<SaveOutlined/>}
                                 loading={loading}
                                 onClick={onFinish}/>
                     </Tooltip> : <Tooltip title="Bearbeiten">
-                        <Button aria-label="Benutzer bearbeiten" className="app-button app-button-secondary app-button-icon app-button-icon-compact" disabled={(user.userName === authUser.userName)}
+                        <Button aria-label="Benutzer bearbeiten" className="!h-8 !min-w-8 !rounded-lg !border-secondary-500 !bg-secondary-500 !p-0 !text-white hover:!border-secondary-400 hover:!bg-secondary-400" disabled={(user.userName === authUser.userName)}
                                 icon={<EditOutlined/>}
                                 onClick={() => {
                                     setResponse(false)
@@ -92,7 +97,7 @@ const AdminPanelTabel = (props) => {
                                 }}/>
                     </Tooltip>}
                     <Tooltip title="Löschen">
-                        <Button aria-label="Benutzer löschen" className="app-button app-button-danger app-button-icon app-button-icon-compact" danger
+                        <Button aria-label="Benutzer löschen" className="!h-8 !min-w-8 !rounded-lg !border-red-500 !bg-red-500 !p-0 !text-white hover:!border-red-400 hover:!bg-red-400" danger
                                 icon={loading && loadingId === user.id.toString() ? <Spin/> : <DeleteOutlined/>}
                                 disabled={(user.userName === authUser.userName)}
                                 onClick={(e) => deleteUser(user, e)}
@@ -163,7 +168,9 @@ const AdminPanelTabel = (props) => {
                 {response && <Alert title="Success" type="success" showIcon/>}
                 {error !== "" && <Alert title={error.toString()} type="error" showIcon/>}</div>
             <Form form={form}>
-                <Table className="admin-panel-table" dataSource={props.user} columns={columns} rowKey="id"></Table>
+                <div className="overflow-x-auto rounded-[10px] border border-slate-200 dark:border-background-600">
+                    <Table className="min-w-[640px]" dataSource={props.user} columns={columns} rowKey="id"></Table>
+                </div>
             </Form></>
     );
 };

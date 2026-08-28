@@ -2,7 +2,7 @@ import React from "react";
 
 const Impressum = () => {
     return (
-        <main className="container px-4 pb-12 pt-6" id="main-content">
+        <div className="page-container legal-page">
             <article className="mx-auto max-w-3xl rounded-xl bg-background-900 p-5 text-text md:p-8">
                 <header className="mb-8 border-b border-primary-700 pb-6">
                     <h1 className="font-heading text-4xl text-text md:text-5xl">Impressum</h1>
@@ -33,7 +33,7 @@ const Impressum = () => {
                 </section>
 
             </article>
-        </main>
+        </div>
     );
 };
 

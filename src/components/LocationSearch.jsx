@@ -17,7 +17,7 @@ function getCoordinate(value) {
     return typeof value === 'function' ? value() : value;
 }
 
-function LocationSearch({setLong, setLang, setHouseNumber, setPostalCode, setCity, setStreet, addressLabel}) {
+function LocationSearch({setLong, setLang, setHouseNumber, setPostalCode, setCity, setStreet, addressLabel, inputId}) {
     const apiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY || '';
     const initialAddress = addressLabel && !addressLabel.toString().includes('undefined') ? addressLabel : '';
     const suggestionsId = `location-suggestions-${useId().replace(/:/g, '')}`;
@@ -167,13 +167,15 @@ function LocationSearch({setLong, setLang, setHouseNumber, setPostalCode, setCit
     }
 
     return (
-        <div className="relative mx-auto w-5/6">
+        <div className="location-search">
             <input
                 aria-autocomplete="list"
+                aria-activedescendant={highlightedIndex >= 0 ? `${suggestionsId}-option-${highlightedIndex}` : undefined}
                 aria-controls={suggestionsId}
                 aria-expanded={suggestions.length > 0}
-                className="ant-input w-full search-location"
+                className="search-location"
                 disabled={!apiKey}
+                id={inputId}
                 onBlur={() => window.setTimeout(() => setSuggestions([]), 150)}
                 onChange={(event) => {
                     hasInteracted.current = true;
@@ -181,21 +183,22 @@ function LocationSearch({setLong, setLang, setHouseNumber, setPostalCode, setCit
                     setHighlightedIndex(-1);
                 }}
                 onKeyDown={handleKeyDown}
-                placeholder="Bitte Standort eingeben"
+                placeholder="Standort suchen"
                 role="combobox"
                 type="text"
                 value={inputValue}
             />
             {suggestions.length > 0 && (
                 <ul
-                    className="absolute z-50 mt-1 max-h-60 w-full overflow-auto rounded bg-background-900 p-1 shadow-lg"
+                    className="location-suggestions"
                     id={suggestionsId}
                     role="listbox"
                 >
                     {suggestions.map(({placePrediction}, index) => (
                         <li
                             aria-selected={index === highlightedIndex}
-                            className={`cursor-pointer rounded px-3 py-2 text-left text-white ${index === highlightedIndex ? 'bg-background-800' : 'hover:bg-background-800'}`}
+                            className={`location-suggestion ${index === highlightedIndex ? 'is-highlighted' : ''}`}
+                            id={`${suggestionsId}-option-${index}`}
                             key={`${placePrediction.placeId || getPredictionText(placePrediction)}-${index}`}
                             onMouseDown={(event) => {
                                 event.preventDefault();

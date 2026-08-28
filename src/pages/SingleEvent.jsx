@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {useNavigate, useParams} from "react-router-dom"
+import {useNavigate, useParams} from "react-router-dom";
 import axios from "axios";
 import Comments from "../components/Comments";
 import DOMPurify from "dompurify";
@@ -13,146 +13,151 @@ import Loading from "../components/Loading";
 import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
 import CalendarMonthOutlinedIcon from "@mui/icons-material/CalendarMonthOutlined";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
-import {Divider, Spin} from "antd";
+import {Button, Card} from "antd";
 import {DeleteOutlined, EditOutlined} from "@ant-design/icons";
 import {useMutation, useQuery, useQueryClient} from "@tanstack/react-query";
 
 function SingleEvent() {
-    const navigation = useNavigate()
-    const {id} = useParams()
-    const isAuthenticated = useIsAuthenticated()
-    const authUser = useAuthUser()
-    const [loading,setLoading] = useState(false)
-    const authHeader = useAuthHeader()
-    const [editState, setEditState] = useState(false)
-    const query=useQueryClient()
+    const navigate = useNavigate();
+    const {id} = useParams();
+    const isAuthenticated = useIsAuthenticated();
+    const authUser = useAuthUser();
+    const [loading, setLoading] = useState(false);
+    const authHeader = useAuthHeader();
+    const [editState, setEditState] = useState(false);
+    const query = useQueryClient();
     const eventQuery = useQuery({
         queryKey: ["event", id],
         queryFn: async () => {
-            const res = await axios.get(import.meta.env.VITE_BACKEND_URL + "/api/event/" + id)
-
-            return await res.data
+            const res = await axios.get(import.meta.env.VITE_BACKEND_URL + "/api/event/" + id);
+            return res.data;
         },
-    })
-    const owner = Boolean(isAuthenticated && eventQuery.data && authUser && eventQuery.data.owner.userName === authUser.userName)
-    const admin = Boolean(isAuthenticated && authUser?.roles?.some((role) => role.name === "ADMIN"))
+    });
+    const owner = Boolean(isAuthenticated && eventQuery.data && authUser && eventQuery.data.owner.userName === authUser.userName);
+    const admin = Boolean(isAuthenticated && authUser?.roles?.some((role) => role.name === "ADMIN"));
 
     useEffect(() => {
-        window.scrollTo({top:-20})
+        window.scrollTo({top: -20});
     }, []);
-    const mutation = useMutation(({
-        mutationFn: ()=>deleteEvent(),
-        onSuccess: ()=>query.invalidateQueries({queryKey:["event",id]}),
-        onSettled:()=> {
-            setLoading(false)
-            navigation("/")
+
+    const mutation = useMutation({
+        mutationFn: () => deleteEvent(),
+        onSuccess: () => query.invalidateQueries({queryKey: ["event", id]}),
+        onSettled: () => {
+            setLoading(false);
+            navigate("/");
         },
-        onError:(err)=> {
-            setLoading(false)
-            console.log(err)
+        onError: (err) => {
+            setLoading(false);
+            console.log(err);
         }
-    }))
+    });
 
     const deleteEvent = async () => {
-        setLoading(true)
+        setLoading(true);
         return axios.delete(import.meta.env.VITE_BACKEND_URL + "/api/event/" + id, {
             headers: {
                 "Authorization": authHeader
             }
-        }).then((res) =>res.data)    }
+        }).then((res) => res.data);
+    };
+
     const editEvent = () => {
-        setEditState(true)
+        setEditState(true);
+    };
+
+    if (eventQuery.isLoading) {
+        return <Loading/>;
     }
-    return (<>
-            {
-                !editState && !eventQuery.isLoading && <>
-                    <div className="container bg-primary-900 rounded-xl pl-1 pr-1 pt-0.5 pb-2 ">
-                        <h1 className="text-text font-heading pl-1 pr-1">
-                            {eventQuery.data.title}
-                        </h1>
+
+    return (
+        <div className="page-container single-event-page">
+            {!editState && eventQuery.data && <>
+                <Card className="event-summary-card" variant="outlined">
+                    <h1 className="event-summary-title">{eventQuery.data.title}</h1>
+                    <div className="event-summary-meta" aria-label="Eventdetails">
+                        <div className="event-meta-item">
+                            <span className="event-meta-icon" aria-hidden="true"><LocationOnOutlinedIcon/></span>
+                            <span>{eventQuery.data.streetName + " " + eventQuery.data.houseNumber}, {eventQuery.data.postalCode + " " + eventQuery.data.city}</span>
+                        </div>
+                        <div className="event-meta-item">
+                            <span className="event-meta-icon" aria-hidden="true"><CalendarMonthOutlinedIcon/></span>
+                            <span>{new Date(eventQuery.data.startDate).toLocaleDateString("de-DE", {
+                                year: 'numeric',
+                                month: 'long',
+                                day: 'numeric',
+                            })}</span>
+                        </div>
+                        <div className="event-meta-item">
+                            <span className="event-meta-icon" aria-hidden="true"><AccessTimeIcon/></span>
+                            <span>{new Date(eventQuery.data.startDate).toLocaleString("de-DE", {hour: "2-digit"})} bis {new Date(eventQuery.data.endDate).toLocaleString("de-DE", {hour: "2-digit"})}</span>
+                        </div>
+                    </div>
+                </Card>
+
+                <div className="event-content-grid">
+                    <Card className="detail-card event-description-card" variant="outlined">
+                        <h2>Über dieses Event</h2>
                         <div
-                            className="flex flex-row lg:border-3 lg:hover:border-secondary-400 lg:border-solid rounded-full lg:border-secondary-300 justify-evenly lg:m-2 lg:ml-3 lg:mr-3">
-                            <div className="flex flex-row justify-center text-secondary-300 font-heading m-2"
-                                 key="Location">
-                                <LocationOnOutlinedIcon/>
-                                <div
-                                    className="ps-1">{eventQuery.data.streetName + " " + eventQuery.data.houseNumber}, {eventQuery.data.postalCode + " " + eventQuery.data.city}</div>
-                            </div>
-                            <Divider orientation="vertical"
-                                     className="h-6 -skew-x-12 bg-secondary-300 w-0.5 m-2 hidden lg:inline-block"></Divider>
-                            <div className="flex flex-row justify-center text-secondary-300 font-heading m-2"
-                                 key="Calendar">
-                                <CalendarMonthOutlinedIcon/>
-                                <div className="ps-1">{new Date(eventQuery.data.startDate).toLocaleDateString("de-De", {
-                                    year: 'numeric',
-                                    month: 'long',
-                                    day: 'numeric',
-                                })}</div>
-                            </div>
-                            <Divider orientation="vertical"
-                                     className="h-6 -skew-x-12 bg-secondary-300 w-0.5 m-2 hidden lg:inline-block"></Divider>
-                            <div className="flex flex-row justify-center text-secondary-300 font-heading m-2" key="time">
-                                <AccessTimeIcon/>
-                                <div
-                                    className="ps-1">{new Date(eventQuery.data.startDate).toLocaleString("de-DE", {hour: "2-digit"})} bis {new Date(eventQuery.data.endDate).toLocaleString("de-DE", {hour: "2-digit"})}</div>
-                            </div>
+                            className="event-rich-content"
+                            dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(eventQuery.data.content)}}
+                        />
+                    </Card>
+                    <Card className="detail-card event-location-card" variant="outlined">
+                        <h2>Standort</h2>
+                        <MapLocation
+                            latitude={Number(eventQuery.data.latitude)}
+                            longitude={Number(eventQuery.data.longitude)}
+                        />
+                    </Card>
+                </div>
+
+                {(owner || admin) && (
+                    <Card className="event-actions-card" variant="outlined">
+                        <h2>Event Aktionen</h2>
+                        <div className="event-actions">
+                            <Button
+                                className="event-edit-button"
+                                icon={<EditOutlined/>}
+                                onClick={editEvent}
+                            >
+                                Edit Event
+                            </Button>
+                            <Button
+                                danger
+                                icon={<DeleteOutlined/>}
+                                loading={loading}
+                                onClick={mutation.mutate}
+                            >
+                                Delete
+                            </Button>
                         </div>
-                    </div>
-                    <div className="container bg-primary-900 rounded-xl pl-1 pr-1 pt-0.5 pb-2 mt-4">
-                        <h3 className="text-text font-heading pl-1 pr-1">Über dieses Event</h3>
-                        <p className="text-text-50 font-body m-3"
-                           dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(eventQuery.data.content)}}></p>
-                    </div>
-                    <div className="container bg-primary-900 rounded-xl pl-1 pr-1 pt-0.5 pb-2 mt-4">
-                        <h3 className="text-text font-heading pl-1 pr-1">Standort</h3>
-                        <div className="m-3"><MapLocation longitude={Number(eventQuery.data.longitude)}
-                                                          latitude={Number(eventQuery.data.latitude)}></MapLocation></div>
-                    </div>
-                    {
-                        (owner || admin) && <div className="container bg-primary-900 rounded-xl pl-1 pr-1 pt-0.5 pb-2 mt-4">
-                            <h3 className="text-text font-heading pl-1 pr-1">Event Aktionen</h3>
-                            <div className="flex flex-row justify-center">
-                                <button className="bg-none bg-inherit border-none p-0 outline-inherit"
-                                        onClick={editEvent}>
-                                    <div
-                                        className="select-none cursor-pointer relative rounded px-5 py-2.5 overflow-hidden group bg-secondary-500 hover:bg-gradient-to-r hover:from-secondary-500 hover:to-secondary-500 text-text hover:ring-2 hover:ring-offset-2 hover:ring-secondary-400 transition-all ease-out duration-300 ml-1">
-                                        <div
-                                            className="absolute right-0 w-8 h-32 -mt-12 transition-all duration-1000 transform translate-x-12 bg-white opacity-10 rotate-12 group-hover:-translate-x-40 ease"></div>
-                                        <div className="relative font-body"><EditOutlined/>
-                                            Edit Event
-                                        </div>
-                                    </div>
-                                </button>
-                                <button className="bg-none bg-inherit border-none p-0 outline-inherit"
-                                        onClick={mutation.mutate}>
-                                    <div
-                                        className="select-none cursor-pointer relative rounded px-5 py-2.5 overflow-hidden group bg-red-500 hover:bg-gradient-to-r hover:from-white-500 hover:to-white-500 text-text hover:ring-2 hover:ring-offset-2 hover:ring-white-400 transition-all ease-out duration-300 ml-1">
-                                        <div
-                                            className="absolute right-0 w-8 h-32 -mt-12 transition-all duration-1000 transform translate-x-12 bg-white opacity-10 rotate-12 group-hover:-translate-x-40 ease"></div>
-                                        <div className="relative font-body">{loading ?<> <Spin ></Spin> Wait</> : <><DeleteOutlined/>
-                                            Delete</>}
-                                        </div>
-                                    </div>
-                                </button>
-                            </div>
-                        </div>
-                    }
-                    <Comments id={eventQuery.data.id}></Comments>
-                </>}
-            {
-                editState && !eventQuery.isLoading &&
-                <EventEditor title={eventQuery.data.title} html={eventQuery.data.content} streetName={eventQuery.data.streetName}
-                             houseNumber={eventQuery.data.houseNumber}
-                             postalCode={eventQuery.data.postalCode} city={eventQuery.data.city} date={dayjs(eventQuery.data.startDate)}
-                             startTime={dayjs(eventQuery.data.startDate)} endTime={dayjs(eventQuery.data.endDate)} mode="update"
-                             eventId={eventQuery.data.id}
-                             setEditState={setEditState}
-                             long={Number(eventQuery.data.longitude)}
-                             lat={Number(eventQuery.data.latitude)}></EventEditor>
-            }
-            {eventQuery.isLoading && <Loading></Loading>}
-        </>
-    )
+                    </Card>
+                )}
+
+                <Comments id={eventQuery.data.id}/>
+            </>}
+
+            {editState && eventQuery.data && (
+                <EventEditor
+                    city={eventQuery.data.city}
+                    date={dayjs(eventQuery.data.startDate)}
+                    endTime={dayjs(eventQuery.data.endDate)}
+                    eventId={eventQuery.data.id}
+                    html={eventQuery.data.content}
+                    houseNumber={eventQuery.data.houseNumber}
+                    lat={Number(eventQuery.data.latitude)}
+                    long={Number(eventQuery.data.longitude)}
+                    mode="update"
+                    postalCode={eventQuery.data.postalCode}
+                    setEditState={setEditState}
+                    startTime={dayjs(eventQuery.data.startDate)}
+                    streetName={eventQuery.data.streetName}
+                    title={eventQuery.data.title}
+                />
+            )}
+        </div>
+    );
 }
 
 export default SingleEvent;

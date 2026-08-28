@@ -3,6 +3,7 @@ import axios from "axios";
 import useAuthHeader from "react-auth-kit/hooks/useAuthHeader";
 import AdminPanelTabel from "./AdminPanelTabel";
 import Loading from "./Loading";
+import {Card} from "antd";
 import {useQuery} from "@tanstack/react-query";
 
 const AdminPanel = () => {
@@ -21,10 +22,10 @@ const AdminPanel = () => {
         keepPreviousData: true
     })
     return (
-        <div>
-            <h2 className="font-heading">Adminpanel</h2>
-            {usersQuery.isLoading ? <Loading></Loading> : <AdminPanelTabel user={usersQuery.data}></AdminPanelTabel>}
-        </div>
+        <Card className="admin-panel-card" variant="outlined">
+            <h2>Adminpanel</h2>
+            {usersQuery.isLoading ? <Loading/> : <AdminPanelTabel user={usersQuery.data}/>}
+        </Card>
     );
 };
 export default AdminPanel;

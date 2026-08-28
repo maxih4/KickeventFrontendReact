@@ -60,7 +60,7 @@ const AdminPanelTabel = (props) => {
                     </Form.Item>
                 } else {
                     return <>{roles.map((role) => (
-                        <Tag color={role.name === "ADMIN" ? "blue" : "green"} key={role}>
+                        <Tag className={role.name === "ADMIN" ? "role-admin" : "role-user"} key={role.name}>
                             {role.name}
                         </Tag>
                     ))}</>
@@ -72,12 +72,13 @@ const AdminPanelTabel = (props) => {
             key: "Actions",
             render: (_, user) => (
                 <Space size="small">
-                    {editState && user.id === editingRow ? <Tooltip title="save">
-                        <Button htmlType="submit" type="primary" shape="circle"
-                                icon={loading ? <Spin/> : <SaveOutlined/>}
+                    {editState && user.id === editingRow ? <Tooltip title="Speichern">
+                        <Button aria-label="Benutzer speichern" className="table-action-button table-edit-button" htmlType="submit" type="primary"
+                                icon={<SaveOutlined/>}
+                                loading={loading}
                                 onClick={onFinish}/>
-                    </Tooltip> : <Tooltip title="edit">
-                        <Button type="primary" shape="circle" disabled={(user.userName === authUser.userName)}
+                    </Tooltip> : <Tooltip title="Bearbeiten">
+                        <Button aria-label="Benutzer bearbeiten" className="table-action-button table-edit-button" type="primary" disabled={(user.userName === authUser.userName)}
                                 icon={<EditOutlined/>}
                                 onClick={() => {
                                     setResponse(false)
@@ -90,8 +91,8 @@ const AdminPanelTabel = (props) => {
                                     });
                                 }}/>
                     </Tooltip>}
-                    <Tooltip title="delete">
-                        <Button danger type="primary" shape="circle"
+                    <Tooltip title="Löschen">
+                        <Button aria-label="Benutzer löschen" className="table-action-button table-delete-button" danger type="primary"
                                 icon={loading && loadingId === user.id.toString() ? <Spin/> : <DeleteOutlined/>}
                                 disabled={(user.userName === authUser.userName)}
                                 onClick={(e) => deleteUser(user, e)}
@@ -104,14 +105,14 @@ const AdminPanelTabel = (props) => {
 
     function deleteUser(user, event) {
         setLoading(true)
-        setLoadingId(event.target.id)
+        setLoadingId(event.currentTarget.id)
         setResponse(false)
         setError("")
         axios.delete(import.meta.env.VITE_BACKEND_URL + "/user/" + user.id, {
             headers: {
                 "Authorization": authHeader
             }
-        }).then((res) => {
+        }).then(() => {
             setLoading(false)
             queryClient.invalidateQueries({queryKey: ["users"]})
         }, (err) => {
@@ -139,7 +140,7 @@ const AdminPanelTabel = (props) => {
                 headers: {
                     "Authorization": authHeader
                 }
-            }).then((res) => {
+            }).then(() => {
                 setResponse(true)
                 setEditingRow(null);
                 setEditState(false)
@@ -162,7 +163,7 @@ const AdminPanelTabel = (props) => {
                 {response && <Alert title="Success" type="success" showIcon/>}
                 {error !== "" && <Alert title={error.toString()} type="error" showIcon/>}</div>
             <Form form={form}>
-                <Table dataSource={props.user} columns={columns}></Table>
+                <Table className="admin-panel-table" dataSource={props.user} columns={columns} rowKey="id"></Table>
             </Form></>
     );
 };

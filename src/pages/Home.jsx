@@ -7,8 +7,8 @@ import HomeHeader from "../components/HomeHeader";
 import FilterAndSearchBar from "../components/FilterAndSearchBar";
 import Error from "../components/Error";
 import Loading from "../components/Loading";
-import {Divider, Pagination} from "antd";
-import {useQuery, useQueryClient} from "@tanstack/react-query";
+import {Pagination} from "antd";
+import {useQuery} from "@tanstack/react-query";
 import qs from "qs"
 
 
@@ -38,30 +38,37 @@ const Home = () => {
         setEventsPerPage(pageSize)
     };
     return (
-        <div className="container">
+        <div className="page-container home-page">
             <HomeHeader/>
-            <Divider className="bg-primary-100 w-full mt-5 m-0 opacity-50"/>
-            <div className="pb-4 pt-5">
-                <div className="flex md:flex-row flex-col justify-between "><FilterAndSearchBar
-                    setSort={setSort} setSearch={setSearch}
-                    search={search}></FilterAndSearchBar>
-                    <div
-                        className="text-text text-center md:text-end font-heading text-4xl order-first md:order-last pb-4 md:pb-0">Aktuelle
-                        Events
-                    </div>
-                </div>
+            <div className="home-section-header">
+                <h2>Aktuelle Events</h2>
+                <FilterAndSearchBar
+                    setSort={setSort}
+                    setSearch={setSearch}
+                    search={search}
+                />
             </div>
-            {eventsQuery.isLoading &&
-                <Loading></Loading>}
-            {eventsQuery.data && eventsQuery.data.content.map((e) => (
-            <EventCard key={e.id} event={e} button={true}></EventCard>
-            ))}
-            {!eventsQuery.isLoading &&eventsQuery.data.empty && <Error search={search}></Error>
-            }
-            <div className="mt-6 flex flex-row justify-center">
-                {!eventsQuery.isLoading && <Pagination showSizeChanger pageSizeOptions={[3, 5, 10, 20, 50]}
-                                                       onShowSizeChange={onShowSizeChange} current={page} total={eventsQuery.data.totalElements}
-                                                       defaultPageSize={eventsPerPage} onChange={(page)=>setPage(page)}/>}
+            {eventsQuery.isLoading && <Loading/>}
+            {eventsQuery.data && (
+                <div className="event-list">
+                    {eventsQuery.data.content.map((event) => (
+                        <EventCard key={event.id} event={event}/>
+                    ))}
+                </div>
+            )}
+            {!eventsQuery.isLoading && eventsQuery.data?.empty && <Error search={search}/>}
+            <div className="pagination-wrap">
+                {!eventsQuery.isLoading && eventsQuery.data && (
+                    <Pagination
+                        showSizeChanger
+                        pageSizeOptions={[3, 5, 10, 20, 50]}
+                        onShowSizeChange={onShowSizeChange}
+                        current={page}
+                        total={eventsQuery.data.totalElements}
+                        pageSize={eventsPerPage}
+                        onChange={(nextPage) => setPage(nextPage)}
+                    />
+                )}
             </div>
         </div>
     )

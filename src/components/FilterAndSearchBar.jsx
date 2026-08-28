@@ -1,15 +1,17 @@
 import React, {useState} from 'react';
-import {Button, Dropdown, Input, Space} from "antd";
+import {Button, Dropdown, Input} from "antd";
 import {ArrowDownOutlined, ArrowUpOutlined, DownOutlined, SearchOutlined} from "@ant-design/icons";
 
 function FilterAndSearchBar({setSort, setSearch, search}) {
-    const [searchValue, setSearchValue] = useState("")
-    const [showState, setShowState] = useState(false)
-    function searchfunction() {
-        setSearch(searchValue)
-        setShowState(false)
+    const [searchValue, setSearchValue] = useState(search);
+    const [showState, setShowState] = useState(false);
+
+    function searchFunction() {
+        setSearch(searchValue);
+        setShowState(false);
     }
-    const items = [
+
+    const sortItems = [
         {
             label: 'Datum aufsteigend',
             key: '1',
@@ -21,46 +23,54 @@ function FilterAndSearchBar({setSort, setSearch, search}) {
             icon: <ArrowDownOutlined/>,
         },
     ];
-    const sortProps = {
-        items,
-        onClick: (e) => {setSort("startDate,"+ (e.key==="1" ? "asc" : "desc"))},
+
+    const sortMenu = {
+        items: sortItems,
+        onClick: (event) => setSort("startDate," + (event.key === "1" ? "asc" : "desc")),
         selectable: true,
-        defaultSelectedKeys:["1"]
+        defaultSelectedKeys: ["1"],
     };
-    const searchProps = {
+
+    const searchMenu = {
         items: [{
-            label: <div className="flex flex-row"><Input className="me-2" value={searchValue} onChange={(e)=>setSearchValue(e.target.value)}></Input><Button onClick={searchfunction}><SearchOutlined/></Button>
-            </div>,
+            label: (
+                <div className="search-menu-content">
+                    <Input
+                        aria-label="Events suchen"
+                        onChange={(event) => setSearchValue(event.target.value)}
+                        onPressEnter={searchFunction}
+                        placeholder="Events suchen"
+                        value={searchValue}
+                    />
+                    <Button aria-label="Suche starten" icon={<SearchOutlined/>} onClick={searchFunction}/>
+                </div>
+            ),
             key: '1',
         }],
-        onClick: (e) => {
-        }
-    }
+    };
+
     const handleOpenChange = (nextOpen, info) => {
         if (info.source === 'trigger' || nextOpen) {
             setShowState(nextOpen);
         }
     };
+
     return (
-        <div className="flex flex-row md:justify-content-around justify-center items-center">
-            <Dropdown menu={sortProps} trigger={['click']} className="me-1">
+        <div className="home-filters site-nav-actions">
+            <Dropdown menu={sortMenu} placement="bottomLeft" trigger={['click']}>
                 <Button>
-                    <Space>
-
-
-                        Sortieren
-                        <DownOutlined/>
-                    </Space>
+                    Sortieren <DownOutlined/>
                 </Button>
             </Dropdown>
-            <Dropdown menu={searchProps} trigger={['click']} open={showState} onOpenChange={handleOpenChange} className="ms-1">
+            <Dropdown
+                menu={searchMenu}
+                open={showState}
+                onOpenChange={handleOpenChange}
+                placement="bottomLeft"
+                trigger={['click']}
+            >
                 <Button>
-                    <Space>
-
-
-                        Suche
-                        <DownOutlined/>
-                    </Space>
+                    Suche <DownOutlined/>
                 </Button>
             </Dropdown>
         </div>

@@ -111,18 +111,15 @@ a {
   display: inline-flex;
   width: 35px;
   height: 35px;
-  align-items: center;
-  justify-content: center;
-  border: 1px solid #2d465b;
   border-radius: 10px;
-  background: #101b26;
-  color: var(--accent);
+  flex: 0 0 auto;
+  overflow: hidden;
 }
 
-.brand-mark svg {
-  width: 24px;
-  height: 24px;
-  fill: currentColor;
+.brand-mark img {
+  display: block;
+  width: 100%;
+  height: 100%;
 }
 
 .brand-name {

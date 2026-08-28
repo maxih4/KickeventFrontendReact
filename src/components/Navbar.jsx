@@ -15,15 +15,7 @@ function Navbar() {
             <nav className="page-container site-nav" aria-label="Hauptnavigation">
                 <Link to="/" className="brand">
                     <span className="brand-mark" aria-hidden="true">
-                        <svg viewBox="0 0 60 60" role="presentation">
-                            <path d="M17 35 30 25l13 10" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/>
-                            <circle cx="17" cy="38" r="7" fill="currentColor"/>
-                            <circle cx="30" cy="22" r="7" fill="currentColor"/>
-                            <circle cx="43" cy="38" r="7" fill="currentColor"/>
-                            <circle cx="30" cy="22" r="3" fill="#101b26"/>
-                            <circle cx="17" cy="38" r="3" fill="#101b26"/>
-                            <circle cx="43" cy="38" r="3" fill="#101b26"/>
-                        </svg>
+                        <img src="/kickevent-mark.svg" alt="" />
                     </span>
                     <span className="brand-name">KickEvent</span>
                 </Link>

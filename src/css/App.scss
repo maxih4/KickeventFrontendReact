@@ -865,7 +865,8 @@ a {
 .map-location .map-route-button {
   display: flex;
   justify-content: center;
-  padding: 14px 16px 0;
+  padding-block: 14px 16px;
+  padding-inline: 16px;
 }
 
 .event-actions-card.ant-card {

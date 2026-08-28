@@ -58,7 +58,7 @@ const Home = () => {
             ))}
             {!eventsQuery.isLoading &&eventsQuery.data.empty && <Error search={search}></Error>
             }
-            <div className="flex flex-row justify-center">
+            <div className="mt-6 flex flex-row justify-center">
                 {!eventsQuery.isLoading && <Pagination showSizeChanger pageSizeOptions={[3, 5, 10, 20, 50]}
                                                        onShowSizeChange={onShowSizeChange} current={page} total={eventsQuery.data.totalElements}
                                                        defaultPageSize={eventsPerPage} onChange={(page)=>setPage(page)}/>}

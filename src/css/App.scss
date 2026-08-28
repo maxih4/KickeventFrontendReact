@@ -25,6 +25,14 @@ body {
   font-family: 'Sometype Mono', sans-serif;
 }
 
+.footer-link {
+  color: #effde7;
+}
+
+.footer-link:hover {
+  color: #99f372;
+}
+
 .create-event-card > .ant-card-actions {
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;

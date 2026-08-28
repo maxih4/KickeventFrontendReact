@@ -40,7 +40,7 @@ const Home = () => {
     return (
         <div className="mx-auto w-[calc(100%-1.5rem)] max-w-[1232px] pb-9 pt-5 sm:w-[calc(100%-2rem)] sm:pb-12 sm:pt-[34px]">
             <HomeHeader/>
-            <div className="mt-6 flex flex-col items-stretch justify-between gap-3.5 sm:mt-7 sm:flex-row sm:items-end sm:gap-6">
+            <div className="mb-3.5 mt-6 flex flex-col items-stretch justify-between gap-3.5 sm:mt-7 sm:flex-row sm:items-end sm:gap-6">
                 <h2 className="order-1 m-0 font-heading text-[27px] font-[650] leading-[1.1] tracking-[-0.04em] text-slate-900 dark:text-text sm:order-2 sm:text-[30px]">Aktuelle Events</h2>
                 <FilterAndSearchBar
                     setSort={setSort}

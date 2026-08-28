@@ -52,7 +52,8 @@ const Login = () => {
     return (
         <>                {error &&
             <div className="container max-w-2xl"><Alert description={errorMessage} title="Fehler" type="error" showIcon/></div> }
-            <Form className="bg-background-900 container rounded text-text pb-2 max-w-2xl"
+            <div className="container max-w-2xl">
+            <Form className="bg-background-900 rounded text-text pb-2"
                   name="basic"
                   initialValues={{
                       remember: true,
@@ -100,6 +101,7 @@ const Login = () => {
                     {loading && <Loading></Loading>}
                 </Form.Item>
             </Form>
+            </div>
         </>
     )
 }

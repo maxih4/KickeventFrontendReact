@@ -44,7 +44,8 @@ const Login = () => {
                     <Alert description={"Registrierung erfolgreich"} title="Erfolgreich" type="success" showIcon
                            action={<Button type="link" onClick={() => navigate("/login")}>Zum Login</Button>}>
                     </Alert>}</div>
-            <Form className="bg-background-900 container rounded text-text pb-2 max-w-2xl"
+            <div className="container max-w-2xl">
+            <Form className="bg-background-900 rounded text-text pb-2"
                   name="basic"
                   form={form}
                   initialValues={{
@@ -93,6 +94,7 @@ const Login = () => {
                     {loading && <Loading></Loading>}
                 </Form.Item>
             </Form>
+            </div>
         </>
     )
 }

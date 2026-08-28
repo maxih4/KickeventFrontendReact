@@ -12,6 +12,27 @@ import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import LocationSearch from "../components/LocationSearch";
 import {useMutation, useQueryClient} from "@tanstack/react-query";
 
+function getSubmitErrorMessage(error) {
+    const responseData = error?.response?.data;
+    const responseMessage = [
+        typeof responseData === "string" ? responseData : null,
+        responseData?.message,
+        responseData?.detail
+    ].find((message) => typeof message === "string" && message.trim());
+
+    if (responseMessage) {
+        const normalizedMessage = responseMessage.trim();
+
+        if (normalizedMessage.includes("One or more fields are empty")) {
+            return "Bitte fülle alle Pflichtfelder aus.";
+        }
+
+        return normalizedMessage;
+    }
+
+    return "Bitte prüfe deine Eingaben und versuche es erneut.";
+}
+
 const EventEditor = (props) => {
     const title = props.title;
     const [html, setHtml] = useState(props.html);
@@ -116,14 +137,18 @@ const EventEditor = (props) => {
     }
 
     const editorActionLabel = mode === "update" ? "Änderungen speichern" : "Event erstellen";
+    const editorErrorTitle = mode === "update"
+        ? "Änderungen konnten nicht gespeichert werden"
+        : "Event konnte nicht erstellt werden";
 
     return (
         <div className="page-container editor-page">
-            {mutation.isError && mutation.error.response && (
+            {mutation.isError && (
                 <Alert
                     className="editor-alert"
-                    title={mutation.error.response.data.message}
+                    description={getSubmitErrorMessage(mutation.error)}
                     showIcon
+                    title={editorErrorTitle}
                     type="error"
                 />
             )}

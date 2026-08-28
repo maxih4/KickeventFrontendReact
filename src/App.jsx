@@ -4,7 +4,6 @@ import createStore from 'react-auth-kit/createStore'
 import RoutesComponent from './services/Routes';
 import refreshApi from "./services/refreshApi";
 import "./css/App.scss"
-import Footer from "./components/Footer";
 import {ConfigProvider, theme} from "antd";
 
 const store = createStore({
@@ -21,7 +20,6 @@ function App() {
         <ConfigProvider theme={{algorithm: darkAlgorithm, hashed: false}}>
             <AuthProvider store={store}>
                 <RoutesComponent/>
-                <Footer/>
             </AuthProvider>
         </ConfigProvider>
     );

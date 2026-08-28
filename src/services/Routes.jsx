@@ -8,6 +8,8 @@ import SingleEvent from "../pages/SingleEvent";
 import Navbar from "../components/Navbar";
 import Register from "../pages/Register";
 import EventEditor from "../pages/EventEditor";
+import Impressum from "../pages/Impressum";
+import Footer from "../components/Footer";
 
 const RoutesComponent = () => {
     const PrivateRoute = ({ Component }) => {
@@ -26,7 +28,9 @@ const RoutesComponent = () => {
                 <Route path={'/register'} element={<Register/>}/>
                 <Route path={'/event/:id'} element={<SingleEvent/>}/>
                 <Route path={'/createEvent'} element={<PrivateRoute Component={EventEditor}/>}/>
+                <Route path={'/impressum'} element={<Impressum/>}/>
             </Routes>
+            <Footer/>
         </BrowserRouter>
     )
 }

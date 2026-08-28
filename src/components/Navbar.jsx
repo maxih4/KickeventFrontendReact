@@ -10,6 +10,11 @@ function Navbar() {
     const signOut = useSignOut();
     const navigate = useNavigate();
 
+    const handleSignOut = () => {
+        signOut();
+        navigate("/", {replace: true});
+    };
+
     return (
         <header className="site-header">
             <nav className="page-container site-nav" aria-label="Hauptnavigation">
@@ -38,7 +43,7 @@ function Navbar() {
                             aria-label="Abmelden"
                             className="nav-icon-button nav-logout-button"
                             icon={<LogoutOutlined/>}
-                            onClick={() => signOut()}
+                            onClick={handleSignOut}
                         />
                     </> : <>
                         <Button className="nav-primary-button" onClick={() => navigate("/login")}>

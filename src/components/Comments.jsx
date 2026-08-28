@@ -21,33 +21,35 @@ const Comments = () => {
     });
 
     return (
-        <section aria-labelledby="comments-title">
+        <section className="mt-4 flex flex-col gap-4" aria-labelledby="comments-title">
             <Card
-                className="mt-4"
-                classNames={{body: "p-[22px_24px] max-[640px]:p-5"}}
+                styles={{body: {padding: 0}}}
                 variant="outlined"
             >
-                <h2 className="m-0 font-heading text-lg font-[650] leading-tight tracking-[-0.035em] text-slate-900 dark:text-text" id="comments-title">Kommentare</h2>
-                {commentQuery.isLoading ? (
-                    <Loading/>
-                ) : (
-                    <div className="flex flex-col gap-2.5 pt-4">
-                        {commentQuery.data.map((comment) => (
-                            <CommentCard key={comment.id} comment={comment}/>
-                        ))}
-                    </div>
-                )}
+                <div className="p-[22px_24px] max-[640px]:px-4 max-[640px]:py-5">
+                    <h2 className="m-0 font-heading text-lg font-[650] leading-tight tracking-[-0.035em] text-slate-900 dark:text-text" id="comments-title">Kommentare</h2>
+                    {commentQuery.isLoading ? (
+                        <Loading/>
+                    ) : (
+                        <div className="flex flex-col gap-2.5 pt-4">
+                            {commentQuery.data.map((comment) => (
+                                <CommentCard key={comment.id} comment={comment}/>
+                            ))}
+                        </div>
+                    )}
+                </div>
             </Card>
             <Card
-                className="mt-4"
-                classNames={{body: "p-[22px_24px] max-[640px]:p-5"}}
+                styles={{body: {padding: 0}}}
                 variant="outlined"
             >
-                {isAuthenticated ? (
-                    <CommentInput/>
-                ) : (
-                    <p className="m-0 text-center text-slate-600 dark:text-text-300">Bitte loggen Sie sich ein, um das Event zu kommentieren.</p>
-                )}
+                <div className="p-[22px_24px] max-[640px]:px-4 max-[640px]:py-5">
+                    {isAuthenticated ? (
+                        <CommentInput/>
+                    ) : (
+                        <p className="m-0 text-center text-slate-600 dark:text-text-300">Bitte loggen Sie sich ein, um das Event zu kommentieren.</p>
+                    )}
+                </div>
             </Card>
         </section>
     );

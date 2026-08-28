@@ -46,23 +46,25 @@ function CommentCard({comment}) {
         <article>
             <Card
                 className="rounded-[10px] bg-slate-50 shadow-none dark:bg-background-950"
-                classNames={{body: "p-4"}}
+                styles={{body: {padding: 0}}}
                 variant="outlined"
             >
-                {!editState && (
-                    <div
-                        className="break-words text-slate-900 dark:text-text"
-                        dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(comment.content)}}
-                    />
-                )}
-                {editState && (
-                    <CommentEdit
-                        commentId={comment.id}
-                        eventId={comment.event.id}
-                        html={DOMPurify.sanitize(comment.content)}
-                        setEditState={setEditState}
-                    />
-                )}
+                <div className="p-4">
+                    {!editState && (
+                        <div
+                            className="break-words text-slate-900 dark:text-text"
+                            dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(comment.content)}}
+                        />
+                    )}
+                    {editState && (
+                        <CommentEdit
+                            commentId={comment.id}
+                            eventId={comment.event.id}
+                            html={DOMPurify.sanitize(comment.content)}
+                            setEditState={setEditState}
+                        />
+                    )}
+                </div>
             </Card>
             <div className="flex flex-col items-start justify-between gap-4 pt-2.5 text-xs text-slate-500 dark:text-text-400 sm:flex-row sm:items-center">
                 <span>

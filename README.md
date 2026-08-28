@@ -1,90 +1,53 @@
 # KickEvent frontend
 
-The KickEvent frontend is a Vite-built React single-page application. Vite
-writes the production bundle to `build/`; the Docker image serves that bundle
-with Nginx.
+KickEvent is a React/Vite single-page application for creating and finding football events.
 
-## Prerequisites
+[Open the live demo](https://kickevent.mxhndk.de) · [View the backend repository](https://github.com/maxih4/kickevent)
 
-- Node.js 20.19 or newer for local development (the production build stage
-  uses Node.js 25)
-- npm 10 or newer
-- The KickEvent backend running locally when API calls are needed
+## Features
+
+- Browse, search, sort, and paginate events.
+- Register and log in with token refresh handling.
+- Create, edit, and delete events.
+- Select event locations with Google Places address autocomplete.
+- View locations on Google Maps and open Google Maps route calculation.
+- Create, edit, and delete comments.
+- Use a role-based user and admin panel.
+
+## Stack and techniques
+
+- React and Vite
+- React Router for client-side routing
+- TanStack React Query for server state, caching, and mutations
+- Axios for API requests
+- Ant Design, MUI Icons, Tailwind CSS, and Sass for the interface
+- Google Maps and Places API for location search, maps, and route links
+- DOMPurify for sanitizing rendered event content
 
 ## Local development
 
-1. Copy `.env.example` to `.env.local`.
-2. Set `VITE_BACKEND_URL` to the backend URL, normally
-   `http://localhost:8080`, without a trailing slash.
-3. Set `VITE_GOOGLE_MAPS_API_KEY` if map and place search features are needed.
-4. Install the exact dependency tree and start Vite:
+Requirements: Node.js 20.19 or newer, npm 10 or newer, and a running KickEvent backend when API calls are needed.
 
-   ```sh
-   npm ci
-   npm run start
-   ```
-
-Open <http://localhost:3000>. Vite reloads source changes automatically.
-
-Useful production checks:
+Copy `.env.example` to `.env.local`, then configure the variables described below.
 
 ```sh
-npm run build       # writes the static site to build/
-npm run serve       # previews the build locally
+npm ci
+npm run start
 ```
 
-The `VITE_*` values are read by Vite when the bundle is built. Changing a
-local `.env` file while a preview is running requires running `npm run build`
-again.
+The development server runs at <http://localhost:3000>. Use `npm run build` to create a production build.
 
-## Docker
+## Environment variables
 
-Build and run the same image used in production:
+Vite reads these values when the frontend is built. They are embedded in the client bundle, so do not put private credentials in a `VITE_*` variable.
 
-```sh
-docker build \
-  --build-arg VITE_BACKEND_URL=https://api.example.com \
-  --build-arg VITE_GOOGLE_MAPS_API_KEY=your-public-google-key \
-  -t kickevent-frontend .
-
-docker run --rm -p 8080:80 kickevent-frontend
-```
-
-The site is then available at <http://localhost:8080>. Nginx exposes
-`/healthz` for platform health checks and falls back to `index.html` for
-client-side routes such as `/event/123`.
-
-`VITE_BACKEND_URL` and `VITE_GOOGLE_MAPS_API_KEY` are public build-time
-configuration. Vite embeds them in the JavaScript bundle; they are not runtime
-container environment variables and changing them requires a new image build.
-Restrict the Google Maps key by HTTP referrer and API, and never put private
-credentials in a `VITE_*` variable.
-
-## Coolify
-
-Create a Coolify **Application** from this repository and select the Dockerfile
-build pack.
-
-Use these settings:
-
-| Setting | Value |
-| --- | --- |
-| Dockerfile location | `/Dockerfile` |
-| Container port | `80` |
-| Health check path | `/healthz` |
-
-Add the following under **Build Arguments** (not Runtime Environment
-Variables), then trigger a new deployment:
-
-| Build argument | Example | Purpose |
+| Variable | Required | Description |
 | --- | --- | --- |
-| `VITE_BACKEND_URL` | `https://api.example.com` | Public backend base URL, without a trailing slash |
-| `VITE_GOOGLE_MAPS_API_KEY` | `AIza...` | Browser-restricted Google Maps key |
+| `VITE_BACKEND_URL` | Yes | Base URL of the KickEvent backend, for example `http://localhost:8080`. Do not add a trailing slash. |
+| `VITE_GOOGLE_MAPS_API_KEY` | No | Browser-restricted Google Maps API key for address autocomplete, maps, and route links. Map features are unavailable when it is empty. |
 
-These are intentionally build-only values because a static Vite bundle cannot
-read new Vite configuration after it has been built. Coolify's runtime
-environment-variable section does not change an already-built frontend; edit
-the build arguments and redeploy whenever either value changes.
+Changing either value requires a new frontend build and deployment.
 
-No Azure Static Web Apps workflow or Azure-specific runtime configuration is
-required.
+## Deployment
+
+The frontend is built into a Docker image and served as a static site with Nginx. Production deployment is automated through Coolify on private infrastructure. `VITE_*` values are supplied at build time and require a new build when they change.

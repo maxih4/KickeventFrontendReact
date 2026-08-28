@@ -17,13 +17,11 @@ import {Divider, Spin} from "antd";
 import {DeleteOutlined, EditOutlined} from "@ant-design/icons";
 import {useMutation, useQuery, useQueryClient} from "@tanstack/react-query";
 
-function SingleEvent(props) {
+function SingleEvent() {
     const navigation = useNavigate()
     const {id} = useParams()
     const isAuthenticated = useIsAuthenticated()
     const authUser = useAuthUser()
-    const [owner,setOwner] = useState(false)
-    const [admin,setAdmin] = useState(false)
     const [loading,setLoading] = useState(false)
     const authHeader = useAuthHeader()
     const [editState, setEditState] = useState(false)
@@ -36,14 +34,12 @@ function SingleEvent(props) {
             return await res.data
         },
     })
+    const owner = Boolean(isAuthenticated && eventQuery.data && authUser && eventQuery.data.owner.userName === authUser.userName)
+    const admin = Boolean(isAuthenticated && authUser?.roles?.some((role) => role.name === "ADMIN"))
+
     useEffect(() => {
         window.scrollTo({top:-20})
-        if (isAuthenticated && !eventQuery.isLoading) {
-            setOwner(eventQuery.data.owner.userName === authUser.userName)
-           setAdmin(authUser.roles.some((e) => e.name === "ADMIN"))
-        }
-// eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [eventQuery.isLoading]);
+    }, []);
     const mutation = useMutation(({
         mutationFn: ()=>deleteEvent(),
         onSuccess: ()=>query.invalidateQueries({queryKey:["event",id]}),
@@ -82,7 +78,7 @@ function SingleEvent(props) {
                                 <div
                                     className="ps-1">{eventQuery.data.streetName + " " + eventQuery.data.houseNumber}, {eventQuery.data.postalCode + " " + eventQuery.data.city}</div>
                             </div>
-                            <Divider type="vertical"
+                            <Divider orientation="vertical"
                                      className="h-6 -skew-x-12 bg-secondary-300 w-0.5 m-2 hidden lg:inline-block"></Divider>
                             <div className="flex flex-row justify-center text-secondary-300 font-heading m-2"
                                  key="Calendar">
@@ -93,7 +89,7 @@ function SingleEvent(props) {
                                     day: 'numeric',
                                 })}</div>
                             </div>
-                            <Divider type="vertical"
+                            <Divider orientation="vertical"
                                      className="h-6 -skew-x-12 bg-secondary-300 w-0.5 m-2 hidden lg:inline-block"></Divider>
                             <div className="flex flex-row justify-center text-secondary-300 font-heading m-2" key="time">
                                 <AccessTimeIcon/>

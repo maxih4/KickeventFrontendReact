@@ -147,13 +147,13 @@ const EventEditor = (props) => {
 
     return (
         <>{mutation.isError && mutation.error.response &&
-            <Alert message={mutation.error.response.data.message} className="container mb-2" type="error" showIcon/>}
+            <Alert title={mutation.error.response.data.message} className="container mb-2" type="error" showIcon/>}
             <div className="container">
                 <Form form={form} layout={"vertical"}>
                     <Card title={
                         <Form.Item initialValue={title} label="Titel" name="title"
                                    className="mt-3">
-                            <Input/></Form.Item>} bordered={false} className="bg-background-800 create-event-card mb-0 "
+                            <Input/></Form.Item>} variant="borderless" className="bg-background-800 create-event-card mb-0 "
                           actions={[
                               <div className="md:flex hidden flex-col justify-center text-white pt-2 cursor-default"
                                    key="Location">

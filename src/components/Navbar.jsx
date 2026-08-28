@@ -86,7 +86,7 @@ m-220 -41 c0 -20 -5 -30 -15 -30 -10 0 -15 10 -15 30 0 20 5 30 15 30 10 0 15
                         }
                     </div>
                 </nav>
-                <Divider className="bg-primary-100 w-full mt-1 opacity-50" orientationMargin=""/>
+                <Divider className="bg-primary-100 w-full mt-1 opacity-50"/>
             </div>
         </>
     );

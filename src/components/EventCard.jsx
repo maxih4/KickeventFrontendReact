@@ -34,7 +34,7 @@ function EventCard(props) {
     const navigate = useNavigate()
     return (
         <>
-            <Card onMouseEnter={prefetch} onFocus={prefetch} hoverable onClick={() => navigate("/event/" + props.event.id)} title={<h2 className={"text-start"}>{props.event.title}</h2>}  bordered={false} className="bg-background-800 mb-7 "
+            <Card onMouseEnter={prefetch} onFocus={prefetch} hoverable onClick={() => navigate("/event/" + props.event.id)} title={<h2 className={"text-start"}>{props.event.title}</h2>}  variant="borderless" className="bg-background-800 mb-7 "
                   //extra={<div>Vom {createdDate.toLocaleDateString()}</div>}
                   actions={[
                 <div className="flex flex-row justify-center text-text-200 lg:text-xl" key="Location"> <div className="flex flex-col justify-center"><LocationOnOutlinedIcon  /> </div><div>{props.event.city}</div></div>,

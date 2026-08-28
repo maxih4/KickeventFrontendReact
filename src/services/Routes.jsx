@@ -11,13 +11,13 @@ import EventEditor from "../pages/EventEditor";
 import Impressum from "../pages/Impressum";
 import Footer from "../components/Footer";
 
-const RoutesComponent = () => {
-    const PrivateRoute = ({ Component }) => {
-        const isAuthenticated = useIsAuthenticated();
-        const auth = isAuthenticated;
-        return auth ? <Component /> : <Navigate to="/login" />;
-    };
+const PrivateRoute = ({ Component }) => {
+    const isAuthenticated = useIsAuthenticated();
+    const auth = isAuthenticated;
+    return auth ? <Component /> : <Navigate to="/login" />;
+};
 
+const RoutesComponent = () => {
     return (
         <BrowserRouter>
             <Navbar/>

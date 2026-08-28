@@ -40,7 +40,7 @@ const Home = () => {
     return (
         <div className="container">
             <HomeHeader/>
-            <Divider className="bg-primary-100 w-full mt-5 m-0 opacity-50" orientationMargin=""/>
+            <Divider className="bg-primary-100 w-full mt-5 m-0 opacity-50"/>
             <div className="pb-4 pt-5">
                 <div className="flex md:flex-row flex-col justify-between "><FilterAndSearchBar
                     setSort={setSort} setSearch={setSearch}

@@ -39,9 +39,9 @@ const Login = () => {
     return (
         <>
             <div className="container max-w-2xl">{error &&
-                <Alert description={errorMessage} message="Fehler" type="error" showIcon/>}
+                <Alert description={errorMessage} title="Fehler" type="error" showIcon/>}
                 {success &&
-                    <Alert description={"Registrierung erfolgreich"} message="Erfolgreich" type="success" showIcon
+                    <Alert description={"Registrierung erfolgreich"} title="Erfolgreich" type="success" showIcon
                            action={<Button type="link" onClick={() => navigate("/login")}>Zum Login</Button>}>
                     </Alert>}</div>
             <Form className="bg-background-900 container rounded text-text pb-2 max-w-2xl"

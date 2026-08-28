@@ -51,7 +51,7 @@ const Login = () => {
     }
     return (
         <>                {error &&
-            <div className="container max-w-2xl"><Alert description={errorMessage} message="Fehler" type="error" showIcon/></div> }
+            <div className="container max-w-2xl"><Alert description={errorMessage} title="Fehler" type="error" showIcon/></div> }
             <Form className="bg-background-900 container rounded text-text pb-2 max-w-2xl"
                   name="basic"
                   initialValues={{

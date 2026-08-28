@@ -159,8 +159,8 @@ const AdminPanelTabel = (props) => {
 
     return (<>
             <div className="mb-3">
-                {response && <Alert message="Success" type="success" showIcon/>}
-                {error !== "" && <Alert message={error.toString()} type="error" showIcon/>}</div>
+                {response && <Alert title="Success" type="success" showIcon/>}
+                {error !== "" && <Alert title={error.toString()} type="error" showIcon/>}</div>
             <Form form={form}>
                 <Table dataSource={props.user} columns={columns}></Table>
             </Form></>

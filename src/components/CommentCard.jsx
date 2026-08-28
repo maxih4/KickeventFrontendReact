@@ -69,14 +69,14 @@ function CommentCard({comment}) {
                         {!editState && (
                             <Button
                                 aria-label="Kommentar bearbeiten"
-                                className="comment-edit-button"
+                                className="app-button app-button-secondary app-button-icon app-button-icon-compact"
                                 icon={<EditOutlined/>}
                                 onClick={() => setEditState(true)}
                             />
                         )}
                         <Button
                             aria-label="Kommentar löschen"
-                            className="comment-delete-button"
+                            className="app-button app-button-danger app-button-icon app-button-icon-compact"
                             danger
                             icon={<DeleteOutlined/>}
                             loading={loading}

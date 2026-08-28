@@ -32,6 +32,7 @@ function MapLocation(props) {
             </GoogleMap>
             <div className="map-route-button">
                 <Button
+                    className="app-button app-button-secondary"
                     icon={<LocationOnOutlinedIcon/>}
                     onClick={() => window.open(url + center.lat + " " + center.lng, '_blank')}
                 >

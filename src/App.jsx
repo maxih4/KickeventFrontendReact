@@ -72,10 +72,15 @@ const darkTheme = {
     },
     components: {
         Button: {
+            dangerShadow: 'none',
+            defaultShadow: 'none',
             primaryColor: '#071008',
+            fontWeight: 650,
+            iconGap: 8,
+            paddingInline: 16,
             solidTextColor: '#071008',
-            defaultBg: '#111b27',
             defaultBorderColor: '#2b3d50',
+            defaultBg: '#111b27',
             defaultColor: '#f1f4f7',
             defaultHoverBg: '#14212e',
             defaultHoverBorderColor: '#3d5870',
@@ -130,10 +135,15 @@ const lightTheme = {
     },
     components: {
         Button: {
+            dangerShadow: 'none',
+            defaultShadow: 'none',
             primaryColor: '#071008',
+            fontWeight: 650,
+            iconGap: 8,
+            paddingInline: 16,
             solidTextColor: '#071008',
-            defaultBg: '#ffffff',
             defaultBorderColor: '#c9d4d0',
+            defaultBg: '#ffffff',
             defaultColor: '#1b2832',
             defaultHoverBg: '#f7faf8',
             defaultHoverBorderColor: '#8ea59a',

@@ -43,7 +43,7 @@ const Register = () => {
             )}
             {success && (
                 <Alert
-                    action={<Button type="link" onClick={() => navigate("/login")}>Zum Login</Button>}
+                    action={<Button className="app-button-link" type="link" onClick={() => navigate("/login")}>Zum Login</Button>}
                     className="auth-alert"
                     description="Registrierung erfolgreich"
                     title="Erfolgreich"
@@ -77,7 +77,7 @@ const Register = () => {
                         <Input.Password autoComplete="new-password"/>
                     </Form.Item>
                     <Button
-                        className="auth-submit auth-submit-secondary"
+                        className="app-button app-button-primary auth-submit"
                         htmlType="submit"
                         loading={loading}
                     >

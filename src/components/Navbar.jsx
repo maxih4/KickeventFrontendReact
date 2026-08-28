@@ -29,27 +29,27 @@ function Navbar() {
                     {isAuthenticated ? <>
                         <Button
                             aria-label="Zum Userpanel"
-                            className="nav-icon-button nav-profile-button"
+                            className="app-button app-button-secondary app-button-icon"
                             icon={<UserOutlined/>}
                             onClick={() => navigate("/user")}
                         />
                         <Button
                             aria-label="Event erstellen"
-                            className="nav-icon-button nav-create-button"
+                            className="app-button app-button-primary app-button-icon"
                             icon={<PlusCircleOutlined/>}
                             onClick={() => navigate("/createEvent")}
                         />
                         <Button
                             aria-label="Abmelden"
-                            className="nav-icon-button nav-logout-button"
+                            className="app-button app-button-danger app-button-icon"
                             icon={<LogoutOutlined/>}
                             onClick={handleSignOut}
                         />
                     </> : <>
-                        <Button className="nav-primary-button" onClick={() => navigate("/login")}>
+                        <Button className="app-button app-button-primary" onClick={() => navigate("/login")}>
                             Login
                         </Button>
-                        <Button className="nav-secondary-button" onClick={() => navigate("/register")}>
+                        <Button className="app-button app-button-secondary" onClick={() => navigate("/register")}>
                             Registrieren
                         </Button>
                     </>}

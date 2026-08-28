@@ -12,7 +12,7 @@ const navigate = useNavigate()
                 <h1 id="home-hero-title">
                     Erstelle dein <span className="accent-text">Event</span> zum <span className="accent-text">Kicken</span> &amp; finde heute noch passende Mitspieler
                 </h1>
-                <Button className="hero-cta" onClick={() => navigate("/createEvent")}>
+                <Button className="app-button app-button-primary hero-cta" onClick={() => navigate("/createEvent")}>
                     Event erstellen!
                 </Button>
             </div>

@@ -47,7 +47,7 @@ const CommentInput = () => {
                 <Editor className="rich-text-editor comment-editor" value={html} onChange={onChange}/>
             </div>
             <div className="comment-form-submit">
-                <Button loading={isLoading} onClick={mutation.mutate}>
+                <Button className="app-button app-button-primary" loading={isLoading} onClick={mutation.mutate}>
                     Kommentar speichern
                 </Button>
             </div>

@@ -42,7 +42,12 @@ function FilterAndSearchBar({setSort, setSearch, search}) {
                         placeholder="Events suchen"
                         value={searchValue}
                     />
-                    <Button aria-label="Suche starten" icon={<SearchOutlined/>} onClick={searchFunction}/>
+                    <Button
+                        aria-label="Suche starten"
+                        className="app-button app-button-secondary app-button-icon"
+                        icon={<SearchOutlined/>}
+                        onClick={searchFunction}
+                    />
                 </div>
             ),
             key: '1',
@@ -58,7 +63,7 @@ function FilterAndSearchBar({setSort, setSearch, search}) {
     return (
         <div className="home-filters site-nav-actions">
             <Dropdown menu={sortMenu} placement="bottomLeft" trigger={['click']}>
-                <Button>
+                <Button className="app-button app-button-secondary">
                     Sortieren <DownOutlined/>
                 </Button>
             </Dropdown>
@@ -69,7 +74,7 @@ function FilterAndSearchBar({setSort, setSearch, search}) {
                 placement="bottomLeft"
                 trigger={['click']}
             >
-                <Button>
+                <Button className="app-button app-button-secondary">
                     Suche <DownOutlined/>
                 </Button>
             </Dropdown>

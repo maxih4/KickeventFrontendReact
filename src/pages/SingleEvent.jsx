@@ -117,13 +117,14 @@ function SingleEvent() {
                         <h2>Event Aktionen</h2>
                         <div className="event-actions">
                             <Button
-                                className="event-edit-button"
+                                className="app-button app-button-secondary event-edit-button"
                                 icon={<EditOutlined/>}
                                 onClick={editEvent}
                             >
                                 Edit Event
                             </Button>
                             <Button
+                                className="app-button app-button-danger"
                                 danger
                                 icon={<DeleteOutlined/>}
                                 loading={loading}

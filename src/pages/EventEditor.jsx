@@ -216,7 +216,7 @@ const EventEditor = (props) => {
 
                 <div className="editor-submit">
                     <Button
-                        className="editor-submit-button"
+                        className="app-button app-button-primary editor-submit-button"
                         loading={mutation.isPending}
                         onClick={() => {
                             mutation.reset();

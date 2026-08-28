@@ -50,7 +50,7 @@ const CommentEdit = (props) => {
         <>
             <Editor className="rich-text-editor comment-editor" value={html} onChange={onChange}/>
             <div className="comment-edit-submit">
-                <Button loading={loading} onClick={mutation.mutate}>
+                <Button className="app-button app-button-primary" loading={loading} onClick={mutation.mutate}>
                     Änderungen speichern
                 </Button>
             </div>

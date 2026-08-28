@@ -73,12 +73,12 @@ const AdminPanelTabel = (props) => {
             render: (_, user) => (
                 <Space size="small">
                     {editState && user.id === editingRow ? <Tooltip title="Speichern">
-                        <Button aria-label="Benutzer speichern" className="table-action-button table-edit-button" htmlType="submit" type="primary"
+                        <Button aria-label="Benutzer speichern" className="app-button app-button-primary app-button-icon app-button-icon-compact" htmlType="submit"
                                 icon={<SaveOutlined/>}
                                 loading={loading}
                                 onClick={onFinish}/>
                     </Tooltip> : <Tooltip title="Bearbeiten">
-                        <Button aria-label="Benutzer bearbeiten" className="table-action-button table-edit-button" type="primary" disabled={(user.userName === authUser.userName)}
+                        <Button aria-label="Benutzer bearbeiten" className="app-button app-button-secondary app-button-icon app-button-icon-compact" disabled={(user.userName === authUser.userName)}
                                 icon={<EditOutlined/>}
                                 onClick={() => {
                                     setResponse(false)
@@ -92,7 +92,7 @@ const AdminPanelTabel = (props) => {
                                 }}/>
                     </Tooltip>}
                     <Tooltip title="Löschen">
-                        <Button aria-label="Benutzer löschen" className="table-action-button table-delete-button" danger type="primary"
+                        <Button aria-label="Benutzer löschen" className="app-button app-button-danger app-button-icon app-button-icon-compact" danger
                                 icon={loading && loadingId === user.id.toString() ? <Spin/> : <DeleteOutlined/>}
                                 disabled={(user.userName === authUser.userName)}
                                 onClick={(e) => deleteUser(user, e)}

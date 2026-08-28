@@ -77,7 +77,7 @@ const Login = () => {
                         <Input.Password autoComplete="current-password"/>
                     </Form.Item>
                     <Button
-                        className="auth-submit auth-submit-primary"
+                        className="app-button app-button-primary auth-submit"
                         htmlType="submit"
                         loading={loading}
                     >
